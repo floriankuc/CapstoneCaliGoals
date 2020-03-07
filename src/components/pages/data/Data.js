@@ -5,13 +5,13 @@ import Chart from './Chart'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
-const Data = props => {
-  const [id, setId] = useState('id')
+const Data = ({ path }) => {
+  const [id, setId] = useState()
   const [data, setData] = useState([])
 
   useEffect(() => {
-    if (props.path[0]) {
-      setId(props.path[0].id)
+    if (path[0]) {
+      setId(path[0].id)
       const unsubscribe = firebase
         .firestore()
         .collection('sessions')
@@ -24,42 +24,74 @@ const Data = props => {
         })
       return () => unsubscribe()
     }
-  }, [props, id])
+  }, [path, id])
 
-  const renderSessions = () => {
+  return (
+    <div>
+      {data.length > 0 ? (
+        <div style={{ position: 'relative', width: 300, height: 400 }}>
+          {renderSessions()}
+          {renderCharts()}
+        </div>
+      ) : (
+        <>
+          <p>No training session data to display</p>
+          <StyledLinkText to="/sessions">Log your session</StyledLinkText>
+        </>
+      )}
+    </div>
+  )
+
+  function renderSessions() {
     const sortedSessions = data.sort((a, b) => a.time.seconds - b.time.seconds)
 
-    return sortedSessions.map((session, i) => {
-      let selectedSessionsExtracted = session.selectedSessions
-      let date = new Date(session.time.seconds * 1000)
+    return sortedSessions.map(session => {
+      const selectedSessionsExtracted = session.selectedSessions
+      const date = new Date(session.time.seconds * 1000)
+      const formattedDate = date.toLocaleTimeString([], {
+        day: '2-digit',
+        month: 'long',
+        hour: '2-digit',
+        minute: '2-digit',
+        year: 'numeric',
+      })
       return (
         <div>
-          <p>
-            {date.toLocaleTimeString([], {
-              day: '2-digit',
-              month: 'long',
-              hour: '2-digit',
-              minute: '2-digit',
-              year: '2-digit',
-            })}
-          </p>
-          <ul>{mapper(selectedSessionsExtracted)}</ul>
+          <p>{formattedDate}</p>
+          {renderSessionExercisesList(selectedSessionsExtracted)}
         </div>
       )
     })
   }
 
-  function mapper(arr) {
-    return arr.map(el => (
+  function renderSessionExercisesList(array) {
+    return array.map(sessionExercise => (
       <p>
-        {el.title}, {el.amountDone}
+        {sessionExercise.title}: {sessionExercise.amountDone}
       </p>
     ))
   }
 
-  const getAmountsDone = () => {
-    const selectedSessions = data.map(session => session.selectedSessions)
+  function getSessionTimes() {
+    const sortedSessions = data.sort((a, b) => a.time.seconds - b.time.seconds)
+    const times = []
 
+    sortedSessions.map(el => {
+      let timeAsDate = new Date(el.time.seconds * 1000)
+      times.push(
+        timeAsDate.toLocaleTimeString([], {
+          day: '2-digit',
+          month: 'short',
+          hour: '2-digit',
+          minute: '2-digit',
+        })
+      )
+    })
+    return times
+  }
+
+  function getAmountsDone() {
+    const selectedSessions = data.map(session => session.selectedSessions)
     return selectedSessions.flat().reduce(
       (result, item) => ({
         ...result,
@@ -69,9 +101,8 @@ const Data = props => {
     )
   }
 
-  const getGoals = () => {
+  function getGoals() {
     const selectedSessions = data.map(session => session.selectedSessions)
-
     return selectedSessions.flat().reduce(
       (result, item) => ({
         ...result,
@@ -81,38 +112,23 @@ const Data = props => {
     )
   }
 
-  const renderCharts = () => {
-    const test = getAmountsDone()
+  function renderCharts() {
+    const extractedAmountsDone = getAmountsDone()
     const goals = getGoals()
-    return Object.keys(test).map((el, i) => {
-      let exerciseName = el
+    const times = getSessionTimes()
+    return Object.keys(extractedAmountsDone).map(exercise => {
+      let exerciseName = exercise
       return (
         <Chart
-          goals={goals[el]}
-          dataArr={test[el]}
+          times={times}
+          goals={goals[exercise]}
+          dataArr={extractedAmountsDone[exercise]}
           data={data}
           exercise={exerciseName}
         />
       )
     })
   }
-
-  return (
-    <div>
-      {data.length > 0 ? (
-        <div style={{ position: 'relative', width: 300, height: 400 }}>
-          {data && renderSessions()}
-          {/* renderSessions sortiert, benötige ich */}
-          {data && renderCharts()}
-        </div>
-      ) : (
-        <>
-          <p>No training data to display</p>
-          <StyledLinkText to="/sessions">Log your session</StyledLinkText>
-        </>
-      )}
-    </div>
-  )
 }
 
 const StyledLinkText = styled(Link)`
@@ -145,66 +161,3 @@ const StyledLinkText = styled(Link)`
 `
 
 export default Data
-
-// return data.map((el, i) => {
-//   let exerciseName = el.selectedSessions.map(el => el.title)
-//   let exerciseObject = el[i]
-//   return (
-//     <Chart
-//       dataArr={getAmountsDone()[i]}
-//       data={data}
-//       exercise={exerciseName}
-//       exerciseObject={exerciseObject}
-//     />
-//   )
-// })
-// }
-
-// const getAmountsDone = () => {
-//   let newarr = []
-//   let l = data[0].selectedSessions.length
-//   console.log('getamountsdone called')
-//   for (let i = 0; i <= l - 1; i++) {
-//     for (let j = 0; j <= data.length - 1; j++) {
-//       newarr.push(data[j].selectedSessions[i].amountDone)
-//       // console.log('data.length:', data.length)
-//       // console.log('selectedSessions.length:', data[0].selectedSessions.length)
-//       // console.log('[j]', j)
-//       // console.log('[i]', i)
-//       // console.log(data[j].selectedSessions[i])
-//       // console.log(data[j].selectedSessions[i].amountDone)
-//     }
-//   }
-
-//   let chunkedArr = []
-//   for (let i = 0; i < newarr.length; i += data.length) {
-//     chunkedArr.push(
-//       newarr
-//         .toString()
-//         .split(',')
-//         .map(el => Number(el))
-//         .slice(i, i + data.length)
-//     )
-//   }
-//   console.log('chnky', chunkedArr)
-//   return chunkedArr
-// }
-
-// const renderCharts = () => {
-//   // let l = data[0].selectedSessions.length
-//   let selectSessions = data[0].selectedSessions
-//   // let exerciseNamesArray
-//   // selectedSessions.map(el => el.title)
-//   return data.map((el, i) => {
-//     let exerciseName = el.selectedSessions.map(el => el.title)
-//     let exerciseObject = el[i]
-//     return (
-//       <Chart
-//         dataArr={getAmountsDone()[i]}
-//         data={data}
-//         exercise={exerciseName}
-//         exerciseObject={exerciseObject}
-//       />
-//     )
-//   })
-// }
