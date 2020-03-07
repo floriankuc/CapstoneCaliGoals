@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Doughnut } from 'react-chartjs-2'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import hexagon from '../../../common/hex.svg'
+import CategoryChart from './CategoryChart'
 
 const Home = ({ path }) => {
   const [categories, setCategories] = useState([])
@@ -16,17 +15,40 @@ const Home = ({ path }) => {
     }
   }, [path])
 
-  function renderPath() {
-    return (
-      (path.length > 0 && (
+  return (
+    <div>
+      <h1>CaliGoals</h1>
+      {path.length > 0 ? (
         <>
-          {path[0].category
-            .split(' ')
-            .map(el => el[0].toUpperCase() + el.slice(1, el.length))
-            .join(' ')}
+          <p>Welcome back.</p>
+          <p>Your current path is: {renderPath()}</p>
+          <CategoryChart
+            categoryData={countedCategoryData()}
+            categoryCount={countCategorys()}
+          />
+          <StyledLink to="/sessions">Working out? Log your session.</StyledLink>
         </>
-      )) || <StyledLinkText to="/path">Create a path</StyledLinkText>
-    )
+      ) : (
+        <>
+          <div style={{ marginBottom: '40px' }}>
+            <p>Clean training.</p>
+            <p>Clean tracking.</p>
+          </div>
+          <StyledLink to="/path">Create a new training path</StyledLink>
+        </>
+      )}
+    </div>
+  )
+
+  function capitaliseCategoryName(category) {
+    return path[0].category
+      .split(' ')
+      .map(el => el[0].toUpperCase() + el.slice(1, el.length))
+      .join(' ')
+  }
+
+  function renderPath() {
+    return capitaliseCategoryName(path[0].category)
   }
 
   function countedCategoryData() {
@@ -35,8 +57,8 @@ const Home = ({ path }) => {
       categories.map(category => {
         countedCategories[category] = (countedCategories[category] || 0) + 1
       })
-      const values = Object.values(countedCategories)
-      return values
+      const categoryValues = Object.values(countedCategories)
+      return categoryValues
     }
   }
 
@@ -46,59 +68,9 @@ const Home = ({ path }) => {
       return countedCategories
     }
   }
-
-  const chartData = {
-    labels: countCategorys(),
-    datasets: [
-      {
-        backgroundColor: ['red', 'darkgrey', 'grey', 'pink'],
-        data: countedCategoryData(),
-        borderColor: '#111',
-        borderWidth: '1',
-      },
-    ],
-  }
-
-  const chartOptions = {
-    plugins: { datalabels: { color: 'black' } },
-    responsive: true,
-    legend: { position: 'bottom', fontFamily: 'Roboto' },
-  }
-
-  return (
-    <div>
-      <h1>CaliGoals</h1>
-      {path.length > 0 ? (
-        <>
-          <p>Welcome back.</p>
-          <p>Your current path is: {renderPath()}</p>
-          <div
-            style={{
-              position: 'relative',
-              margin: '40px 0',
-              width: '100%',
-            }}
-          >
-            <Doughnut options={chartOptions} data={chartData} />
-          </div>
-          <StyledLinkText to="/sessions">
-            Working out? Log your sesh.
-          </StyledLinkText>
-        </>
-      ) : (
-        <>
-          <div style={{ marginBottom: '40px' }}>
-            <p>Clean training.</p>
-            <p>Clean tracking.</p>
-          </div>
-          <StyledLinkText to="/path">Create a new training path</StyledLinkText>
-        </>
-      )}
-    </div>
-  )
 }
 
-const StyledLinkText = styled(Link)`
+const StyledLink = styled(Link)`
   margin: 1px auto;
   display: block;
   width: 300px;
@@ -109,7 +81,8 @@ const StyledLinkText = styled(Link)`
   text-align: center;
   position: relative;
 
-  &:hover:after {
+  &:hover:after,
+  &:active:after {
     top: -6px;
     left: 6px;
   }
@@ -123,7 +96,7 @@ const StyledLinkText = styled(Link)`
     left: 0;
     width: 100%;
     height: 100%;
-    transition: all 0.1s;
+    transition: all 0.1s ease-out;
   }
 `
 
