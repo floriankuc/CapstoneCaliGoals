@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom'
 
 const NoPath = () => {
   return (
-    <>
+    <div>
       <p>
         Session view not possible. Create a training path to enable the session
         log
       </p>
       <StyledLinkText to="/path">Create a new training path</StyledLinkText>
-    </>
+    </div>
   )
 }
 

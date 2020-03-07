@@ -4,6 +4,7 @@ import moment from 'moment'
 import styled from 'styled-components/macro'
 import NoPath from './NoPath'
 import { Link } from 'react-router-dom'
+import SessionForm from './SessionForm'
 
 const Sessions = ({ paths }) => {
   const [session, setSession] = useState([])
@@ -11,9 +12,25 @@ const Sessions = ({ paths }) => {
   useEffect(() => {
     if (paths.length > 0) {
       setSession(paths[0].selectedExercisesAreGoals)
-      console.log(session)
     }
   }, [paths])
+
+  return (
+    <div>
+      {paths.length > 0 ? (
+        <>
+          {renderSelectedExercises()}
+          <SessionForm
+            handleSessionSubmit={handleSessionSubmit}
+            session={session}
+            updateSessionExercise={updateSessionExercise}
+          />
+        </>
+      ) : (
+        <NoPath />
+      )}
+    </div>
+  )
 
   function editSessionWithExercise(id) {
     const index = session.findIndex(exercise => exercise.id === id)
@@ -33,7 +50,7 @@ const Sessions = ({ paths }) => {
     ])
   }
 
-  const handleSessionSubmit = e => {
+  function handleSessionSubmit(e) {
     e.preventDefault()
     const selectedSessions = session.filter(sess => sess.editing === true)
     const cuDate = moment()
@@ -69,71 +86,7 @@ const Sessions = ({ paths }) => {
       ))
     }
   }
-
-  return (
-    <div>
-      {paths.length > 0 ? (
-        <>
-          {paths.length > 0 && renderSelectedExercises()}
-          <form onSubmit={handleSessionSubmit}>
-            {session &&
-              session
-                .filter(el => el.editing === true)
-                .map(el => (
-                  <div style={{ width: '100%' }}>
-                    <span>{el.title}</span>
-                    <input
-                      required
-                      className="input"
-                      data-id={el.id}
-                      name={el.title}
-                      type="number"
-                      value={el.amountDone || ''}
-                      onChange={event =>
-                        updateSessionExercise(el.id, event.target.value)
-                      }
-                    />
-                    <span>{el.unit}</span>
-                  </div>
-                ))}
-            <StyledLinkText>save this session</StyledLinkText>
-          </form>
-        </>
-      ) : (
-        <NoPath />
-      )}
-    </div>
-  )
 }
-
-const StyledLinkText = styled.button`
-  margin: 0 auto;
-  display: block;
-  width: 300px;
-  text-decoration: none;
-  color: #fff;
-  padding: 12px;
-  background: #111;
-  text-align: center;
-  position: relative;
-
-  &:hover:after {
-    top: -6px;
-    left: 6px;
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    background: red;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: all 0.1s;
-  }
-`
 
 const ExerciseDiv = styled.div`
   width: 100%;
