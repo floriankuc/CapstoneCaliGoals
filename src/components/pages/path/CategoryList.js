@@ -45,7 +45,6 @@ const CategoryButton = styled.button`
   margin: 0 1px;
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   position: relative;
-  /* transition: all 0.05s ease-in; */
 
   &:after {
     content: '';

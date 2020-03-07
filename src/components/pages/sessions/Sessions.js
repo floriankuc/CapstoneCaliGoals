@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 
 const Sessions = ({ paths }) => {
   const [session, setSession] = useState([])
-  // const [editing, setEditing] = useState([])
 
   useEffect(() => {
     if (paths.length > 0) {
@@ -23,15 +22,6 @@ const Sessions = ({ paths }) => {
       { ...session[index], editing: !session[index].editing, amountDone: '' },
       ...session.slice(index + 1),
     ])
-    // const editingIndex = editing.indexOf(id)
-    // if (editingIndex === -1) {
-    //   setEditing([...editing, id])
-    // } else {
-    //   setEditing([
-    //     ...editing.slice(0, editingIndex),
-    //     ...editing.slice(editingIndex + 1),
-    //   ])
-    // }
   }
 
   function updateSessionExercise(id, value) {
@@ -57,37 +47,19 @@ const Sessions = ({ paths }) => {
         pathId,
         selectedSessions,
       })
-    //session
-    // console.log('sessionstate', session)
-    // const sessions = session.filter(el => el.editing === true)
-    // console.log(sessions.map(exercise => exercise.amountDone))
-    // setSession([
-    //   ...session,
-    //   sessions.map(exercise => (...{amountDone = ''})),
-    // ])
 
-    const newState = session.map(item => ({ ...item, amountDone: '0' }))
+    const newState = session.map(item => ({
+      ...item,
+      amountDone: '0',
+      editing: false,
+    }))
     setSession(newState)
   }
-
-  //ALT
-  // function renderSelectedExercises() {
-  //   return paths[0].selectedExercisesAreGoals.map(el => (
-  //     <ExerciseDiv
-  //       className={editing.includes(el.id) ? 'selected' : ''}
-  //       key={el.id}
-  //       onClick={() => editSessionWithExercise(el.id)}
-  //     >
-  //       {el.title} - {el.amount} {el.unit}
-  //     </ExerciseDiv>
-  //   ))
-  // }
 
   function renderSelectedExercises() {
     if (session.length > 0) {
       return session.map(el => (
         <ExerciseDiv
-          // className={editing.includes(el.id) ? 'selected' : ''}
           className={el.editing ? 'selected' : ''}
           key={el.id}
           onClick={() => editSessionWithExercise(el.id)}
@@ -103,7 +75,6 @@ const Sessions = ({ paths }) => {
       {paths.length > 0 ? (
         <>
           {paths.length > 0 && renderSelectedExercises()}
-          {/* Creating session input forms */}
           <form onSubmit={handleSessionSubmit}>
             {session &&
               session
@@ -112,6 +83,7 @@ const Sessions = ({ paths }) => {
                   <div style={{ width: '100%' }}>
                     <span>{el.title}</span>
                     <input
+                      required
                       className="input"
                       data-id={el.id}
                       name={el.title}

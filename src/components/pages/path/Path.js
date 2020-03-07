@@ -13,6 +13,7 @@ function Path(props) {
   const [selectedOptions, setSelectedOptions] = useState([options])
   const [validationErrors, setValidationErrors] = useState({
     categoryError: '',
+    exercisesError: '',
   })
 
   useEffect(() => {
@@ -102,13 +103,23 @@ function Path(props) {
 
   function validate() {
     let categoryError = ''
+    let exercisesError = ''
 
     if (pathCategory === '') {
-      categoryError = 'Please select a category.'
+      categoryError = 'Select a category'
+    }
+
+    if (exercises.filter(exercise => exercise.selected === true).length === 0) {
+      exercisesError = 'Select at least one exercise with a goal'
     }
 
     if (categoryError) {
       setValidationErrors({ categoryError })
+      return false
+    }
+
+    if (exercisesError) {
+      setValidationErrors({ exercisesError })
       return false
     }
 
@@ -137,6 +148,7 @@ function Path(props) {
   function renderExercisesWithUserInputs() {
     return exercises
       .filter(exercise => exercise.selected === true) //toggles fine
+      .sort((a, b) => a.title + b.title)
       .map((
         exercise //jede exercise mit selected true geht nach unten
       ) => (
@@ -150,6 +162,7 @@ function Path(props) {
             onChange={
               event => updateGoal(exercise.id, event.target.value) //nur onchange
             }
+            required
           />
           <span>{exercise.unit}</span>
           <span onClick={() => selectExercise(exercise.id)}>X</span>
@@ -168,6 +181,7 @@ function Path(props) {
             setPathCategory={setPathCategory}
           />
           <p>{validationErrors.categoryError}</p>
+          <p>{validationErrors.exercisesError}</p>
           {pathCategory}
           {/* RENDERING UPPER EXERCISE LIST */}
           <p>Muscle group:</p>
