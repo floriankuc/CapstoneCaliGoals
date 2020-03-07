@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const ExerciseListItem = ({ exercise, selectExercise }) => {
   return (
@@ -15,6 +16,11 @@ const ExerciseListItem = ({ exercise, selectExercise }) => {
       />
     </div>
   )
+}
+
+ExerciseListItem.propTypes = {
+  exercise: PropTypes.object.isRequired,
+  selectExercise: PropTypes.func.isRequired,
 }
 
 export default ExerciseListItem

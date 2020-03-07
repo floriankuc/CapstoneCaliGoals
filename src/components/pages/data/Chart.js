@@ -1,6 +1,7 @@
 import React from 'react'
 import { Line } from 'react-chartjs-2'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
+import PropTypes from 'prop-types'
 
 const Chart = ({ exercise, dataArr, goals, times }) => {
   //TODO: ACHSENBESCHRIFTUNG!
@@ -47,6 +48,13 @@ const Chart = ({ exercise, dataArr, goals, times }) => {
       ? 'Goal reached!'
       : 'Almost there. Go again!'
   }
+}
+
+Chart.propTypes = {
+  exercise: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  dataArr: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  goals: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  times: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 }
 
 export default Chart

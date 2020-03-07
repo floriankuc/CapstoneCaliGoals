@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import PropTypes from 'prop-types'
 
 const UserInputForm = ({
   exercises,
@@ -72,5 +73,12 @@ const UnitInput = styled.input`
   margin: d0;
   -moz-appearance: textfield;
 `
+
+UserInputForm.propTypes = {
+  exercises: PropTypes.array.isRequired,
+  updateGoal: PropTypes.func.isRequired,
+  selectExercise: PropTypes.func.isRequired,
+  handleGoalSubmit: PropTypes.func.isRequired,
+}
 
 export default UserInputForm

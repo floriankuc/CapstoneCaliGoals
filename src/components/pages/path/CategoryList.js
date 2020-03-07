@@ -1,7 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 
-const CategoryList = props => {
+const CategoryList = ({ pathCategory, setPathCategory }) => {
   const CATEGORIES = ['strength', 'figures', 'hybrid', 'cardio', 'endurance']
 
   return (
@@ -15,8 +16,8 @@ const CategoryList = props => {
     return CATEGORIES.map(category => (
       <CategoryButton
         name={category}
-        className={props.pathCategory === category ? 'active' : ''}
-        onClick={() => props.setPathCategory(category)}
+        className={pathCategory === category ? 'active' : ''}
+        onClick={() => setPathCategory(category)}
       >
         {capitaliseCategoryNames(category)}
       </CategoryButton>
@@ -30,8 +31,6 @@ const CategoryList = props => {
       .join(' ')
   }
 }
-
-export default CategoryList
 
 const CategoryButton = styled.button`
   font-family: 'Oswald';
@@ -57,3 +56,10 @@ const StyledButtonNav = styled.nav`
   flex-grow: 1;
   display: flex;
 `
+
+CategoryList.propTypes = {
+  pathCategory: PropTypes.string.isRequired,
+  setPathCategory: PropTypes.func.isRequired,
+}
+
+export default CategoryList

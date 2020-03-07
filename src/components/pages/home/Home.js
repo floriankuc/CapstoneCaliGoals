@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import CategoryChart from './CategoryChart'
+import PropTypes from 'prop-types'
 
 const Home = ({ path }) => {
   const [categories, setCategories] = useState([])
@@ -99,5 +100,8 @@ const StyledLink = styled(Link)`
     transition: all 0.1s ease-out;
   }
 `
+Home.propTypes = {
+  path: PropTypes.array.isRequired,
+}
 
 export default Home

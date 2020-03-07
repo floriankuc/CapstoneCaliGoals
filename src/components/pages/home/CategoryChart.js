@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Doughnut } from 'react-chartjs-2'
 
 const CategoryChart = ({ categoryData, categoryCount }) => {
@@ -31,6 +32,11 @@ const CategoryChart = ({ categoryData, categoryCount }) => {
       <Doughnut options={chartOptions} data={chartData} />
     </div>
   )
+}
+
+CategoryChart.propTypes = {
+  categoryData: PropTypes.array.isRequired,
+  categoryCount: PropTypes.array.isRequired,
 }
 
 export default CategoryChart

@@ -38,7 +38,7 @@ const App = () => {
               <Path path={path} />
             </Route>
             <Route path="/sessions">
-              <Sessions paths={path} />
+              <Sessions path={path} />
             </Route>
             <Route path="/data">
               <Data path={path} />

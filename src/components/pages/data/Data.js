@@ -4,6 +4,7 @@ import { Line } from 'react-chartjs-2'
 import Chart from './Chart'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const Data = ({ path }) => {
   const [id, setId] = useState()
@@ -159,5 +160,9 @@ const StyledLinkText = styled(Link)`
     transition: all 0.1s;
   }
 `
+
+Data.propTypes = {
+  path: PropTypes.array.isRequired,
+}
 
 export default Data

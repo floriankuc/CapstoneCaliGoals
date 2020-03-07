@@ -2,15 +2,16 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import firebase from 'firebase'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-const OngoingPathContent = props => {
+const OngoingPathContent = ({ path }) => {
   return (
     <div>
       <p>
         You have an ongoing path, good for you! Remember you can only pursue one
         goal at a time.
       </p>
-      <StyledLinkTextRed onClick={() => deletePath(props.path[0].id)}>
+      <StyledLinkTextRed onClick={() => deletePath(path[0].id)}>
         Terminate current path
       </StyledLinkTextRed>
       <StyledLinkText to="/sessions">Log your session</StyledLinkText>
@@ -43,7 +44,7 @@ const OngoingPathContent = props => {
   }
 }
 
-const StyledLinkTextRed = styled(Link)`
+const StyledLinkTextRed = styled.button`
   margin: 30px auto;
   display: block;
   width: 300px;
@@ -100,5 +101,9 @@ const StyledLinkText = styled(Link)`
     transition: all 0.1s;
   }
 `
+
+OngoingPathContent.propTypes = {
+  path: PropTypes.array.isRequired,
+}
 
 export default OngoingPathContent

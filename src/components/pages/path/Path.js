@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import OPTIONS from './OPTIONS'
 import OngoingPathContent from './OngoingPathContent'
 import ExerciseListItem from './ExerciseListItem'
+import PropTypes from 'prop-types'
 import UserInputForm from './UserInputForm'
 
 const Path = ({ path }) => {
@@ -40,7 +41,6 @@ const Path = ({ path }) => {
         <>
           <h2>Create your path</h2>
           <CategoryList
-            handleGoalSubmit={handleGoalSubmit}
             pathCategory={pathCategory}
             setPathCategory={setPathCategory}
           />
@@ -163,5 +163,9 @@ const OptionButton = styled.button`
     color: red;
   }
 `
+
+Path.propTypes = {
+  path: PropTypes.array.isRequired,
+}
 
 export default Path

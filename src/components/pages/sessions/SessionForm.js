@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import PropTypes from 'prop-types'
 
 const SessionForm = ({
   handleSessionSubmit,
@@ -61,5 +62,11 @@ const StyledLinkText = styled.button`
     transition: all 0.1s;
   }
 `
+
+SessionForm.propTypes = {
+  handleSessionSubmit: PropTypes.func.isRequired,
+  session: PropTypes.array.isRequired,
+  updateSessionExercise: PropTypes.func.isRequired,
+}
 
 export default SessionForm

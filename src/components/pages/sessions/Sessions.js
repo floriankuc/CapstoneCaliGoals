@@ -5,19 +5,20 @@ import styled from 'styled-components/macro'
 import NoPath from './NoPath'
 import { Link } from 'react-router-dom'
 import SessionForm from './SessionForm'
+import PropTypes from 'prop-types'
 
-const Sessions = ({ paths }) => {
+const Sessions = ({ path }) => {
   const [session, setSession] = useState([])
 
   useEffect(() => {
-    if (paths.length > 0) {
-      setSession(paths[0].selectedExercisesAreGoals)
+    if (path.length > 0) {
+      setSession(path[0].selectedExercisesAreGoals)
     }
-  }, [paths])
+  }, [path])
 
   return (
     <div>
-      {paths.length > 0 ? (
+      {path.length > 0 ? (
         <>
           {renderSelectedExercises()}
           <SessionForm
@@ -54,7 +55,7 @@ const Sessions = ({ paths }) => {
     e.preventDefault()
     const selectedSessions = session.filter(sess => sess.editing === true)
     const cuDate = moment()
-    const pathId = paths[0].id
+    const pathId = path[0].id
 
     firebase
       .firestore()
@@ -103,5 +104,9 @@ const ExerciseDiv = styled.div`
     cursor: pointer;
   }
 `
+
+Sessions.propTypes = {
+  path: PropTypes.array.isRequired,
+}
 
 export default Sessions
