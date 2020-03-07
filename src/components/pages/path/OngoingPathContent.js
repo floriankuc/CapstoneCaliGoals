@@ -4,11 +4,20 @@ import firebase from 'firebase'
 import { Link } from 'react-router-dom'
 
 const OngoingPathContent = props => {
-  const deletePath = id => {
-    props.deletePath(id)
-  }
+  return (
+    <div>
+      <p>
+        You have an ongoing path, good for you! Remember you can only pursue one
+        goal at a time.
+      </p>
+      <StyledLinkTextRed onClick={() => deletePath(props.path[0].id)}>
+        Terminate current path
+      </StyledLinkTextRed>
+      <StyledLinkText to="/sessions">Log your session</StyledLinkText>
+    </div>
+  )
 
-  function deletePathe(id) {
+  function deletePath(id) {
     firebase
       .firestore()
       .collection('paths')
@@ -21,30 +30,17 @@ const OngoingPathContent = props => {
       .collection('sessions')
       .where('pathId', '==', id)
       .get()
-      .then(function(querySnapshot) {
+      .then(querySnapshot => {
         var batch = firebase.firestore().batch()
-        querySnapshot.forEach(function(doc) {
+        querySnapshot.forEach(doc => {
           batch.delete(doc.ref)
         })
         batch.commit()
       })
-      .then(function() {
+      .then(() => {
         console.log('completed delete of all session')
       })
   }
-
-  return (
-    <div>
-      <p>
-        You have an ongoing path, good for you! Remember you can only pursue one
-        goal at a time.
-      </p>
-      <StyledLinkTextRed onClick={() => deletePathe(props.path[0].id)}>
-        Terminate current path
-      </StyledLinkTextRed>
-      <StyledLinkText to="/sessions">Log your session</StyledLinkText>
-    </div>
-  )
 }
 
 const StyledLinkTextRed = styled(Link)`

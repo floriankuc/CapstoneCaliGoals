@@ -9,7 +9,7 @@ import Home from './pages/home/Home'
 import Path from './pages/path/Path'
 import Sessions from './pages/sessions/Sessions'
 
-function App() {
+const App = () => {
   const [path, setPath] = useState([])
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function App() {
               <Home path={path} />
             </Route>
             <Route path="/path">
-              <Path path={path} deletePath={deletePath} />
+              <Path path={path} />
             </Route>
             <Route path="/sessions">
               <Sessions paths={path} />
@@ -49,31 +49,6 @@ function App() {
       </AppGrid>
     </Router>
   )
-}
-
-function deletePath(id) {
-  firebase
-    .firestore()
-    .collection('paths')
-    .doc(id)
-    .delete()
-    .then(() => console.log('deleted'))
-
-  firebase
-    .firestore()
-    .collection('sessions')
-    .where('pathId', '==', id)
-    .get()
-    .then(querySnapshot => {
-      const batch = firebase.firestore().batch()
-      querySnapshot.forEach(doc => {
-        batch.delete(doc.ref)
-      })
-      batch.commit()
-    })
-    .then(() => {
-      console.log('Deleted path including its sessions.')
-    })
 }
 
 const AppGrid = styled.div`

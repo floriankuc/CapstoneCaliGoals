@@ -3,21 +3,24 @@ import React, { useState, useEffect, useRef } from 'react'
 import styled from 'styled-components/macro'
 import CategoryList from './CategoryList'
 import { Link } from 'react-router-dom'
-import options from './options'
+import OPTIONS from './OPTIONS'
 import OngoingPathContent from './OngoingPathContent'
+import ExerciseListItem from './ExerciseListItem'
+import UserInputForm from './UserInputForm'
 
-function Path(props) {
+const Path = ({ path }) => {
   const [exercises, setExercises] = useState([])
   const [pathCategory, setPathCategory] = useState('')
   const [filteredCategory, setFilteredCategory] = useState('')
-  const [selectedOptions, setSelectedOptions] = useState([options])
+  const [selectedOptions, setSelectedOptions] = useState([OPTIONS])
   const [validationErrors, setValidationErrors] = useState({
     categoryError: '',
     exercisesError: '',
   })
 
   useEffect(() => {
-    setSelectedOptions(options)
+    setSelectedOptions(OPTIONS)
+
     const unsubscribe = firebase
       .firestore()
       .collection('EXERCISES')
@@ -31,6 +34,37 @@ function Path(props) {
     return () => unsubscribe()
   }, [])
 
+  return (
+    <>
+      {path.length < 1 ? (
+        <>
+          <h2>Create your path</h2>
+          <CategoryList
+            handleGoalSubmit={handleGoalSubmit}
+            pathCategory={pathCategory}
+            setPathCategory={setPathCategory}
+          />
+          <ErrorMessage>{validationErrors.categoryError}</ErrorMessage>
+          <ErrorMessage>{validationErrors.exercisesError}</ErrorMessage>
+          {/* RENDERING UPPER EXERCISE LIST */}
+          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {renderOptionButtons()}
+            {renderExercises(filteredCategory)}
+            {/* RENDERING BOTTOM GOALS LIST */}
+            <UserInputForm
+              handleGoalSubmit={handleGoalSubmit}
+              exercises={exercises}
+              updateGoal={updateGoal}
+              selectExercise={selectExercise}
+            />
+          </div>
+        </>
+      ) : (
+        <OngoingPathContent path={path} />
+      )}
+    </>
+  )
+
   function selectExercise(id) {
     const index = exercises.findIndex(exercise => exercise.id === id)
     setExercises([
@@ -42,7 +76,6 @@ function Path(props) {
       },
       ...exercises.slice(index + 1),
     ])
-    //WENN DESELECTED WIRD, MUSS ICH UNIT UND VALUE ZURÜCKSETZEN
   }
 
   function updateGoal(id, value) {
@@ -57,34 +90,8 @@ function Path(props) {
   function renderExercises(category) {
     const filteredExercises = exercises.filter(ex => ex.category === category)
     return filteredExercises.map(exercise => (
-      <div key={exercise.id} style={{ display: 'block', width: '100%' }}>
-        <label htmlFor={exercise.id}>
-          <span>{exercise.title}</span>
-        </label>
-        <input
-          id={exercise.id}
-          name={exercise.title}
-          type="checkbox"
-          onChange={() => selectExercise(exercise.id)}
-          checked={exercise.selected ? true : false}
-        />
-      </div>
+      <ExerciseListItem exercise={exercise} selectExercise={selectExercise} />
     ))
-  }
-
-  function deletePath(id) {
-    props.deletePath(id)
-  }
-
-  function toggleSelectedOption(id) {
-    const index = selectedOptions.findIndex(option => option.id === id)
-    console.log(index)
-    setSelectedOptions(selectedOptions.map(option => (option.selected = false)))
-    setSelectedOptions([
-      ...selectedOptions.slice(0, index),
-      { ...selectedOptions[index], selected: true },
-      ...selectedOptions.slice(index + 1),
-    ])
   }
 
   function renderOptionButtons() {
@@ -93,7 +100,7 @@ function Path(props) {
         <OptionButton
           value={selectedOption.name}
           className={filteredCategory === selectedOption.name ? 'active' : ''}
-          onClick={e => setFilteredCategory(selectedOption.name)}
+          onClick={() => setFilteredCategory(selectedOption.name)}
         >
           {selectedOption.name}
         </OptionButton>
@@ -128,13 +135,12 @@ function Path(props) {
 
   function handleGoalSubmit(e) {
     e.preventDefault()
-    console.log('called')
     const isValid = validate()
     if (isValid) {
       const selectedExercisesAreGoals = exercises.filter(
-        exercise => exercise.selected === true //speichert nur alle, die selected sind, gut!
+        exercise => exercise.selected === true
       )
-      console.log(selectedExercisesAreGoals)
+
       firebase
         .firestore()
         .collection('paths')
@@ -144,103 +150,10 @@ function Path(props) {
         })
     }
   }
-
-  function renderExercisesWithUserInputs() {
-    return exercises
-      .filter(exercise => exercise.selected === true) //toggles fine
-      .sort((a, b) => a.title + b.title)
-      .map((
-        exercise //jede exercise mit selected true geht nach unten
-      ) => (
-        <div>
-          <span style={{ fontSize: '16px' }}>{exercise.title}</span>
-          <UnitInput
-            data-id={exercise.id}
-            name={exercise.title}
-            value={exercise.amount || ''}
-            type="number"
-            onChange={
-              event => updateGoal(exercise.id, event.target.value) //nur onchange
-            }
-            required
-          />
-          <span>{exercise.unit}</span>
-          <span onClick={() => selectExercise(exercise.id)}>X</span>
-        </div>
-      ))
-  }
-
-  return (
-    <>
-      {props.path.length < 1 ? (
-        <div>
-          <h2>Create your path</h2>
-          <CategoryList
-            handleGoalSubmit={handleGoalSubmit}
-            pathCategory={pathCategory}
-            setPathCategory={setPathCategory}
-          />
-          <p>{validationErrors.categoryError}</p>
-          <p>{validationErrors.exercisesError}</p>
-          {pathCategory}
-          {/* RENDERING UPPER EXERCISE LIST */}
-          <p>Muscle group:</p>
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-            {renderOptionButtons()}
-            {renderExercises(filteredCategory)}
-            {/* RENDERING BOTTOM GOALS LIST */}
-            <div>
-              <form onSubmit={handleGoalSubmit}>
-                {renderExercisesWithUserInputs()}
-                <StyledLinkText style={{ display: 'block' }}>
-                  Create path
-                </StyledLinkText>
-              </form>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <OngoingPathContent deletePath={deletePath} path={props.path} />
-      )}
-    </>
-  )
 }
 
-const StyledLinkText = styled.button`
-  margin: 0 auto;
-  display: block;
-  width: 300px;
-  text-decoration: none;
-  color: #fff;
-  padding: 12px;
-  background: #111;
-  text-align: center;
-  position: relative;
-
-  &:hover:after {
-    top: -6px;
-    left: 6px;
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    background: red;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: all 0.1s;
-  }
-`
-
-const UnitInput = styled.input`
-  font-size: 16px;
-  width: 36px;
-  -webkit-appearance: none;
-  margin: d0;
-  -moz-appearance: textfield;
+const ErrorMessage = styled.p`
+  color: red;
 `
 
 const OptionButton = styled.button`

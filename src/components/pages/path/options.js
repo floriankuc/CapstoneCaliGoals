@@ -1,4 +1,4 @@
-const options = [
+const OPTIONS = [
   {
     id: 1,
     name: 'Back',
@@ -41,4 +41,4 @@ const options = [
   },
 ]
 
-export default options
+export default OPTIONS
