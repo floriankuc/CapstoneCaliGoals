@@ -64,15 +64,15 @@ function deletePath(id) {
     .collection('sessions')
     .where('pathId', '==', id)
     .get()
-    .then(function(querySnapshot) {
-      var batch = firebase.firestore().batch()
-      querySnapshot.forEach(function(doc) {
+    .then(querySnapshot => {
+      const batch = firebase.firestore().batch()
+      querySnapshot.forEach(doc => {
         batch.delete(doc.ref)
       })
       batch.commit()
     })
-    .then(function() {
-      console.log('completed delete of all session')
+    .then(() => {
+      console.log('Deleted path including its sessions.')
     })
 }
 
