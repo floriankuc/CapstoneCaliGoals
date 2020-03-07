@@ -1,13 +1,13 @@
 import React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 
-const CategoryChart = props => {
+const CategoryChart = ({ categoryData, categoryCount }) => {
   const chartData = {
-    labels: props.categoryCount,
+    labels: categoryCount,
     datasets: [
       {
         backgroundColor: ['red', 'darkgrey', 'grey', 'pink'],
-        data: props.categoryData,
+        data: categoryData,
         borderColor: '#111',
         borderWidth: '1',
       },
