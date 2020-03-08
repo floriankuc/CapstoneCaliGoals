@@ -3,6 +3,8 @@ import styled from 'styled-components/macro'
 import firebase from 'firebase'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const OngoingPathContent = ({ path }) => {
   return (
@@ -39,7 +41,7 @@ const OngoingPathContent = ({ path }) => {
         batch.commit()
       })
       .then(() => {
-        console.log('completed delete of all session')
+        toast('Path deleted.', { containerId: 'pathDeletedContainer' })
       })
   }
 }

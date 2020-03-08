@@ -5,6 +5,9 @@ import styled from 'styled-components/macro'
 import NoPath from './NoPath'
 import SessionForm from './SessionForm'
 import PropTypes from 'prop-types'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Toast from '../../../common/Toast'
 
 const Sessions = ({ path }) => {
   const [session, setSession] = useState([])
@@ -25,6 +28,7 @@ const Sessions = ({ path }) => {
             session={session}
             updateSessionExercise={updateSessionExercise}
           />
+          <Toast enableMultiContainer containerId={'sessionSavedContainer'} />
         </>
       ) : (
         <NoPath />
@@ -71,6 +75,8 @@ const Sessions = ({ path }) => {
       editing: false,
     }))
     setSession(newState)
+
+    toast('Session saved.', { containerId: 'sessionSavedContainer' })
   }
 
   function renderSelectedExercises() {

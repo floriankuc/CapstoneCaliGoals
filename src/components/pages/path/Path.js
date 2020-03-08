@@ -7,8 +7,9 @@ import OngoingPathContent from './OngoingPathContent'
 import ExerciseListItem from './ExerciseListItem'
 import PropTypes from 'prop-types'
 import UserInputForm from './UserInputForm'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Toast from '../../../common/Toast'
 
 // ?. nutzen
 const Path = ({ path }) => {
@@ -39,6 +40,7 @@ const Path = ({ path }) => {
 
   return (
     <>
+      <Toast enableMultiContainer containerId={'pathDeletedContainer'} />
       {path.length < 1 ? (
         <div>
           <h2>Create your path</h2>
@@ -65,18 +67,7 @@ const Path = ({ path }) => {
       ) : (
         <>
           <OngoingPathContent path={path} />
-          {/* <ToastContainer /> */}
-          <ToastContainer
-            position="top-center"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick={false}
-            rtl={false}
-            pauseOnVisibilityChange
-            draggable
-            pauseOnHover
-          />
+          <Toast enableMultiContainer containerId={'pathCreatedContainer'} />
         </>
       )}
     </>
@@ -166,8 +157,7 @@ const Path = ({ path }) => {
           category: pathCategory,
           selectedExercisesAreGoals,
         })
-      //toast here
-      toast('Wow so easy !')
+      toast('Path created.', { containerId: 'pathCreatedContainer' })
     }
   }
 }
