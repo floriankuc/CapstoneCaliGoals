@@ -7,7 +7,10 @@ import OngoingPathContent from './OngoingPathContent'
 import ExerciseListItem from './ExerciseListItem'
 import PropTypes from 'prop-types'
 import UserInputForm from './UserInputForm'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
+// ?. nutzen
 const Path = ({ path }) => {
   const [exercises, setExercises] = useState([])
   const [pathCategory, setPathCategory] = useState('')
@@ -60,7 +63,21 @@ const Path = ({ path }) => {
           </div>
         </div>
       ) : (
-        <OngoingPathContent path={path} />
+        <>
+          <OngoingPathContent path={path} />
+          {/* <ToastContainer /> */}
+          <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnVisibilityChange
+            draggable
+            pauseOnHover
+          />
+        </>
       )}
     </>
   )
@@ -149,6 +166,8 @@ const Path = ({ path }) => {
           category: pathCategory,
           selectedExercisesAreGoals,
         })
+      //toast here
+      toast('Wow so easy !')
     }
   }
 }
