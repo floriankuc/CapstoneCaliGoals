@@ -13,8 +13,9 @@ const CategoryList = ({ pathCategory, setPathCategory }) => {
   )
 
   function renderCategoryButton() {
-    return CATEGORIES.map(category => (
+    return CATEGORIES.map((category, i) => (
       <CategoryButton
+        key={i}
         name={category}
         className={pathCategory === category ? 'active' : ''}
         onClick={() => setPathCategory(category)}

@@ -1,8 +1,7 @@
 import firebase from 'firebase'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import CategoryList from './CategoryList'
-import { Link } from 'react-router-dom'
 import OPTIONS from './OPTIONS'
 import OngoingPathContent from './OngoingPathContent'
 import ExerciseListItem from './ExerciseListItem'
@@ -99,6 +98,7 @@ const Path = ({ path }) => {
     return selectedOptions.map(selectedOption => {
       return (
         <OptionButton
+          key={selectedOption.id}
           value={selectedOption.name}
           className={filteredCategory === selectedOption.name ? 'active' : ''}
           onClick={() => setFilteredCategory(selectedOption.name)}

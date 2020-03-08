@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import styled from 'styled-components/macro'
 import NoPath from './NoPath'
-import { Link } from 'react-router-dom'
 import SessionForm from './SessionForm'
 import PropTypes from 'prop-types'
 

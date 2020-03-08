@@ -57,7 +57,7 @@ const Data = ({ path }) => {
         year: 'numeric',
       })
       return (
-        <div>
+        <div key={session.id}>
           <p>{formattedDate}</p>
           {renderSessionExercisesList(selectedSessionsExtracted)}
         </div>
@@ -67,7 +67,7 @@ const Data = ({ path }) => {
 
   function renderSessionExercisesList(array) {
     return array.map(sessionExercise => (
-      <p>
+      <p key={sessionExercise.id}>
         {sessionExercise.title}: {sessionExercise.amountDone}
       </p>
     ))
@@ -117,10 +117,11 @@ const Data = ({ path }) => {
     const extractedAmountsDone = getAmountsDone()
     const goals = getGoals()
     const times = getSessionTimes()
-    return Object.keys(extractedAmountsDone).map(exercise => {
+    return Object.keys(extractedAmountsDone).map((exercise, i) => {
       let exerciseName = exercise
       return (
         <Chart
+          key={i}
           times={times}
           goals={goals[exercise]}
           dataArr={extractedAmountsDone[exercise]}

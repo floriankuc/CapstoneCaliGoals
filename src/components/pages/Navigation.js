@@ -13,11 +13,11 @@ const Navigation = () => {
     <NavigationStyled>
       <LinkStyled exact to="/">
         <AiOutlineHome className="icon" />
-        <AiOutlineHome className="iconfade" />
+        {/* <AiOutlineHome className="iconfade" /> */}
       </LinkStyled>
       <LinkStyled to="/path">
         <AiOutlinePlus className="icon" />
-        <AiOutlinePlus className="iconfade" />
+        {/* <AiOutlinePlus className="iconfade" /> */}
       </LinkStyled>
       <LinkStyled to="/sessions">
         <AiOutlineUnorderedList className="icon" />

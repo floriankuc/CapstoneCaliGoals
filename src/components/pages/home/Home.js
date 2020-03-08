@@ -55,9 +55,10 @@ const Home = ({ path }) => {
   function countedCategoryData() {
     if (path.length > 0) {
       const countedCategories = {}
-      categories.map(category => {
-        countedCategories[category] = (countedCategories[category] || 0) + 1
-      })
+      categories.map(
+        category =>
+          (countedCategories[category] = (countedCategories[category] || 0) + 1)
+      )
       const categoryValues = Object.values(countedCategories)
       return categoryValues
     }
