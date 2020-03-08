@@ -8,16 +8,14 @@ import {
   AiOutlineLineChart,
 } from 'react-icons/ai'
 
-const Navigation = () => {
+const Navigation = ({ path }) => {
   return (
     <NavigationStyled>
       <LinkStyled exact to="/">
         <AiOutlineHome className="icon" />
-        {/* <AiOutlineHome className="iconfade" /> */}
       </LinkStyled>
       <LinkStyled to="/path">
         <AiOutlinePlus className="icon" />
-        {/* <AiOutlinePlus className="iconfade" /> */}
       </LinkStyled>
       <LinkStyled to="/sessions">
         <AiOutlineUnorderedList className="icon" />

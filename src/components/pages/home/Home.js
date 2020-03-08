@@ -8,7 +8,7 @@ const Home = ({ path }) => {
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
-    if (path.length > 0) {
+    if (path.length) {
       const categories = path[0].selectedExercisesAreGoals.map(
         path => path.category
       )
@@ -19,7 +19,7 @@ const Home = ({ path }) => {
   return (
     <div>
       <h1>CaliGoals</h1>
-      {path.length > 0 ? (
+      {path?.length ? (
         <>
           <p>Welcome back.</p>
           <p>Your current path is: {renderPath()}</p>
@@ -53,7 +53,7 @@ const Home = ({ path }) => {
   }
 
   function countedCategoryData() {
-    if (path.length > 0) {
+    if (path.length) {
       const countedCategories = {}
       categories.map(
         category =>
@@ -65,7 +65,7 @@ const Home = ({ path }) => {
   }
 
   function countCategorys() {
-    if (path.length > 0) {
+    if (path.length) {
       const countedCategories = [...new Set(categories)]
       return countedCategories
     }

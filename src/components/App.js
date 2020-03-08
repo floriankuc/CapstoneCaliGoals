@@ -45,7 +45,7 @@ const App = () => {
             </Route>
           </Switch>
         </Scroller>
-        <Navigation />
+        <Navigation path={path} />
       </AppGrid>
     </Router>
   )
