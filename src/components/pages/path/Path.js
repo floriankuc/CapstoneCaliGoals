@@ -38,11 +38,12 @@ const Path = ({ path }) => {
   return (
     <>
       {path.length < 1 ? (
-        <>
+        <div>
           <h2>Create your path</h2>
           <CategoryList
             pathCategory={pathCategory}
             setPathCategory={setPathCategory}
+            data-test="list"
           />
           <ErrorMessage>{validationErrors.categoryError}</ErrorMessage>
           <ErrorMessage>{validationErrors.exercisesError}</ErrorMessage>
@@ -58,7 +59,7 @@ const Path = ({ path }) => {
               selectExercise={selectExercise}
             />
           </div>
-        </>
+        </div>
       ) : (
         <OngoingPathContent path={path} />
       )}
