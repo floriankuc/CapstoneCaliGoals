@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components/macro'
 
 export default createGlobalStyle`
 
-@import url('https://fonts.googleapis.com/css?family=Oswald:200,300,400,600|Roboto:300,400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Oswald:200,300,400,600|Spartan:200,300,400,500|Roboto:300,400,700&display=swap');
 
   *,
   *:after,
@@ -14,7 +14,7 @@ export default createGlobalStyle`
 
   body {
     margin: 0;
-    font-family: Roboto;
+    font-family: Roboto, sans-serif;
     font-weight: 300;
     background: #fff;
     font-size: 18px;
@@ -24,10 +24,20 @@ export default createGlobalStyle`
   }
 
   h1 {
-    font-size: 60px;
-    margin: 20px 0 36px 0;
-    font-weight: 600;
-    letter-spacing: -3px;
+    font-size: 48px;
+    font-family: Spartan, sans-serif;
+    margin: 84px 0 36px 0;
+    font-weight: 300;
+    text-transform: uppercase;
   }
+
+  h2 {
+    font-size: 20px;
+    font-family: Spartan, sans-serif;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 40px 0 20px;
+  }
+
 
 `

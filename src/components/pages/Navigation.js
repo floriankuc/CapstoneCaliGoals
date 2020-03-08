@@ -40,7 +40,7 @@ const LinkStyled = styled(NavLink)`
   position: relative;
 
   .icon {
-    font-size: 34px;
+    font-size: 36px;
     transition: all 0.1s ease-out;
     color: #111;
     position: absolute;

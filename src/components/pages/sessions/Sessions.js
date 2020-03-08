@@ -20,6 +20,7 @@ const Sessions = ({ path }) => {
 
   return (
     <div>
+      <h2>Session log</h2>
       {path.length > 0 ? (
         <>
           {renderSelectedExercises()}

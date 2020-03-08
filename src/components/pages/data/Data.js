@@ -29,6 +29,7 @@ const Data = ({ path }) => {
 
   return (
     <div>
+      <h2>Statistics</h2>
       {data.length > 0 ? (
         <div style={{ position: 'relative', width: 300, height: 400 }}>
           {renderSessions()}

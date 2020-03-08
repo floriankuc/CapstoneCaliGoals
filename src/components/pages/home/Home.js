@@ -17,8 +17,8 @@ const Home = ({ path }) => {
   }, [path])
 
   return (
-    <div>
-      <h1>CaliGoals</h1>
+    <HomeSection>
+      <h1>Caligoals</h1>
       {path?.length ? (
         <>
           <p>Welcome back.</p>
@@ -35,10 +35,12 @@ const Home = ({ path }) => {
             <p>Clean training.</p>
             <p>Clean tracking.</p>
           </div>
-          <StyledLink to="/path">Create a new training path</StyledLink>
+          <StyledLink to="/path" mt={!path?.length ? '80px' : ''}>
+            Create a new training path
+          </StyledLink>
         </>
       )}
-    </div>
+    </HomeSection>
   )
 
   function capitaliseCategoryName(category) {
@@ -49,7 +51,9 @@ const Home = ({ path }) => {
   }
 
   function renderPath() {
-    return capitaliseCategoryName(path[0].category)
+    return (
+      <CategorySpan>{capitaliseCategoryName(path[0].category)}</CategorySpan>
+    )
   }
 
   function countedCategoryData() {
@@ -72,8 +76,15 @@ const Home = ({ path }) => {
   }
 }
 
+const HomeSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+`
+
 const StyledLink = styled(Link)`
-  margin: 1px auto;
+  margin-top: ${props => props.mt};
   display: block;
   width: 300px;
   text-decoration: none;
@@ -98,7 +109,21 @@ const StyledLink = styled(Link)`
     left: 0;
     width: 100%;
     height: 100%;
-    transition: all 0.1s ease-out;
+    transition: all 0.1s ease-in-out;
+  }
+`
+
+const CategorySpan = styled.span`
+  position: relative;
+
+  &:after {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background: red;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
   }
 `
 Home.propTypes = {

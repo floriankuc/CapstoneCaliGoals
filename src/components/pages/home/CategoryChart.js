@@ -16,16 +16,21 @@ const CategoryChart = ({ categoryData, categoryCount }) => {
   }
 
   const chartOptions = {
-    plugins: { datalabels: { color: 'black' } },
+    plugins: {
+      datalabels: { color: 'black' },
+    },
     responsive: true,
-    legend: { position: 'bottom', fontFamily: 'Roboto' },
+    legend: {
+      position: 'bottom',
+      labels: { fontFamily: 'Roboto', fontColor: '#111', fontSize: 14 },
+    },
   }
 
   return (
     <div
       style={{
         position: 'relative',
-        margin: '40px 0',
+        margin: '50px 0',
         width: '100%',
       }}
     >

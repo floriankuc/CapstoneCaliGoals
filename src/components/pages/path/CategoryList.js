@@ -3,11 +3,18 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 
 const CategoryList = ({ pathCategory, setPathCategory }) => {
-  const CATEGORIES = ['strength', 'figures', 'hybrid', 'cardio', 'endurance']
+  const CATEGORIES = [
+    'strength',
+    'figures',
+    'hybrid',
+    'cardio',
+    'endurance',
+    'mobility',
+  ]
 
   return (
     <>
-      <p>Category:</p>
+      {/* <p style={{ marginBottom: '10px' }}>Category</p> */}
       <StyledButtonNav>{renderCategoryButton()}</StyledButtonNav>
     </>
   )
@@ -34,20 +41,22 @@ const CategoryList = ({ pathCategory, setPathCategory }) => {
 }
 
 const CategoryButton = styled.button`
-  font-family: 'Oswald';
-  padding: 10px 0;
-  background: #fff;
+  font-family: Roboto;
+  padding: 14px 0;
+  background: #1111;
   color: #111;
-  border: 1px solid #111;
+  border: none;
   font-size: 16px;
-  width: 100%;
-  margin: 1px;
+  width: 100px;
+  margin: 2px;
+  transition: all 0.05s ease-in-out;
 
   &:hover {
     cursor: pointer;
   }
 
-  &.active {
+  &.active,
+  &:hover {
     background: #111;
     color: #fff;
   }
@@ -56,6 +65,7 @@ const CategoryButton = styled.button`
 const StyledButtonNav = styled.nav`
   flex-grow: 1;
   display: flex;
+  flex-wrap: wrap;
 `
 
 CategoryList.propTypes = {
