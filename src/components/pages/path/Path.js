@@ -49,7 +49,9 @@ const Path = ({ path }) => {
             setPathCategory={setPathCategory}
             data-test="list"
           />
-          <ErrorMessage>{validationErrors.categoryError}</ErrorMessage>
+          <ErrorMessage>
+            {pathCategory === '' && validationErrors.categoryError}
+          </ErrorMessage>
           <ErrorMessage>{validationErrors.exercisesError}</ErrorMessage>
           {/* RENDERING UPPER EXERCISE LIST */}
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
