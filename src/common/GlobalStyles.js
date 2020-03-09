@@ -26,7 +26,7 @@ export default createGlobalStyle`
   h1 {
     font-size: 48px;
     font-family: Spartan, sans-serif;
-    margin: 84px 0 36px 0;
+    margin: 0 0 36px 0;
     font-weight: 300;
     text-transform: uppercase;
   }

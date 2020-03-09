@@ -29,13 +29,44 @@ const Sessions = ({ path }) => {
             session={session}
             updateSessionExercise={updateSessionExercise}
           />
+          <StyledLinkTextRed onClick={() => deletePath(path[0].id)}>
+            Terminate current path
+          </StyledLinkTextRed>
           <Toast enableMultiContainer containerId={'sessionSavedContainer'} />
         </>
       ) : (
-        <NoPath />
+        <>
+          <Toast enableMultiContainer containerId={'pathDeletedContainer'} />
+          <NoPath />
+        </>
       )}
     </div>
   )
+
+  function deletePath(id) {
+    firebase
+      .firestore()
+      .collection('paths')
+      .doc(id)
+      .delete()
+      .then(() => console.log('deleted'))
+
+    firebase
+      .firestore()
+      .collection('sessions')
+      .where('pathId', '==', id)
+      .get()
+      .then(querySnapshot => {
+        var batch = firebase.firestore().batch()
+        querySnapshot.forEach(doc => {
+          batch.delete(doc.ref)
+        })
+        batch.commit()
+      })
+      .then(() => {
+        toast('Path deleted.', { containerId: 'pathDeletedContainer' })
+      })
+  }
 
   function editSessionWithExercise(id) {
     const index = session.findIndex(exercise => exercise.id === id)
@@ -94,6 +125,35 @@ const Sessions = ({ path }) => {
     }
   }
 }
+
+const StyledLinkTextRed = styled.button`
+  margin: 30px auto;
+  display: block;
+  width: 300px;
+  text-decoration: none;
+  color: #fff;
+  padding: 12px;
+  background: red;
+  text-align: center;
+  position: relative;
+
+  &:hover:after {
+    top: -6px;
+    left: 6px;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    background: #111;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: all 0.1s;
+  }
+`
 
 const ExerciseDiv = styled.div`
   width: 100%;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import { NavLink } from 'react-router-dom'
 import {
@@ -9,20 +9,35 @@ import {
 } from 'react-icons/ai'
 
 const Navigation = ({ path }) => {
+  const [isPath, setIsPath] = useState()
+
+  useEffect(() => {
+    if (path.length > 0) {
+      setIsPath(true)
+    } else {
+      setIsPath(false)
+    }
+  }, [path])
+
   return (
     <NavigationStyled>
       <LinkStyled exact to="/">
         <AiOutlineHome className="icon" />
       </LinkStyled>
-      <LinkStyled to="/path">
-        <AiOutlinePlus className="icon" />
-      </LinkStyled>
-      <LinkStyled to="/sessions">
-        <AiOutlineUnorderedList className="icon" />
-      </LinkStyled>
-      <LinkStyled to="/data">
-        <AiOutlineLineChart className="icon" />
-      </LinkStyled>
+      {!isPath ? (
+        <LinkStyled to="/path">
+          <AiOutlinePlus className="icon" />
+        </LinkStyled>
+      ) : (
+        <>
+          <LinkStyled to="/sessions">
+            <AiOutlineUnorderedList className="icon" />
+          </LinkStyled>
+          <LinkStyled to="/data">
+            <AiOutlineLineChart className="icon" />
+          </LinkStyled>
+        </>
+      )}
     </NavigationStyled>
   )
 }
