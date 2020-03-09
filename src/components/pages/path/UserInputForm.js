@@ -11,7 +11,9 @@ const UserInputForm = ({
   return (
     <form onSubmit={handleGoalSubmit}>
       {renderExercisesWithUserInputs()}
-      <StyledLinkText style={{ display: 'block' }}>Create path</StyledLinkText>
+      <StyledButton style={{ display: 'block', marginTop: '20px' }}>
+        Create path
+      </StyledButton>
     </form>
   )
 
@@ -20,26 +22,49 @@ const UserInputForm = ({
       .filter(exercise => exercise.selected === true)
       .sort((a, b) => a.title + b.title)
       .map(exercise => (
-        <div>
-          <span style={{ fontSize: '16px' }}>{exercise.title}</span>
-          <UnitInput
-            data-id={exercise.id}
-            name={exercise.title}
-            value={exercise.amount || ''}
-            type="number"
-            onChange={e => updateGoal(exercise.id, e.target.value)}
-            required
-          />
-          <span>{exercise.unit}</span>
-          <span onClick={() => selectExercise(exercise.id)}>X</span>
-        </div>
+        <InputContainer>
+          <p>{exercise.title}</p>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-evenly',
+              width: '100px',
+            }}
+          >
+            <UnitInput
+              data-id={exercise.id}
+              name={exercise.title}
+              value={exercise.amount || ''}
+              type="number"
+              onChange={e => updateGoal(exercise.id, e.target.value)}
+              required
+            />
+            <p>{exercise.unit}</p>
+            <span onClick={() => selectExercise(exercise.id)}>X</span>
+          </div>
+        </InputContainer>
       ))
   }
 }
 
-const StyledLinkText = styled.button`
+const InputContainer = styled.div`
+  width: 100%;
+  background: pink;
+  background: #efefef;
+  padding: 6px;
+  display: flex;
+  justify-content: space-between;
+  margin: 1px 0;
+
+  p {
+    display: inline-block;
+  }
+`
+
+const StyledButton = styled.button`
   margin: 0 auto;
   display: block;
+  border: none;
   width: 300px;
   text-decoration: none;
   color: #fff;
@@ -47,6 +72,7 @@ const StyledLinkText = styled.button`
   background: #111;
   text-align: center;
   position: relative;
+  font-size: 16px;
 
   &:hover:after {
     top: -6px;
@@ -67,11 +93,20 @@ const StyledLinkText = styled.button`
 `
 
 const UnitInput = styled.input`
-  font-size: 16px;
+  font-size: 22px;
   width: 36px;
+  height: 100%;
+  text-align: center;
+  background: #efefef;
+  border: none;
+  border-bottom: 1px solid red;
   -webkit-appearance: none;
-  margin: d0;
   -moz-appearance: textfield;
+
+  p {
+    display: inline-block;
+    width: 10%;
+  }
 `
 
 UserInputForm.propTypes = {

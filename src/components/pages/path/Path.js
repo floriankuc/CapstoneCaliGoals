@@ -54,17 +54,18 @@ const Path = ({ path }) => {
           </ErrorMessage>
           <ErrorMessage>{validationErrors.exercisesError}</ErrorMessage>
           {/* RENDERING UPPER EXERCISE LIST */}
-          <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          <p>Exercises:</p>
+          <MuscleGroupContainer>
             {renderOptionButtons()}
-            {renderExercises(filteredCategory)}
             {/* RENDERING BOTTOM GOALS LIST */}
-            <UserInputForm
-              handleGoalSubmit={handleGoalSubmit}
-              exercises={exercises}
-              updateGoal={updateGoal}
-              selectExercise={selectExercise}
-            />
-          </div>
+          </MuscleGroupContainer>
+          {renderExercises(filteredCategory)}
+          <UserInputForm
+            handleGoalSubmit={handleGoalSubmit}
+            exercises={exercises}
+            updateGoal={updateGoal}
+            selectExercise={selectExercise}
+          />
         </div>
       ) : (
         <>
@@ -168,11 +169,33 @@ const ErrorMessage = styled.p`
   color: red;
 `
 
-const OptionButton = styled.button`
-  border: 1px solid #111;
+const MuscleGroupContainer = styled.section`
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  grid-template-rows: auto auto;
+  width: 100%;
+  max-width: 450px;
+  grid-gap: 1px;
+`
 
-  &.active {
-    color: red;
+const OptionButton = styled.button`
+  font-family: Roboto;
+  padding: 14px 0;
+  background: #1111;
+  color: #111;
+  border: none;
+  font-size: 16px;
+  width: 100%;
+  transition: all 0.05s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.active,
+  &:hover {
+    background: #111;
+    color: #fff;
   }
 `
 

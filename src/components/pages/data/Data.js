@@ -135,7 +135,7 @@ const Data = ({ path }) => {
 }
 
 const StyledLinkText = styled(Link)`
-  margin: 0 auto;
+  margin: 20px auto;
   display: block;
   width: 300px;
   text-decoration: none;

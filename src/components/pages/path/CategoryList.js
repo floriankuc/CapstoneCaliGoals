@@ -14,7 +14,7 @@ const CategoryList = ({ pathCategory, setPathCategory }) => {
 
   return (
     <>
-      {/* <p style={{ marginBottom: '10px' }}>Category</p> */}
+      <p>Category:</p>
       <StyledButtonNav>{renderCategoryButton()}</StyledButtonNav>
     </>
   )
@@ -47,8 +47,8 @@ const CategoryButton = styled.button`
   color: #111;
   border: none;
   font-size: 16px;
-  width: 100px;
-  margin: 2px;
+  width: 100%;
+  height: 100%;
   transition: all 0.05s ease-in-out;
 
   &:hover {
@@ -63,9 +63,12 @@ const CategoryButton = styled.button`
 `
 
 const StyledButtonNav = styled.nav`
-  flex-grow: 1;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-gap: 1px;
+  grid-template-columns: repeat(3, 33.3%);
+  grid-template-rows: auto auto;
+  width: 100%;
+  max-width: 450px;
 `
 
 CategoryList.propTypes = {

@@ -31,10 +31,10 @@ const Home = ({ path }) => {
         </>
       ) : (
         <>
-          <div style={{ marginBottom: '40px' }}>
-            <p>Clean training.</p>
-            <p>Clean tracking.</p>
-          </div>
+          <p>Clean tracking.</p>
+          <p style={{ textAlign: 'center', marginTop: '20px' }}>
+            Define your training path, log your workouts and track your goals.
+          </p>
           <StyledLink to="/path" mt={!path?.length ? '80px' : ''}>
             Create a new training path
           </StyledLink>
