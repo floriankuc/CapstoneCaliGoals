@@ -37,7 +37,6 @@ export default createGlobalStyle`
     text-transform: uppercase;
     font-weight: 600;
     margin: 40px 0 20px;
-    /* background: red; */
     position: relative;
 
     &:after{

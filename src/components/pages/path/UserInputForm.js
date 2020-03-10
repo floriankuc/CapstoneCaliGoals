@@ -49,7 +49,6 @@ const UserInputForm = ({
 
 const InputContainer = styled.div`
   width: 100%;
-  background: pink;
   background: #efefef;
   padding: 6px;
   display: flex;

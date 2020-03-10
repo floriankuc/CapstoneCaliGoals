@@ -11,24 +11,32 @@ export function getPath(setter) {
       setter(path)
     },
     function(error) {
-      console.log('Error getting path from firestore:', error)
+      console.error('Error getting path from firestore:', error)
     }
   )
 }
 
 export function saveSession(date, id, session) {
-  sessionsRef.add({
-    time: date,
-    pathId: id,
-    selectedSessions: session,
-  })
+  sessionsRef
+    .add({
+      time: date,
+      pathId: id,
+      selectedSessions: session,
+    })
+    .catch(function(error) {
+      console.error('Error saving session: ', error)
+    })
 }
 
 export function savePath(category, goals) {
-  pathsRef.add({
-    category,
-    selectedExercisesAreGoals: goals,
-  })
+  pathsRef
+    .add({
+      category,
+      selectedExercisesAreGoals: goals,
+    })
+    .catch(function(error) {
+      console.error('Error saving path: ', error)
+    })
 }
 
 export function getSessions(setter) {
@@ -41,19 +49,24 @@ export function getSessions(setter) {
       setter(data)
     },
     function(error) {
-      console.log('Error getting sessions from firestore:', error)
+      console.error('Error getting sessions from firestore:', error)
     }
   )
 }
 
 export function getExercises(setter) {
-  exercisesRef.onSnapshot(snapshot => {
-    const exercise = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data(),
-    }))
-    setter(exercise)
-  })
+  exercisesRef.onSnapshot(
+    snapshot => {
+      const exercise = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+      setter(exercise)
+    },
+    function(error) {
+      console.error('Error getting exercises from firestore:', error)
+    }
+  )
 }
 
 export function deletePath(id) {
@@ -74,7 +87,7 @@ export function deletePath(id) {
         batch.commit()
       },
       function(error) {
-        console.log(
+        console.error(
           'Error deleting sessions assiociated to path from firestore:',
           error
         )

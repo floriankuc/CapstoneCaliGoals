@@ -13,9 +13,7 @@ const Sessions = ({ path }) => {
   const [session, setSession] = useState([])
 
   useEffect(() => {
-    if (path.length > 0) {
-      setSession(path[0].selectedExercisesAreGoals)
-    }
+    path.length && setSession(path[0].selectedExercisesAreGoals)
   }, [path])
 
   return (
@@ -23,7 +21,7 @@ const Sessions = ({ path }) => {
       <h2>Session log</h2>
       <Toast enableMultiContainer containerId={'pathDeletedContainer'} />
 
-      {path.length > 0 ? (
+      {path.length ? (
         <>
           {renderSelectedExercises()}
           <SessionForm
@@ -37,9 +35,7 @@ const Sessions = ({ path }) => {
           <Toast enableMultiContainer containerId={'sessionSavedContainer'} />
         </>
       ) : (
-        <>
-          <NoPath />
-        </>
+        <NoPath />
       )}
     </div>
   )
@@ -70,10 +66,10 @@ const Sessions = ({ path }) => {
   function handleSessionSubmit(e) {
     e.preventDefault()
     const selectedSessions = session.filter(sess => sess.editing === true)
-    const cuDate = moment()
+    const currentDate = moment()
     const pathId = path[0].id
 
-    saveSession(cuDate._d, pathId, selectedSessions)
+    saveSession(currentDate._d, pathId, selectedSessions)
 
     const newState = session.map(item => ({
       ...item,
@@ -86,7 +82,7 @@ const Sessions = ({ path }) => {
   }
 
   function renderSelectedExercises() {
-    if (session.length > 0) {
+    if (session.length) {
       return session.map(el => (
         <ExerciseDiv
           className={el.editing ? 'selected' : ''}

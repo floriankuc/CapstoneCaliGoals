@@ -10,28 +10,28 @@ const SessionForm = ({
   return (
     <form onSubmit={handleSessionSubmit}>
       {session &&
-        session
-          .filter(el => el.editing === true)
-          .map(el => (
-            <div style={{ width: '100%' }}>
-              <span>{el.title}</span>
-              <input
-                required
-                className="input"
-                data-id={el.id}
-                name={el.title}
-                type="number"
-                value={el.amountDone || ''}
-                onChange={event =>
-                  updateSessionExercise(el.id, event.target.value)
-                }
-              />
-              <span>{el.unit}</span>
-            </div>
-          ))}
+        editingTheseExercises().map(session => (
+          <div style={{ width: '100%' }}>
+            <span>{session.title}</span>
+            <input
+              required
+              className="input"
+              data-id={session.id}
+              name={session.title}
+              type="number"
+              value={session.amountDone || ''}
+              onChange={e => updateSessionExercise(session.id, e.target.value)}
+            />
+            <span>{session.unit}</span>
+          </div>
+        ))}
       <StyledLinkText>Save session</StyledLinkText>
     </form>
   )
+
+  function editingTheseExercises() {
+    return session.filter(session => session.editing === true)
+  }
 }
 
 const StyledLinkText = styled.button`

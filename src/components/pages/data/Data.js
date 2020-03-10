@@ -20,7 +20,7 @@ const Data = ({ path }) => {
   return (
     <div>
       <h2>Statistics</h2>
-      {data.length > 0 ? (
+      {data?.length ? (
         <div style={{ position: 'relative', width: 300, height: 400 }}>
           {renderSessions()}
           {renderCharts()}
@@ -35,18 +35,12 @@ const Data = ({ path }) => {
   )
 
   function renderSessions() {
-    const sortedSessions = data.sort((a, b) => a.time.seconds - b.time.seconds)
+    const sortedSessions = sortSessionsByTime()
 
     return sortedSessions.map(session => {
       const selectedSessionsExtracted = session.selectedSessions
       const date = new Date(session.time.seconds * 1000)
-      const formattedDate = date.toLocaleTimeString([], {
-        day: '2-digit',
-        month: 'long',
-        hour: '2-digit',
-        minute: '2-digit',
-        year: 'numeric',
-      })
+      const formattedDate = getDateWithYear(date)
       return (
         <div key={session.id}>
           <p>{formattedDate}</p>
@@ -54,6 +48,19 @@ const Data = ({ path }) => {
         </div>
       )
     })
+  }
+
+  function getDateWithYear(unformattedDate) {
+    return unformattedDate.toLocaleTimeString([], {
+      day: '2-digit',
+      month: 'long',
+      hour: '2-digit',
+      minute: '2-digit',
+      year: 'numeric',
+    })
+  }
+  function sortSessionsByTime() {
+    return data.sort((a, b) => a.time.seconds - b.time.seconds)
   }
 
   function renderSessionExercisesList(array) {
@@ -67,19 +74,20 @@ const Data = ({ path }) => {
   function getSessionTimes() {
     const sortedSessions = data.sort((a, b) => a.time.seconds - b.time.seconds)
     const times = []
-
     sortedSessions.map(el => {
       let timeAsDate = new Date(el.time.seconds * 1000)
-      times.push(
-        timeAsDate.toLocaleTimeString([], {
-          day: '2-digit',
-          month: 'short',
-          hour: '2-digit',
-          minute: '2-digit',
-        })
-      )
+      times.push(getDateWithoutYear(timeAsDate))
     })
     return times
+  }
+
+  function getDateWithoutYear(unformattedDate) {
+    return unformattedDate.toLocaleTimeString([], {
+      day: '2-digit',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+    })
   }
 
   function getAmountsDone() {

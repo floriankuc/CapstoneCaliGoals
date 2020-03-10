@@ -13,8 +13,9 @@ const App = () => {
   const [path, setPath] = useState([])
 
   useEffect(() => {
-    const unsub = getPath(setPath)
-    return () => unsub()
+    // const unsub = getPath(setPath)
+    // return () => unsub()
+    getPath(setPath)
   }, [])
 
   return (

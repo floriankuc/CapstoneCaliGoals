@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
+import { capitalise } from '../../../utils'
 
-const CategoryList = ({ pathCategory, setPathCategory }) => {
+const CategoryList = ({ pathCategory, setPathCategory, validationErrors }) => {
   const CATEGORIES = [
     'strength',
     'figures',
@@ -14,10 +15,19 @@ const CategoryList = ({ pathCategory, setPathCategory }) => {
 
   return (
     <>
-      <p>Category:</p>
+      <p style={{ display: 'inline-block' }}>Category</p>
+      {renderCategoryErrorMessage()}
       <StyledButtonNav>{renderCategoryButton()}</StyledButtonNav>
     </>
   )
+
+  function renderCategoryErrorMessage() {
+    return (
+      <ErrorMessage>
+        {pathCategory === '' && validationErrors.categoryError}
+      </ErrorMessage>
+    )
+  }
 
   function renderCategoryButton() {
     return CATEGORIES.map((category, i) => (
@@ -33,12 +43,13 @@ const CategoryList = ({ pathCategory, setPathCategory }) => {
   }
 
   function capitaliseCategoryNames(category) {
-    return category
-      .split(' ')
-      .map(el => el[0].toUpperCase() + el.slice(1, el.length))
-      .join(' ')
+    return capitalise(category)
   }
 }
+
+const ErrorMessage = styled.span`
+  color: red;
+`
 
 const CategoryButton = styled.button`
   font-family: Roboto;

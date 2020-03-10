@@ -3,17 +3,13 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import CategoryChart from './CategoryChart'
 import PropTypes from 'prop-types'
+import { capitalise } from '../../../utils'
 
 const Home = ({ path }) => {
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
-    if (path.length) {
-      const categories = path[0].selectedExercisesAreGoals.map(
-        path => path.category
-      )
-      setCategories(categories)
-    }
+    path.length && setCategories(readCategories())
   }, [path])
 
   return (
@@ -25,7 +21,7 @@ const Home = ({ path }) => {
           <p>Your current path is: {renderPath()}</p>
           <CategoryChart
             categoryData={countedCategoryData()}
-            categoryCount={countCategorys()}
+            categoryCount={countCategories()}
           />
           <StyledLink to="/sessions">Working out? Log your session.</StyledLink>
         </>
@@ -43,11 +39,12 @@ const Home = ({ path }) => {
     </HomeSection>
   )
 
-  function capitaliseCategoryName(category) {
-    return path[0].category
-      .split(' ')
-      .map(el => el[0].toUpperCase() + el.slice(1, el.length))
-      .join(' ')
+  function readCategories() {
+    return path[0].selectedExercisesAreGoals.map(path => path.category)
+  }
+
+  function capitaliseCategoryName() {
+    return capitalise(path[0].category)
   }
 
   function renderPath() {
@@ -68,7 +65,7 @@ const Home = ({ path }) => {
     }
   }
 
-  function countCategorys() {
+  function countCategories() {
     if (path.length) {
       const countedCategories = [...new Set(categories)]
       return countedCategories

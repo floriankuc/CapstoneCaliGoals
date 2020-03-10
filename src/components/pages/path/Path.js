@@ -10,6 +10,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Toast from '../../../common/Toast'
 import { getExercises, savePath } from '../../../services'
+import MuscleGroupList from './MuscleGroupList'
 
 const Path = ({ path }) => {
   const [exercises, setExercises] = useState([])
@@ -36,17 +37,15 @@ const Path = ({ path }) => {
             pathCategory={pathCategory}
             setPathCategory={setPathCategory}
             data-test="list"
+            validationErrors={validationErrors}
           />
-          <ErrorMessage>
-            {pathCategory === '' && validationErrors.categoryError}
-          </ErrorMessage>
-          <ErrorMessage>{validationErrors.exercisesError}</ErrorMessage>
-          {/* RENDERING UPPER EXERCISE LIST */}
-          <p>Exercises:</p>
-          <MuscleGroupContainer>
-            {renderOptionButtons()}
-            {/* RENDERING BOTTOM GOALS LIST */}
-          </MuscleGroupContainer>
+          <MuscleGroupList
+            exercises={exercises}
+            selectedOptions={selectedOptions}
+            filteredCategory={filteredCategory}
+            setFilteredCategory={setFilteredCategory}
+            validationErrors={validationErrors}
+          />
           {renderExercises(filteredCategory)}
           <UserInputForm
             handleGoalSubmit={handleGoalSubmit}
@@ -93,21 +92,6 @@ const Path = ({ path }) => {
     ))
   }
 
-  function renderOptionButtons() {
-    return selectedOptions.map(selectedOption => {
-      return (
-        <OptionButton
-          key={selectedOption.id}
-          value={selectedOption.name}
-          className={filteredCategory === selectedOption.name ? 'active' : ''}
-          onClick={() => setFilteredCategory(selectedOption.name)}
-        >
-          {selectedOption.name}
-        </OptionButton>
-      )
-    })
-  }
-
   function validate() {
     let categoryError = ''
     let exercisesError = ''
@@ -140,47 +124,11 @@ const Path = ({ path }) => {
       const selectedExercisesAreGoals = exercises.filter(
         exercise => exercise.selected === true
       )
-
       savePath(pathCategory, selectedExercisesAreGoals)
-
       toast('Path created.', { containerId: 'pathCreatedContainer' })
     }
   }
 }
-
-const ErrorMessage = styled.p`
-  color: red;
-`
-
-const MuscleGroupContainer = styled.section`
-  display: grid;
-  grid-template-columns: repeat(4, 25%);
-  grid-template-rows: auto auto;
-  width: 100%;
-  max-width: 450px;
-  grid-gap: 1px;
-`
-
-const OptionButton = styled.button`
-  font-family: Roboto;
-  padding: 14px 0;
-  background: #1111;
-  color: #111;
-  border: none;
-  font-size: 16px;
-  width: 100%;
-  transition: all 0.05s ease-in-out;
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  &.active,
-  &:hover {
-    background: #111;
-    color: #fff;
-  }
-`
 
 Path.propTypes = {
   path: PropTypes.array.isRequired,
