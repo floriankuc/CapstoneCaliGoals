@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import CategoryChart from './CategoryChart'
 import PropTypes from 'prop-types'
-import { GiNestedHexagons } from 'react-icons/gi'
 
 const Home = ({ path }) => {
   const [categories, setCategories] = useState([])
@@ -19,9 +18,6 @@ const Home = ({ path }) => {
 
   return (
     <HomeSection>
-      <GiNestedHexagons
-        style={{ fontSize: 50, marginTop: 100, marginBottom: 20 }}
-      />
       <h1>Caligoals</h1>
       {path?.length ? (
         <>
