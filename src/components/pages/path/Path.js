@@ -10,6 +10,7 @@ import UserInputForm from './UserInputForm'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Toast from '../../../common/Toast'
+import { exercisesRef, pathsRef } from '../../../firebase'
 
 // ?. nutzen
 const Path = ({ path }) => {
@@ -25,16 +26,13 @@ const Path = ({ path }) => {
   useEffect(() => {
     setSelectedOptions(OPTIONS)
 
-    const unsubscribe = firebase
-      .firestore()
-      .collection('EXERCISES')
-      .onSnapshot(snapshot => {
-        const exercise = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
-        setExercises(exercise)
-      })
+    const unsubscribe = exercisesRef.onSnapshot(snapshot => {
+      const exercise = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }))
+      setExercises(exercise)
+    })
     return () => unsubscribe()
   }, [])
 
@@ -153,13 +151,10 @@ const Path = ({ path }) => {
         exercise => exercise.selected === true
       )
 
-      firebase
-        .firestore()
-        .collection('paths')
-        .add({
-          category: pathCategory,
-          selectedExercisesAreGoals,
-        })
+      pathsRef.add({
+        category: pathCategory,
+        selectedExercisesAreGoals,
+      })
       toast('Path created.', { containerId: 'pathCreatedContainer' })
     }
   }

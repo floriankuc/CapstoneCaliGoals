@@ -1,4 +1,3 @@
-import firebase from 'firebase'
 import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import styled from 'styled-components/macro'
@@ -8,6 +7,7 @@ import PropTypes from 'prop-types'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Toast from '../../../common/Toast'
+import { deletePath, saveSession } from '../../../services'
 
 const Sessions = ({ path }) => {
   const [session, setSession] = useState([])
@@ -21,6 +21,8 @@ const Sessions = ({ path }) => {
   return (
     <div>
       <h2>Session log</h2>
+      <Toast enableMultiContainer containerId={'pathDeletedContainer'} />
+
       {path.length > 0 ? (
         <>
           {renderSelectedExercises()}
@@ -29,43 +31,22 @@ const Sessions = ({ path }) => {
             session={session}
             updateSessionExercise={updateSessionExercise}
           />
-          <StyledLinkTextRed onClick={() => deletePath(path[0].id)}>
+          <StyledLinkTextRed onClick={() => handleDelete(path[0].id)}>
             Terminate current path
           </StyledLinkTextRed>
           <Toast enableMultiContainer containerId={'sessionSavedContainer'} />
         </>
       ) : (
         <>
-          <Toast enableMultiContainer containerId={'pathDeletedContainer'} />
           <NoPath />
         </>
       )}
     </div>
   )
 
-  function deletePath(id) {
-    firebase
-      .firestore()
-      .collection('paths')
-      .doc(id)
-      .delete()
-      .then(() => console.log('deleted'))
-
-    firebase
-      .firestore()
-      .collection('sessions')
-      .where('pathId', '==', id)
-      .get()
-      .then(querySnapshot => {
-        var batch = firebase.firestore().batch()
-        querySnapshot.forEach(doc => {
-          batch.delete(doc.ref)
-        })
-        batch.commit()
-      })
-      .then(() => {
-        toast('Path deleted.', { containerId: 'pathDeletedContainer' })
-      })
+  function handleDelete(id) {
+    deletePath(id)
+    toast('Path deleted.', { containerId: 'pathDeletedContainer' })
   }
 
   function editSessionWithExercise(id) {
@@ -92,14 +73,7 @@ const Sessions = ({ path }) => {
     const cuDate = moment()
     const pathId = path[0].id
 
-    firebase
-      .firestore()
-      .collection('sessions')
-      .add({
-        time: cuDate._d,
-        pathId,
-        selectedSessions,
-      })
+    saveSession(cuDate._d, pathId, selectedSessions)
 
     const newState = session.map(item => ({
       ...item,

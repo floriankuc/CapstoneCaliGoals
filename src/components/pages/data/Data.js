@@ -1,10 +1,10 @@
-import firebase from 'firebase'
 import React, { useEffect, useState } from 'react'
 import { Line } from 'react-chartjs-2'
 import Chart from './Chart'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { getSessions } from '../../../services'
 
 const Data = ({ path }) => {
   const [id, setId] = useState()
@@ -13,17 +13,7 @@ const Data = ({ path }) => {
   useEffect(() => {
     if (path[0]) {
       setId(path[0].id)
-      const unsubscribe = firebase
-        .firestore()
-        .collection('sessions')
-        .onSnapshot(snapshot => {
-          const data = snapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data(),
-          }))
-          setData(data)
-        })
-      return () => unsubscribe()
+      getSessions(setData)
     }
   }, [path, id])
 

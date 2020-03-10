@@ -14,4 +14,10 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig)
 
+const db = firebase.firestore()
+
+export const exercisesRef = db.collection('EXERCISES')
+export const pathsRef = db.collection('paths')
+export const sessionsRef = db.collection('sessions')
+
 export default firebase

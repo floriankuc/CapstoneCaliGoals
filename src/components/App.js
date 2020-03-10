@@ -1,4 +1,3 @@
-import firebase from '../firebase'
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
@@ -8,22 +7,13 @@ import Data from './pages/data/Data'
 import Home from './pages/home/Home'
 import Path from './pages/path/Path'
 import Sessions from './pages/sessions/Sessions'
+import { getPath } from '../services'
 
 const App = () => {
   const [path, setPath] = useState([])
 
   useEffect(() => {
-    const unsubscribe = firebase
-      .firestore()
-      .collection('paths')
-      .onSnapshot(snapshot => {
-        const path = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
-        setPath(path)
-      })
-    return () => unsubscribe()
+    getPath(setPath)
   }, [])
 
   return (
