@@ -1,4 +1,3 @@
-import firebase from 'firebase'
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import CategoryList from './CategoryList'
@@ -10,9 +9,8 @@ import UserInputForm from './UserInputForm'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Toast from '../../../common/Toast'
-import { exercisesRef, pathsRef } from '../../../firebase'
+import { getExercises, savePath } from '../../../services'
 
-// ?. nutzen
 const Path = ({ path }) => {
   const [exercises, setExercises] = useState([])
   const [pathCategory, setPathCategory] = useState('')
@@ -25,15 +23,7 @@ const Path = ({ path }) => {
 
   useEffect(() => {
     setSelectedOptions(OPTIONS)
-
-    const unsubscribe = exercisesRef.onSnapshot(snapshot => {
-      const exercise = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
-      setExercises(exercise)
-    })
-    return () => unsubscribe()
+    getExercises(setExercises)
   }, [])
 
   return (
@@ -151,10 +141,8 @@ const Path = ({ path }) => {
         exercise => exercise.selected === true
       )
 
-      pathsRef.add({
-        category: pathCategory,
-        selectedExercisesAreGoals,
-      })
+      savePath(pathCategory, selectedExercisesAreGoals)
+
       toast('Path created.', { containerId: 'pathCreatedContainer' })
     }
   }
