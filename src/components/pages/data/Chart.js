@@ -11,7 +11,6 @@ const Chart = ({ exercise, dataArr, goals, times }) => {
     datasets: [
       {
         label: exercise,
-        // backgroundColor: ['red'],
         borderColor: 'red',
         spanGaps: true,
         lineTension: 0,

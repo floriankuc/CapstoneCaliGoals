@@ -13,37 +13,9 @@ const OngoingPathContent = ({ path }) => {
         You have an ongoing path, good for you! Remember you can only pursue one
         goal at a time.
       </p>
-      {/* <StyledLinkTextRed onClick={() => deletePath(path[0].id)}>
-        Terminate current path
-      </StyledLinkTextRed> */}
       <StyledLinkText to="/sessions">Log your session</StyledLinkText>
     </div>
   )
-
-  // function deletePath(id) {
-  //   firebase
-  //     .firestore()
-  //     .collection('paths')
-  //     .doc(id)
-  //     .delete()
-  //     .then(() => console.log('deleted'))
-
-  //   firebase
-  //     .firestore()
-  //     .collection('sessions')
-  //     .where('pathId', '==', id)
-  //     .get()
-  //     .then(querySnapshot => {
-  //       var batch = firebase.firestore().batch()
-  //       querySnapshot.forEach(doc => {
-  //         batch.delete(doc.ref)
-  //       })
-  //       batch.commit()
-  //     })
-  //     .then(() => {
-  //       toast('Path deleted.', { containerId: 'pathDeletedContainer' })
-  //     })
-  // }
 }
 
 const StyledLinkTextRed = styled.button`

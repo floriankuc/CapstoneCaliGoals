@@ -22,7 +22,7 @@ const Sessions = ({ path }) => {
       <Toast enableMultiContainer containerId={'pathDeletedContainer'} />
 
       {path.length ? (
-        <>
+        <div>
           {renderSelectedExercises()}
           <SessionForm
             handleSessionSubmit={handleSessionSubmit}
@@ -33,7 +33,7 @@ const Sessions = ({ path }) => {
             Terminate current path
           </StyledLinkTextRed>
           <Toast enableMultiContainer containerId={'sessionSavedContainer'} />
-        </>
+        </div>
       ) : (
         <NoPath />
       )}

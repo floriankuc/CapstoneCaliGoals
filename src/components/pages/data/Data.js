@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { getSessions } from '../../../services'
+import { BrowserRouter } from 'react-router-dom'
 
 const Data = ({ path }) => {
   const [id, setId] = useState()
@@ -28,7 +29,9 @@ const Data = ({ path }) => {
       ) : (
         <>
           <p>No training session data to display</p>
-          <StyledLinkText to="/sessions">Log your session</StyledLinkText>
+          <BrowserRouter>
+            <StyledLinkText to="/sessions">Log your session</StyledLinkText>
+          </BrowserRouter>
         </>
       )}
     </div>
@@ -59,6 +62,7 @@ const Data = ({ path }) => {
       year: 'numeric',
     })
   }
+
   function sortSessionsByTime() {
     return data.sort((a, b) => a.time.seconds - b.time.seconds)
   }
@@ -120,6 +124,7 @@ const Data = ({ path }) => {
       let exerciseName = exercise
       return (
         <Chart
+          data-testid="chart"
           key={i}
           times={times}
           goals={goals[exercise]}

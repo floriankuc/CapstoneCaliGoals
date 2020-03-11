@@ -20,20 +20,20 @@ const Navigation = ({ path }) => {
   }, [path])
 
   return (
-    <NavigationStyled>
-      <LinkStyled exact to="/">
+    <NavigationStyled data-test="nav">
+      <LinkStyled exact to="/" data-test="link">
         <AiOutlineHome className="icon" />
       </LinkStyled>
       {!isPath ? (
-        <LinkStyled to="/path">
+        <LinkStyled to="/path" data-test="link">
           <AiOutlinePlus className="icon" />
         </LinkStyled>
       ) : (
         <>
-          <LinkStyled to="/sessions">
+          <LinkStyled to="/sessions" data-test="link">
             <AiOutlineUnorderedList className="icon" />
           </LinkStyled>
-          <LinkStyled to="/data">
+          <LinkStyled to="/data" data-test="link">
             <AiOutlineLineChart className="icon" />
           </LinkStyled>
         </>

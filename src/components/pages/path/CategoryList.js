@@ -14,11 +14,13 @@ const CategoryList = ({ pathCategory, setPathCategory, validationErrors }) => {
   ]
 
   return (
-    <>
+    <section>
       <p style={{ display: 'inline-block' }}>Category</p>
       {renderCategoryErrorMessage()}
-      <StyledButtonNav>{renderCategoryButton()}</StyledButtonNav>
-    </>
+      <StyledButtonNav data-test="nav">
+        {renderCategoryButton()}
+      </StyledButtonNav>
+    </section>
   )
 
   function renderCategoryErrorMessage() {

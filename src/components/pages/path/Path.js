@@ -48,6 +48,7 @@ const Path = ({ path }) => {
           />
           {renderExercises(filteredCategory)}
           <UserInputForm
+            data-testid="userinputform"
             handleGoalSubmit={handleGoalSubmit}
             exercises={exercises}
             updateGoal={updateGoal}

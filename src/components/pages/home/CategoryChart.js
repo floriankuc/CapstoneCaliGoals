@@ -28,6 +28,7 @@ const CategoryChart = ({ categoryData, categoryCount }) => {
 
   return (
     <div
+      className="chart-test"
       style={{
         position: 'relative',
         margin: '50px 0',
