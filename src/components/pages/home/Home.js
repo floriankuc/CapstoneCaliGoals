@@ -4,6 +4,9 @@ import styled from 'styled-components/macro'
 import CategoryChart from './CategoryChart'
 import PropTypes from 'prop-types'
 import { capitalise } from '../../../utils'
+import hexagon from './../../../common/hexagon.svg'
+import { mixins } from '../../../common/styles/mixins'
+import { colors } from '../../../common/styles/colors'
 
 const Home = ({ path }) => {
   const [categories, setCategories] = useState([])
@@ -14,10 +17,13 @@ const Home = ({ path }) => {
 
   return (
     <HomeSection>
-      <h1>Caligoals</h1>
+      <HeaderWrapper>
+        <Logo src={hexagon} />
+        <h1>Caligoals</h1>
+      </HeaderWrapper>
       {path?.length ? (
         <>
-          <p>Welcome back.</p>
+          {/* <p>Welcome back.</p> */}
           <p>Your current path is: {renderPath()}</p>
           <CategoryChart
             categoryData={countedCategoryData()}
@@ -27,11 +33,10 @@ const Home = ({ path }) => {
         </>
       ) : (
         <>
-          <p>Clean tracking.</p>
-          <p style={{ textAlign: 'center', marginTop: '20px' }}>
+          <IntroText>
             Define your training path, log your workouts and track your goals.
-          </p>
-          <StyledLink to="/path" mt={!path?.length ? '80px' : ''}>
+          </IntroText>
+          <StyledLink to="/path" mt={!path?.length ? '60px' : ''}>
             Create a new training path
           </StyledLink>
         </>
@@ -73,41 +78,30 @@ const Home = ({ path }) => {
   }
 }
 
+const IntroText = styled.p`
+  text-align: center;
+  margin-top: 60px;
+`
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
 const HomeSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
   height: 100%;
+  padding: 50px 0;
 `
 
 const StyledLink = styled(Link)`
   margin-top: ${props => props.mt};
-  display: block;
-  width: 300px;
-  text-decoration: none;
-  color: #fff;
-  padding: 12px;
-  background: #111;
-  text-align: center;
-  position: relative;
-
-  &:hover:after,
-  &:active:after {
-    top: -6px;
-    left: 6px;
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    background: red;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: all 0.1s ease-in-out;
-  }
+  ${mixins.squareButton}
 `
 
 const CategorySpan = styled.span`
@@ -117,12 +111,18 @@ const CategorySpan = styled.span`
     content: '';
     width: 100%;
     height: 1px;
-    background: red;
+    background: ${colors.red};
     position: absolute;
     bottom: -4px;
     left: 0;
   }
 `
+
+const Logo = styled.img`
+  width: 50px;
+  margin-bottom: 16px;
+`
+
 Home.propTypes = {
   path: PropTypes.array.isRequired,
 }

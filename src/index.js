@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './components/App'
 import * as serviceWorker from './serviceWorker'
-import GlobalStyles from './common/GlobalStyles'
+import GlobalStyles from './common/styles/GlobalStyles'
 
 ReactDOM.render(
   <>

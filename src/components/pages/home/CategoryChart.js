@@ -1,15 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Doughnut } from 'react-chartjs-2'
+import { colors } from '../../../common/styles/colors'
 
 const CategoryChart = ({ categoryData, categoryCount }) => {
   const chartData = {
     labels: categoryCount,
     datasets: [
       {
-        backgroundColor: ['red', 'darkgrey', 'grey', 'pink'],
+        backgroundColor: [
+          `${colors.red}`,
+          `${colors.grey}`,
+          `${colors.lightred}`,
+          `${colors.darkgrey}`,
+          `${colors.darkred}`,
+          `${colors.lightgrey}`,
+        ],
         data: categoryData,
-        borderColor: '#111',
+        borderColor: `${colors.black}`,
         borderWidth: '1',
       },
     ],
@@ -17,12 +25,16 @@ const CategoryChart = ({ categoryData, categoryCount }) => {
 
   const chartOptions = {
     plugins: {
-      datalabels: { color: 'black' },
+      datalabels: { color: `${colors.black}` },
     },
     responsive: true,
     legend: {
       position: 'bottom',
-      labels: { fontFamily: 'Roboto', fontColor: '#111', fontSize: 14 },
+      labels: {
+        fontFamily: 'Roboto',
+        fontColor: `${colors.black}`,
+        fontSize: 14,
+      },
     },
   }
 
@@ -31,7 +43,7 @@ const CategoryChart = ({ categoryData, categoryCount }) => {
       className="chart-test"
       style={{
         position: 'relative',
-        margin: '50px 0',
+        margin: '20px 0 50px 0',
         width: '100%',
       }}
     >
