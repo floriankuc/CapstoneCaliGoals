@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { mixins } from '../../../common/styles/mixins'
 import { colors } from '../../../common/styles/colors'
 import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'
+import FormHeadline from '../../../common/FormHeadline'
 
 const SessionForm = ({
   handleSessionSubmit,
@@ -24,7 +25,8 @@ const SessionForm = ({
   }
 
   return (
-    <form onSubmit={e => validateAndSubmit(e)}>
+    <form onSubmit={e => validateAndSubmit(e)} style={{ marginTop: 12 }}>
+      {editingTheseExercises().length > 0 && renderSessionHeadline()}
       {session &&
         editingTheseExercises().map(session => (
           <InputContainer>
@@ -51,6 +53,10 @@ const SessionForm = ({
       <StyledLinkText>Save session</StyledLinkText>
     </form>
   )
+
+  function renderSessionHeadline() {
+    return <FormHeadline number={'02'}>This session</FormHeadline>
+  }
 
   function renderSessionErrorMessage() {
     return (

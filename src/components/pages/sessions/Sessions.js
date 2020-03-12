@@ -10,6 +10,7 @@ import Toast from '../../../common/Toast'
 import { deletePath, saveSession } from '../../../services'
 import { mixins } from '../../../common/styles/mixins'
 import { colors } from '../../../common/styles/colors'
+import FormHeadline from '../../../common/FormHeadline'
 
 const Sessions = ({ path }) => {
   const [session, setSession] = useState([])
@@ -25,6 +26,7 @@ const Sessions = ({ path }) => {
 
       {path.length ? (
         <div>
+          <FormHeadline number={'01'}>Your goals</FormHeadline>
           {renderSelectedExercises()}
           <SessionForm
             handleSessionSubmit={handleSessionSubmit}
@@ -107,7 +109,7 @@ const StyledLinkTextRed = styled.button`
   font-size: 18px;
   font-weight: 300;
   line-height: 1.6;
-  margin: 148px auto;
+  margin: 60px auto;
 
   &:hover,
   &:active {
