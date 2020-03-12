@@ -23,7 +23,6 @@ const Home = ({ path }) => {
       </HeaderWrapper>
       {path?.length ? (
         <>
-          {/* <p>Welcome back.</p> */}
           <p>Your current path is: {renderPath()}</p>
           <CategoryChart
             categoryData={countedCategoryData()}

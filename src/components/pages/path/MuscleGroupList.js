@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import { colors } from '../../../common/styles/colors'
+import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'
 
 const MuscleGroupList = ({
   exercises,
@@ -10,8 +12,10 @@ const MuscleGroupList = ({
 }) => {
   return (
     <>
-      <p>Exercises:</p>
-      {renderExercisesErrorMessage()}
+      <TitleAndErrorContainer>
+        <p>Exercises</p>
+        {renderExercisesErrorMessage()}
+      </TitleAndErrorContainer>
       <MuscleGroupContainer>{renderOptionButtons()}</MuscleGroupContainer>
     </>
   )
@@ -45,17 +49,19 @@ const MuscleGroupList = ({
 }
 
 const ErrorMessage = styled.span`
-  color: red;
+  color: ${colors.lightred};
 `
 
 const OptionButton = styled.button`
   font-family: Roboto;
-  padding: 14px 0;
-  background: #1111;
-  color: #111;
+  padding: 12px 0;
+  background: ${colors.lightestgrey};
+  color: ${colors.black};
   border: none;
   font-size: 16px;
+  font-weight: 200;
   width: 100%;
+  height: 100%;
   transition: all 0.05s ease-in-out;
 
   &:hover {
@@ -64,18 +70,19 @@ const OptionButton = styled.button`
 
   &.active,
   &:hover {
-    background: #111;
-    color: #fff;
+    background: ${colors.black};
+    color: ${colors.white};
   }
 `
 
 const MuscleGroupContainer = styled.section`
+  margin: 4px 0;
   display: grid;
+  grid-gap: 1px;
   grid-template-columns: repeat(4, 25%);
   grid-template-rows: auto auto;
   width: 100%;
   max-width: 450px;
-  grid-gap: 1px;
 `
 
 export default MuscleGroupList

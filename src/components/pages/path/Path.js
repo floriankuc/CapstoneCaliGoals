@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import styled from 'styled-components/macro'
 import CategoryList from './CategoryList'
 import OPTIONS from './OPTIONS'
 import OngoingPathContent from './OngoingPathContent'
@@ -102,7 +101,7 @@ const Path = ({ path }) => {
     }
 
     if (exercises.filter(exercise => exercise.selected === true).length === 0) {
-      exercisesError = 'Select at least one exercise with a goal'
+      exercisesError = 'Select at least one exercise'
     }
 
     if (categoryError) {

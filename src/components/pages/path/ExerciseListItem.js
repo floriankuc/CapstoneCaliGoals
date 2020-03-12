@@ -1,15 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
+import { colors } from '../../../common/styles/colors'
 
 const ExerciseListItem = ({ exercise, selectExercise }) => {
+  ExerciseListItem.propTypes = {
+    exercise: PropTypes.object.isRequired,
+    selectExercise: PropTypes.func.isRequired,
+  }
+
   return (
     <ListItem
       key={exercise.id}
-      style={{
-        display: 'block',
-        width: '100%',
-      }}
       id={exercise.id}
       onClick={() => selectExercise(exercise.id)}
       className={exercise.selected ? 'selected' : ''}
@@ -22,19 +24,21 @@ const ExerciseListItem = ({ exercise, selectExercise }) => {
 const ListItem = styled.div`
   position: relative;
   padding: 6px;
+  width: 100%;
+  display: block;
 
   &:hover {
     cursor: pointer;
 
     &:after {
-      background: #111;
+      background: ${colors.black};
       transition: all 0.05s ease-in-out;
     }
   }
 
   &:after {
     content: '';
-    background: #efefef;
+    background: ${colors.lightestgrey};
     width: 20px;
     height: 20px;
     position: absolute;
@@ -48,20 +52,17 @@ const ListItem = styled.div`
 
     &:after {
       content: '';
-      background: #111;
-      width: 20px;
-      height: 20px;
+      background: ${colors.black};
+      width: 24px;
+      height: 24px;
+      transform: translate(-2px, 2px);
       position: absolute;
       bottom: 8px;
       left: 60%;
       z-index: 2;
+      transition: all 0.15s ease-in-out;
     }
   }
 `
-
-ExerciseListItem.propTypes = {
-  exercise: PropTypes.object.isRequired,
-  selectExercise: PropTypes.func.isRequired,
-}
 
 export default ExerciseListItem

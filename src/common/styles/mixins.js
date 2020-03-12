@@ -13,10 +13,14 @@ export const mixins = {
     text-align: center;
     position: relative;
 
-    &:hover:after,
-    &:active:after {
+    &:hover:after {
       top: -6px;
       left: 6px;
+    }
+
+    &:active:after {
+      top: -10px;
+      left: 10px;
     }
 
     &:after {
@@ -29,6 +33,29 @@ export const mixins = {
       width: 100%;
       height: 100%;
       transition: all 0.1s ease-in-out;
+    }
+  `,
+
+  tileButton: css`
+    font-family: Roboto;
+    padding: 12px 0;
+    background: ${colors.lightestgrey};
+    color: ${colors.black};
+    border: none;
+    font-size: 16px;
+    font-weight: 200;
+    width: 100%;
+    height: 100%;
+    transition: all 0.05s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.active,
+    &:hover {
+      background: ${colors.black};
+      color: ${colors.white};
     }
   `,
 

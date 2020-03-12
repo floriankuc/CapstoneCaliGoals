@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
+import { mixins } from '../../../common/styles/mixins'
+import { colors } from '../../../common/styles/colors'
+import { AiFillMinusSquare } from 'react-icons/ai'
 
 const UserInputForm = ({
   exercises,
@@ -9,11 +12,12 @@ const UserInputForm = ({
   handleGoalSubmit,
 }) => {
   return (
-    <form onSubmit={handleGoalSubmit}>
+    <form onSubmit={handleGoalSubmit} style={{ marginTop: 20 }}>
+      <GoalHeadline>
+        {numberOfSelectedExercises() !== 0 && 'Set your goals'}
+      </GoalHeadline>
       {renderExercisesWithUserInputs()}
-      <StyledButton style={{ display: 'block', marginTop: '20px' }}>
-        Create path
-      </StyledButton>
+      <StyledButton>Create path</StyledButton>
     </form>
   )
 
@@ -24,13 +28,7 @@ const UserInputForm = ({
       .map(exercise => (
         <InputContainer>
           <p>{exercise.title}</p>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-evenly',
-              width: '100px',
-            }}
-          >
+          <InputFieldContainer>
             <UnitInput
               data-id={exercise.id}
               name={exercise.title}
@@ -40,16 +38,44 @@ const UserInputForm = ({
               required
             />
             <p>{exercise.unit}</p>
-            <span onClick={() => selectExercise(exercise.id)}>X</span>
-          </div>
+            <AiFillMinusSquare
+              onClick={() => selectExercise(exercise.id)}
+              className="removeExerciseButton"
+            />
+          </InputFieldContainer>
         </InputContainer>
       ))
   }
+
+  function numberOfSelectedExercises() {
+    return exercises.filter(exercise => exercise.selected === true).length
+  }
 }
+
+const GoalHeadline = styled.p`
+  margin-bottom: 8px;
+`
+
+const InputFieldContainer = styled.div`
+  display: grid;
+  grid-template-columns: 40px 40px 40px;
+  grid-template-rows: 100%;
+
+  .removeExerciseButton {
+    height: 100%;
+    font-size: 26px;
+    transition: color 0.1s ease-in-out;
+
+    &:hover {
+      color: ${colors.red};
+      cursor: pointer;
+    }
+  }
+`
 
 const InputContainer = styled.div`
   width: 100%;
-  background: #efefef;
+  background: ${colors.lightestgrey};
   padding: 6px;
   display: flex;
   justify-content: space-between;
@@ -61,33 +87,16 @@ const InputContainer = styled.div`
 `
 
 const StyledButton = styled.button`
-  margin: 0 auto;
-  display: block;
+  ${mixins.squareButton};
   border: none;
-  width: 300px;
-  text-decoration: none;
-  color: #fff;
-  padding: 12px;
-  background: #111;
-  text-align: center;
-  position: relative;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.6;
+  margin: 36px auto;
 
-  &:hover:after {
-    top: -6px;
-    left: 6px;
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    background: red;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: all 0.1s;
+  &:hover,
+  &:active {
+    cursor: pointer;
   }
 `
 
@@ -96,11 +105,18 @@ const UnitInput = styled.input`
   width: 36px;
   height: 100%;
   text-align: center;
-  background: #efefef;
+  background: transparent;
   border: none;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid ${colors.red};
   -webkit-appearance: none;
   -moz-appearance: textfield;
+  transition: all 0.1s ease-in-out;
+
+  &:focus {
+    box-shadow: 0 1px 0 0 ${colors.red};
+    width: 40px;
+    transform: translateX(-2px);
+  }
 
   p {
     display: inline-block;

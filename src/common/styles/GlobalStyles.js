@@ -17,7 +17,7 @@ export default createGlobalStyle`
   body {
     margin: 0;
     font-family: Roboto, sans-serif;
-    font-weight: 300;
+    font-weight: 200;
     background: #fff;
     font-size: 18px;
     line-height: 1.6;
@@ -28,7 +28,6 @@ export default createGlobalStyle`
   h1 {
     font-size: 48px;
     font-family: Spartan, sans-serif;
-    /* margin: 0 0 36px 0; */
     font-weight: 300;
     text-transform: uppercase;
     color: ${colors.black};

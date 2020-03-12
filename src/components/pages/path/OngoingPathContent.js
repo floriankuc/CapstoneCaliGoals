@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { colors } from '../../../common/styles/colors'
 
 const OngoingPathContent = ({ path }) => {
   return (
@@ -23,9 +24,9 @@ const StyledLinkTextRed = styled.button`
   display: block;
   width: 300px;
   text-decoration: none;
-  color: #fff;
+  color: ${colors.white};
   padding: 12px;
-  background: red;
+  background: ${colors.red};
   text-align: center;
   position: relative;
 
@@ -38,7 +39,7 @@ const StyledLinkTextRed = styled.button`
     content: '';
     position: absolute;
     z-index: -1;
-    background: #111;
+    background: ${colors.black};
     top: 0;
     left: 0;
     width: 100%;
@@ -52,9 +53,9 @@ const StyledLinkText = styled(Link)`
   display: block;
   width: 300px;
   text-decoration: none;
-  color: #fff;
+  color: ${colors.white};
   padding: 12px;
-  background: #111;
+  background: ${colors.black};
   text-align: center;
   position: relative;
 

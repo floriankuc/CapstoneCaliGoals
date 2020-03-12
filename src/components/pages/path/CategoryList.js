@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 import { capitalise } from '../../../utils'
+import { colors } from '../../../common/styles/colors'
+import { mixins } from '../../../common/styles/mixins'
+import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'
 
 const CategoryList = ({ pathCategory, setPathCategory, validationErrors }) => {
   const CATEGORIES = [
@@ -15,8 +18,10 @@ const CategoryList = ({ pathCategory, setPathCategory, validationErrors }) => {
 
   return (
     <section>
-      <p style={{ display: 'inline-block' }}>Category</p>
-      {renderCategoryErrorMessage()}
+      <TitleAndErrorContainer>
+        <p>Category</p>
+        {renderCategoryErrorMessage()}
+      </TitleAndErrorContainer>
       <StyledButtonNav data-test="nav">
         {renderCategoryButton()}
       </StyledButtonNav>
@@ -50,32 +55,16 @@ const CategoryList = ({ pathCategory, setPathCategory, validationErrors }) => {
 }
 
 const ErrorMessage = styled.span`
-  color: red;
+  color: ${colors.lightred};
 `
 
 const CategoryButton = styled.button`
-  font-family: Roboto;
-  padding: 14px 0;
-  background: #1111;
-  color: #111;
-  border: none;
-  font-size: 16px;
-  width: 100%;
-  height: 100%;
-  transition: all 0.05s ease-in-out;
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  &.active,
-  &:hover {
-    background: #111;
-    color: #fff;
-  }
+  ${mixins.tileButton}
 `
 
-const StyledButtonNav = styled.nav`
+const StyledButtonNav = styled.section`
+  margin-top: 4px;
+  margin-bottom: 20px;
   display: grid;
   grid-gap: 1px;
   grid-template-columns: repeat(3, 33.3%);
