@@ -4,6 +4,8 @@ import styled from 'styled-components/macro'
 import { capitalise } from '../../../utils'
 import { colors } from '../../../common/styles/colors'
 import { mixins } from '../../../common/styles/mixins'
+import FormHeadline from '../../../common/FormHeadline'
+
 import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'
 
 const CategoryList = ({ pathCategory, setPathCategory, validationErrors }) => {
@@ -19,7 +21,9 @@ const CategoryList = ({ pathCategory, setPathCategory, validationErrors }) => {
   return (
     <section>
       <TitleAndErrorContainer>
-        <p>Category</p>
+        <p>
+          <FormHeadline number={'01'}>Category</FormHeadline>
+        </p>
         {renderCategoryErrorMessage()}
       </TitleAndErrorContainer>
       <StyledButtonNav data-test="nav">

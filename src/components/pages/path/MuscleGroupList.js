@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import { colors } from '../../../common/styles/colors'
+import FormHeadline from '../../../common/FormHeadline'
 import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'
 
 const MuscleGroupList = ({
@@ -13,7 +14,9 @@ const MuscleGroupList = ({
   return (
     <>
       <TitleAndErrorContainer>
-        <p>Exercises</p>
+        <p>
+          <FormHeadline number={'02'}>Exercises</FormHeadline>
+        </p>
         {renderExercisesErrorMessage()}
       </TitleAndErrorContainer>
       <MuscleGroupContainer>{renderOptionButtons()}</MuscleGroupContainer>
@@ -47,6 +50,11 @@ const MuscleGroupList = ({
     )
   }
 }
+
+// const NumberSpan = styled.span`
+//   color: ${colors.red};
+//   font-family: Spartan, sans-serif;
+// `
 
 const ErrorMessage = styled.span`
   color: ${colors.lightred};

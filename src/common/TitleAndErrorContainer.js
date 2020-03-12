@@ -1,9 +1,9 @@
 import React from 'react'
 
-const TitleAndErrorContainer = props => {
+const TitleAndErrorContainer = ({ children }) => {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-      {props.children}
+      {children}
     </div>
   )
 }

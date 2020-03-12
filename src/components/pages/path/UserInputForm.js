@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 import { mixins } from '../../../common/styles/mixins'
 import { colors } from '../../../common/styles/colors'
+import FormHeadline from '../../../common/FormHeadline'
 import { AiFillMinusSquare } from 'react-icons/ai'
 
 const UserInputForm = ({
@@ -13,9 +14,9 @@ const UserInputForm = ({
 }) => {
   return (
     <form onSubmit={handleGoalSubmit} style={{ marginTop: 20 }}>
-      <GoalHeadline>
-        {numberOfSelectedExercises() !== 0 && 'Set your goals'}
-      </GoalHeadline>
+      {numberOfSelectedExercises() !== 0 && (
+        <FormHeadline number={'03'}>Set your goals</FormHeadline>
+      )}
       {renderExercisesWithUserInputs()}
       <StyledButton>Create path</StyledButton>
     </form>
@@ -51,10 +52,6 @@ const UserInputForm = ({
     return exercises.filter(exercise => exercise.selected === true).length
   }
 }
-
-const GoalHeadline = styled.p`
-  margin-bottom: 8px;
-`
 
 const InputFieldContainer = styled.div`
   display: grid;

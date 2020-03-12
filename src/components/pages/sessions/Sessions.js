@@ -8,6 +8,8 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Toast from '../../../common/Toast'
 import { deletePath, saveSession } from '../../../services'
+import { mixins } from '../../../common/styles/mixins'
+import { colors } from '../../../common/styles/colors'
 
 const Sessions = ({ path }) => {
   const [session, setSession] = useState([])
@@ -83,13 +85,16 @@ const Sessions = ({ path }) => {
 
   function renderSelectedExercises() {
     if (session.length) {
-      return session.map(el => (
+      return session.map(exercise => (
         <ExerciseDiv
-          className={el.editing ? 'selected' : ''}
-          key={el.id}
-          onClick={() => editSessionWithExercise(el.id)}
+          className={exercise.editing ? 'selected' : ''}
+          key={exercise.id}
+          onClick={() => editSessionWithExercise(exercise.id)}
         >
-          {el.title} - {el.amount} {el.unit}
+          <p>{exercise.title}</p>
+          <p>
+            Goal: {exercise.amount} {exercise.unit}
+          </p>
         </ExerciseDiv>
       ))
     }
@@ -97,43 +102,33 @@ const Sessions = ({ path }) => {
 }
 
 const StyledLinkTextRed = styled.button`
-  margin: 30px auto;
-  display: block;
-  width: 300px;
-  text-decoration: none;
-  color: #fff;
-  padding: 12px;
-  background: red;
-  text-align: center;
-  position: relative;
+  ${mixins.squareButtonReverse};
+  border: none;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.6;
+  margin: 148px auto;
 
-  &:hover:after {
-    top: -6px;
-    left: 6px;
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    background: #111;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: all 0.1s;
+  &:hover,
+  &:active {
+    cursor: pointer;
   }
 `
 
 const ExerciseDiv = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  grid-template-rows: 32px;
+  align-items: center;
+  padding: 8px;
   width: 100%;
-  background: #fff;
-  border: 1px solid #111;
+  background: ${colors.lightestgrey};
   margin: 1px 0;
 
-  &.selected {
-    color: #fff;
-    background: #111;
+  &.selected,
+  &:hover {
+    color: ${colors.white};
+    background: ${colors.black};
   }
 
   &:hover {

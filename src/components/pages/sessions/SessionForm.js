@@ -1,65 +1,159 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
+import { mixins } from '../../../common/styles/mixins'
+import { colors } from '../../../common/styles/colors'
+import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'
 
 const SessionForm = ({
   handleSessionSubmit,
   session,
   updateSessionExercise,
 }) => {
+  const [validationErrors, setValidationErrors] = useState({
+    sessionError: '',
+  })
+
+  function validateAndSubmit(e) {
+    e.preventDefault()
+    const isValid = validate()
+    if (isValid) {
+      handleSessionSubmit(e)
+      setValidationErrors({ sessionError: '' })
+    }
+  }
+
   return (
-    <form onSubmit={handleSessionSubmit}>
+    <form onSubmit={e => validateAndSubmit(e)}>
       {session &&
         editingTheseExercises().map(session => (
-          <div style={{ width: '100%' }}>
-            <span>{session.title}</span>
-            <input
-              required
-              className="input"
-              data-id={session.id}
-              name={session.title}
-              type="number"
-              value={session.amountDone || ''}
-              onChange={e => updateSessionExercise(session.id, e.target.value)}
-            />
-            <span>{session.unit}</span>
-          </div>
+          <InputContainer>
+            <p>{session.title}</p>
+            <InputFieldContainer>
+              <UnitInput
+                required
+                className="input"
+                data-id={session.id}
+                name={session.title}
+                type="number"
+                value={session.amountDone || ''}
+                onChange={e =>
+                  updateSessionExercise(session.id, e.target.value)
+                }
+              />
+              <p>{session.unit}</p>
+            </InputFieldContainer>
+          </InputContainer>
         ))}
+      <TitleAndErrorContainer>
+        {renderSessionErrorMessage()}
+      </TitleAndErrorContainer>
       <StyledLinkText>Save session</StyledLinkText>
     </form>
   )
+
+  function renderSessionErrorMessage() {
+    return (
+      <ErrorMessage>
+        {numberOfExercisesDoneInASession() === 0 &&
+          validationErrors.sessionError}
+      </ErrorMessage>
+    )
+  }
+
+  function validate() {
+    let sessionError = ''
+
+    if (!numberOfExercisesDoneInASession()) {
+      sessionError = 'Make at least one entry'
+    }
+
+    if (sessionError) {
+      setValidationErrors({ sessionError })
+      return false
+    }
+
+    return true
+  }
+
+  function numberOfExercisesDoneInASession() {
+    return session.filter(session => session.amountDone > 0).length
+  }
 
   function editingTheseExercises() {
     return session.filter(session => session.editing === true)
   }
 }
 
-const StyledLinkText = styled.button`
-  margin: 0 auto;
-  display: block;
-  width: 300px;
-  text-decoration: none;
-  color: #fff;
-  padding: 12px;
-  background: #111;
-  text-align: center;
-  position: relative;
+const ErrorMessage = styled.span`
+  color: ${colors.lightred};
+`
 
-  &:hover:after {
-    top: -6px;
-    left: 6px;
+const InputFieldContainer = styled.div`
+  display: grid;
+  grid-template-columns: 40px 40px 40px;
+  grid-template-rows: 100%;
+
+  .removeExerciseButton {
+    height: 100%;
+    font-size: 26px;
+    transition: color 0.1s ease-in-out;
+
+    &:hover {
+      color: ${colors.red};
+      cursor: pointer;
+    }
+  }
+`
+
+const InputContainer = styled.div`
+  width: 100%;
+  background: ${colors.lightestgrey};
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  margin: 1px 0;
+
+  p {
+    display: inline-block;
+  }
+`
+
+const UnitInput = styled.input`
+  font-size: 22px;
+  width: 36px;
+  height: 100%;
+  text-align: center;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid ${colors.red};
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  transition: all 0.1s ease-in-out;
+
+  &:focus {
+    box-shadow: 0 1px 0 0 ${colors.red};
+    width: 40px;
+    transform: translateX(-2px);
   }
 
-  &:after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    background: red;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: all 0.1s;
+  p {
+    display: inline-block;
+    width: 10%;
+  }
+`
+
+const StyledLinkText = styled.button`
+  ${mixins.squareButton}
+  border: none;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.6;
+  margin: 36px auto;
+
+  &:hover,
+  &:active {
+    cursor: pointer;
   }
 `
 
