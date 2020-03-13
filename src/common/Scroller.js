@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Scroller = props => {
-  return <ScrollerContainer>{props.children}</ScrollerContainer>
+const Scroller = ({ children }) => {
+  return <ScrollerContainer>{children}</ScrollerContainer>
 }
 
 const ScrollerContainer = styled.div`

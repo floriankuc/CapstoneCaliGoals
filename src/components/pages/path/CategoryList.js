@@ -5,7 +5,6 @@ import { capitalise } from '../../../utils'
 import { colors } from '../../../common/styles/colors'
 import { mixins } from '../../../common/styles/mixins'
 import FormHeadline from '../../../common/FormHeadline'
-
 import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'
 
 const CategoryList = ({ pathCategory, setPathCategory, validationErrors }) => {
@@ -80,6 +79,7 @@ const StyledButtonNav = styled.section`
 CategoryList.propTypes = {
   pathCategory: PropTypes.string.isRequired,
   setPathCategory: PropTypes.func.isRequired,
+  validationErrors: PropTypes.object.isRequired,
 }
 
 export default CategoryList

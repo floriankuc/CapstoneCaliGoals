@@ -18,7 +18,7 @@ export default createGlobalStyle`
     margin: 0;
     font-family: Roboto, sans-serif;
     font-weight: 200;
-    background: #fff;
+    background: ${colors.white};
     font-size: 18px;
     line-height: 1.6;
     overflow: hidden;
@@ -48,7 +48,7 @@ export default createGlobalStyle`
       left: 0;
       width: 100%;
       height: 1px;
-      background: red;
+      background: ${colors.red};
     }
   }
 

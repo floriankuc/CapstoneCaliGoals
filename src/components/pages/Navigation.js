@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import { NavLink } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import {
   AiOutlineHome,
   AiOutlinePlus,
@@ -70,5 +71,9 @@ const NavigationStyled = styled.nav`
   display: grid;
   grid-auto-flow: column;
 `
+
+Navigation.propTypes = {
+  path: PropTypes.array.isRequired,
+}
 
 export default Navigation

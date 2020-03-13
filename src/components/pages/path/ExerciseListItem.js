@@ -4,11 +4,6 @@ import styled from 'styled-components/macro'
 import { colors } from '../../../common/styles/colors'
 
 const ExerciseListItem = ({ exercise, selectExercise }) => {
-  ExerciseListItem.propTypes = {
-    exercise: PropTypes.object.isRequired,
-    selectExercise: PropTypes.func.isRequired,
-  }
-
   return (
     <ListItem
       key={exercise.id}
@@ -64,5 +59,10 @@ const ListItem = styled.div`
     }
   }
 `
+
+ExerciseListItem.propTypes = {
+  exercise: PropTypes.object.isRequired,
+  selectExercise: PropTypes.func.isRequired,
+}
 
 export default ExerciseListItem
