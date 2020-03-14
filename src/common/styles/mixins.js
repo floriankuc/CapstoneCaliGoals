@@ -70,7 +70,7 @@ export const mixins = {
   `,
 
   tileButton: css`
-    font-family: Roboto;
+    font-family: Roboto, sans-serif;
     padding: 12px 0;
     background: ${colors.lightestgrey};
     color: ${colors.black};

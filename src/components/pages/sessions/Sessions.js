@@ -8,8 +8,8 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Toast from '../../../common/Toast'
 import { deletePath, saveSession } from '../../../services'
-import { mixins } from '../../../common/styles/mixins'
 import { colors } from '../../../common/styles/colors'
+import { mixins } from '../../../common/styles/mixins'
 import FormHeadline from '../../../common/FormHeadline'
 
 const Sessions = ({ path }) => {
@@ -33,9 +33,9 @@ const Sessions = ({ path }) => {
             session={session}
             updateSessionExercise={updateSessionExercise}
           />
-          <StyledLinkTextRed onClick={() => handleDelete(path[0].id)}>
+          <ButtonRed onClick={() => handleDelete(path[0].id)}>
             Terminate current path
-          </StyledLinkTextRed>
+          </ButtonRed>
           <Toast enableMultiContainer containerId={'sessionSavedContainer'} />
         </div>
       ) : (
@@ -103,13 +103,13 @@ const Sessions = ({ path }) => {
   }
 }
 
-const StyledLinkTextRed = styled.button`
+const ButtonRed = styled.button`
   ${mixins.squareButtonReverse};
   border: none;
   font-size: 18px;
   font-weight: 300;
   line-height: 1.6;
-  margin: 60px auto;
+  margin: 36px auto;
 
   &:hover,
   &:active {

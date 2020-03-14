@@ -2,9 +2,7 @@ import { createGlobalStyle } from 'styled-components/macro'
 import { colors } from './colors'
 import { mixins } from './mixins'
 
-export default createGlobalStyle`
-
-@import url('https://fonts.googleapis.com/css?family=Oswald:200,300,400,600|Spartan:200,300,400,500|Roboto:300,400,700&display=swap');
+const GlobalStyles = createGlobalStyle`
 
   *,
   *:after,
@@ -12,6 +10,7 @@ export default createGlobalStyle`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    
   }
 
   body {
@@ -51,6 +50,6 @@ export default createGlobalStyle`
       background: ${colors.red};
     }
   }
-
-
 `
+
+export default GlobalStyles

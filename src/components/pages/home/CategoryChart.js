@@ -10,11 +10,11 @@ const CategoryChart = ({ categoryData, categoryCount }) => {
       {
         backgroundColor: [
           `${colors.red}`,
+          `${colors.lightgrey}`,
+          `${colors.darkred}`,
           `${colors.grey}`,
           `${colors.lightred}`,
           `${colors.darkgrey}`,
-          `${colors.darkred}`,
-          `${colors.lightgrey}`,
         ],
         data: categoryData,
         borderColor: `${colors.black}`,
@@ -31,7 +31,7 @@ const CategoryChart = ({ categoryData, categoryCount }) => {
     legend: {
       position: 'bottom',
       labels: {
-        fontFamily: 'Roboto',
+        fontFamily: 'Roboto, sans-serif',
         fontColor: `${colors.black}`,
         fontSize: 14,
       },

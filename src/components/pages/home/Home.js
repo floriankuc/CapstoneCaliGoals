@@ -4,9 +4,9 @@ import styled from 'styled-components/macro'
 import CategoryChart from './CategoryChart'
 import PropTypes from 'prop-types'
 import { capitalise } from '../../../utils'
-import hexagon from './../../../common/hexagon.svg'
 import { mixins } from '../../../common/styles/mixins'
 import { colors } from '../../../common/styles/colors'
+import Header from './Header'
 
 const Home = ({ path }) => {
   const [categories, setCategories] = useState([])
@@ -17,10 +17,7 @@ const Home = ({ path }) => {
 
   return (
     <HomeSection>
-      <HeaderWrapper>
-        <Logo src={hexagon} />
-        <h1>Caligoals</h1>
-      </HeaderWrapper>
+      <Header />
       {path?.length ? (
         <>
           <p>Your current path is: {renderPath()}</p>
@@ -82,13 +79,6 @@ const IntroText = styled.p`
   margin-top: 60px;
 `
 
-const HeaderWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
-
 const HomeSection = styled.section`
   display: flex;
   flex-direction: column;
@@ -115,11 +105,6 @@ const CategorySpan = styled.span`
     bottom: -4px;
     left: 0;
   }
-`
-
-const Logo = styled.img`
-  width: 50px;
-  margin-bottom: 16px;
 `
 
 Home.propTypes = {

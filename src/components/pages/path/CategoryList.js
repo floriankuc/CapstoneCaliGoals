@@ -62,7 +62,7 @@ const ErrorMessage = styled.span`
 `
 
 const CategoryButton = styled.button`
-  ${mixins.tileButton}
+  ${mixins.tileButton};
 `
 
 const StyledButtonNav = styled.section`
