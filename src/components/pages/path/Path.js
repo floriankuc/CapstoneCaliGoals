@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Toast from '../../../common/Toast'
 import { getExercises, savePath } from '../../../services'
 import MuscleGroupList from './MuscleGroupList'
+import TransitionWrapper from '../../../common/TransitionWrapper'
 
 const Path = ({ path }) => {
   const [exercises, setExercises] = useState([])
@@ -27,7 +28,7 @@ const Path = ({ path }) => {
   }, [])
 
   return (
-    <>
+    <TransitionWrapper>
       <Toast enableMultiContainer containerId={'pathDeletedContainer'} />
       {path.length < 1 ? (
         <div>
@@ -60,7 +61,7 @@ const Path = ({ path }) => {
           <Toast enableMultiContainer containerId={'pathCreatedContainer'} />
         </>
       )}
-    </>
+    </TransitionWrapper>
   )
 
   function selectExercise(id) {

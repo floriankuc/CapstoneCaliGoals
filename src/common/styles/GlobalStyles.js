@@ -2,9 +2,7 @@ import { createGlobalStyle } from 'styled-components/macro'
 import { colors } from './colors'
 import { mixins } from './mixins'
 
-export default createGlobalStyle`
-
-@import url('https://fonts.googleapis.com/css?family=Oswald:200,300,400,600|Spartan:200,300,400,500|Roboto:300,400,700&display=swap');
+const GlobalStyles = createGlobalStyle`
 
   *,
   *:after,
@@ -23,6 +21,7 @@ export default createGlobalStyle`
     line-height: 1.6;
     overflow: hidden;
     height: 100vh;
+    overflow-x: hidden;
   }
 
   h1 {
@@ -52,5 +51,17 @@ export default createGlobalStyle`
     }
   }
 
+  .icon {
+    font-size: 32px;
+    transition: all 0.1s ease-out;
+    color: ${colors.black};
+    position: absolute;
+    z-index: 1;
+  }
 
+  &.active .icon {
+    color: ${colors.red};
+  }
 `
+
+export default GlobalStyles

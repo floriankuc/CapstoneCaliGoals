@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
-import { mixins } from '../../../common/styles/mixins'
 import { colors } from '../../../common/styles/colors'
 import FormHeadline from '../../../common/FormHeadline'
 import { AiFillMinusSquare } from 'react-icons/ai'
+import ButtonBlack from '../../../common/ButtonBlack'
 
 const UserInputForm = ({
   exercises,
@@ -18,7 +18,7 @@ const UserInputForm = ({
         <FormHeadline number={'03'}>Set your goals</FormHeadline>
       )}
       {renderExercisesWithUserInputs()}
-      <StyledButton>Create path</StyledButton>
+      <ButtonBlack>Create path</ButtonBlack>
     </form>
   )
 
@@ -80,20 +80,6 @@ const InputContainer = styled.div`
 
   p {
     display: inline-block;
-  }
-`
-
-const StyledButton = styled.button`
-  ${mixins.squareButton};
-  border: none;
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1.6;
-  margin: 36px auto;
-
-  &:hover,
-  &:active {
-    cursor: pointer;
   }
 `
 

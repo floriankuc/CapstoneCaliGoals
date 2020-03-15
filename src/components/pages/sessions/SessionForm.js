@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
-import { mixins } from '../../../common/styles/mixins'
 import { colors } from '../../../common/styles/colors'
 import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'
+import ButtonBlack from '../../../common/ButtonBlack'
 import FormHeadline from '../../../common/FormHeadline'
 
 const SessionForm = ({
@@ -50,7 +50,7 @@ const SessionForm = ({
       <TitleAndErrorContainer>
         {renderSessionErrorMessage()}
       </TitleAndErrorContainer>
-      <StyledLinkText>Save session</StyledLinkText>
+      <ButtonBlack>Save session</ButtonBlack>
     </form>
   )
 
@@ -146,20 +146,6 @@ const UnitInput = styled.input`
   p {
     display: inline-block;
     width: 10%;
-  }
-`
-
-const StyledLinkText = styled.button`
-  ${mixins.squareButton}
-  border: none;
-  font-size: 18px;
-  font-weight: 300;
-  line-height: 1.6;
-  margin: 36px auto;
-
-  &:hover,
-  &:active {
-    cursor: pointer;
   }
 `
 

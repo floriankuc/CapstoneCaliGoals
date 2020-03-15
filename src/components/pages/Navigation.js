@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
-import { NavLink } from 'react-router-dom'
+import { NavLink, __RouterContext } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   AiOutlineHome,
@@ -54,7 +54,7 @@ const LinkStyled = styled(NavLink)`
   transition: all 0.5s ease-out;
   position: relative;
 
-  .icon {
+  /* .icon {
     font-size: 32px;
     transition: all 0.1s ease-out;
     color: ${colors.black};
@@ -64,7 +64,7 @@ const LinkStyled = styled(NavLink)`
 
   &.active .icon {
     color: ${colors.red};
-  }
+  } */
 `
 
 const NavigationStyled = styled.nav`

@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { getSessions } from '../../../services'
 import { BrowserRouter } from 'react-router-dom'
-import NumberSpan from '../../../common/NumberSpan'
-import { prependNumber, getDateWithYear } from '../../../utils'
+import { getDateWithYear } from '../../../utils'
 import ExerciseCharts from './ExerciseCharts'
+import TransitionWrapper from '../../../common/TransitionWrapper'
+import SessionListItemContainer from './SessionListItemContainer'
 
 const Data = ({ path }) => {
   const [id, setId] = useState()
@@ -20,7 +21,7 @@ const Data = ({ path }) => {
   }, [path, id])
 
   return (
-    <div>
+    <TransitionWrapper>
       <h2>Statistics</h2>
       {data?.length ? (
         <>
@@ -35,7 +36,7 @@ const Data = ({ path }) => {
           </BrowserRouter>
         </>
       )}
-    </div>
+    </TransitionWrapper>
   )
 
   function renderSessions() {
@@ -49,16 +50,24 @@ const Data = ({ path }) => {
       const date = new Date(session.time.seconds * 1000)
       const formattedDate = getDateWithYear(date)
       return (
-        <SessionListItemContainer key={session.id}>
-          <p>
-            <NumberSpan>{prependNumber(i + 1)} </NumberSpan>
-            {formattedDate}
-          </p>
-          <SessionExercisesContainer>
-            {renderSessionExercisesList(selectedSessionsExtracted)}
-          </SessionExercisesContainer>
-        </SessionListItemContainer>
+        <SessionListItemContainer
+          session={session}
+          formattedDate={formattedDate}
+          selectedSessionsExtracted={selectedSessionsExtracted}
+          i={i}
+        />
       )
+      // return (
+      //   <SessionListItemContainer key={session.id}>
+      //     <p>
+      //       <NumberSpan>{prependNumber(i + 1)} </NumberSpan>
+      //       {formattedDate}
+      //     </p>
+      //     <SessionExercisesContainer>
+      //       {renderSessionExercisesList(selectedSessionsExtracted)}
+      //     </SessionExercisesContainer>
+      //   </SessionListItemContainer>
+      // )
     })
   }
 
@@ -75,13 +84,13 @@ const Data = ({ path }) => {
   }
 }
 
-const SessionExercisesContainer = styled.div`
-  background: pink;
-`
+// const SessionExercisesContainer = styled.div`
+//   background: pink;
+// `
 
-const SessionListItemContainer = styled.section`
-  margin-bottom: 20px;
-`
+// const SessionListItemContainer = styled.section`
+//   margin-bottom: 20px;
+// `
 
 const StyledLinkText = styled(Link)`
   margin: 20px auto;

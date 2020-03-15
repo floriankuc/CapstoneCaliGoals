@@ -4,9 +4,10 @@ import styled from 'styled-components/macro'
 import CategoryChart from './CategoryChart'
 import PropTypes from 'prop-types'
 import { capitalise } from '../../../utils'
-import hexagon from './../../../common/hexagon.svg'
 import { mixins } from '../../../common/styles/mixins'
 import { colors } from '../../../common/styles/colors'
+import TransitionWrapper from '../../../common/TransitionWrapper'
+import Header from './Header'
 
 const Home = ({ path }) => {
   const [categories, setCategories] = useState([])
@@ -16,31 +17,32 @@ const Home = ({ path }) => {
   }, [path])
 
   return (
-    <HomeSection>
-      <HeaderWrapper>
-        <Logo src={hexagon} />
-        <h1>Caligoals</h1>
-      </HeaderWrapper>
-      {path?.length ? (
-        <>
-          <p>Your current path is: {renderPath()}</p>
-          <CategoryChart
-            categoryData={countedCategoryData()}
-            categoryCount={countCategories()}
-          />
-          <StyledLink to="/sessions">Working out? Log your session.</StyledLink>
-        </>
-      ) : (
-        <>
-          <IntroText>
-            Define your training path, log your workouts and track your goals.
-          </IntroText>
-          <StyledLink to="/path" mt={!path?.length ? '60px' : ''}>
-            Create a new training path
-          </StyledLink>
-        </>
-      )}
-    </HomeSection>
+    <TransitionWrapper>
+      <HomeSection>
+        <Header />
+        {path?.length ? (
+          <>
+            <p>Your current path is: {renderPath()}</p>
+            <CategoryChart
+              categoryData={countedCategoryData()}
+              categoryCount={countCategories()}
+            />
+            <StyledLink to="/sessions">
+              Working out? Log your session.
+            </StyledLink>
+          </>
+        ) : (
+          <>
+            <IntroText>
+              Define your training path, log your workouts and track your goals.
+            </IntroText>
+            <StyledLink to="/path" mt={!path?.length ? '60px' : ''}>
+              Create a new training path
+            </StyledLink>
+          </>
+        )}
+      </HomeSection>
+    </TransitionWrapper>
   )
 
   function readCategories() {
@@ -82,13 +84,6 @@ const IntroText = styled.p`
   margin-top: 60px;
 `
 
-const HeaderWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
-
 const HomeSection = styled.section`
   display: flex;
   flex-direction: column;
@@ -115,11 +110,6 @@ const CategorySpan = styled.span`
     bottom: -4px;
     left: 0;
   }
-`
-
-const Logo = styled.img`
-  width: 50px;
-  margin-bottom: 16px;
 `
 
 Home.propTypes = {
