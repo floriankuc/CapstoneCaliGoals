@@ -10,6 +10,7 @@ import Toast from '../../../common/Toast'
 import { deletePath, saveSession } from '../../../services'
 import { colors } from '../../../common/styles/colors'
 import { mixins } from '../../../common/styles/mixins'
+import TransitionWrapper from '../../../common/TransitionWrapper'
 import FormHeadline from '../../../common/FormHeadline'
 
 const Sessions = ({ path }) => {
@@ -20,7 +21,7 @@ const Sessions = ({ path }) => {
   }, [path])
 
   return (
-    <div>
+    <TransitionWrapper>
       <h2>Session log</h2>
       <Toast enableMultiContainer containerId={'pathDeletedContainer'} />
 
@@ -41,7 +42,7 @@ const Sessions = ({ path }) => {
       ) : (
         <NoPath />
       )}
-    </div>
+    </TransitionWrapper>
   )
 
   function handleDelete(id) {

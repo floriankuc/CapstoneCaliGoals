@@ -14,6 +14,8 @@ const FormHeadline = ({ number, children }) => {
 
 const StyledSpan = styled.span`
   color: ${colors.red};
+  width: 32px;
+  display: inline-block;
   font-family: Spartan, sans-serif;
 `
 

@@ -10,7 +10,6 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    
   }
 
   body {
@@ -22,6 +21,7 @@ const GlobalStyles = createGlobalStyle`
     line-height: 1.6;
     overflow: hidden;
     height: 100vh;
+    overflow-x: hidden;
   }
 
   h1 {
@@ -49,6 +49,18 @@ const GlobalStyles = createGlobalStyle`
       height: 1px;
       background: ${colors.red};
     }
+  }
+
+  .icon {
+    font-size: 32px;
+    transition: all 0.1s ease-out;
+    color: ${colors.black};
+    position: absolute;
+    z-index: 1;
+  }
+
+  &.active .icon {
+    color: ${colors.red};
   }
 `
 

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import { capitalise } from '../../../utils'
 import { mixins } from '../../../common/styles/mixins'
 import { colors } from '../../../common/styles/colors'
+import TransitionWrapper from '../../../common/TransitionWrapper'
 import Header from './Header'
 
 const Home = ({ path }) => {
@@ -16,28 +17,32 @@ const Home = ({ path }) => {
   }, [path])
 
   return (
-    <HomeSection>
-      <Header />
-      {path?.length ? (
-        <>
-          <p>Your current path is: {renderPath()}</p>
-          <CategoryChart
-            categoryData={countedCategoryData()}
-            categoryCount={countCategories()}
-          />
-          <StyledLink to="/sessions">Working out? Log your session.</StyledLink>
-        </>
-      ) : (
-        <>
-          <IntroText>
-            Define your training path, log your workouts and track your goals.
-          </IntroText>
-          <StyledLink to="/path" mt={!path?.length ? '60px' : ''}>
-            Create a new training path
-          </StyledLink>
-        </>
-      )}
-    </HomeSection>
+    <TransitionWrapper>
+      <HomeSection>
+        <Header />
+        {path?.length ? (
+          <>
+            <p>Your current path is: {renderPath()}</p>
+            <CategoryChart
+              categoryData={countedCategoryData()}
+              categoryCount={countCategories()}
+            />
+            <StyledLink to="/sessions">
+              Working out? Log your session.
+            </StyledLink>
+          </>
+        ) : (
+          <>
+            <IntroText>
+              Define your training path, log your workouts and track your goals.
+            </IntroText>
+            <StyledLink to="/path" mt={!path?.length ? '60px' : ''}>
+              Create a new training path
+            </StyledLink>
+          </>
+        )}
+      </HomeSection>
+    </TransitionWrapper>
   )
 
   function readCategories() {

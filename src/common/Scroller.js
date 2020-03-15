@@ -7,6 +7,7 @@ const Scroller = ({ children }) => {
 
 const ScrollerContainer = styled.div`
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 12px;
 `
 
