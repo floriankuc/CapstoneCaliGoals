@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { colors } from '../../../common/styles/colors'
+import { colors } from '../../../common/styles/theme'
 
 const OngoingPathContent = () => {
   return (

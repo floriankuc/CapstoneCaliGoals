@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { mixins } from '../common/styles/mixins'
+import { mixins } from '../common/styles/theme'
 
 const ButtonBlack = ({ children }) => {
   return <StyledButton>{children}</StyledButton>

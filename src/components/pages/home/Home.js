@@ -4,8 +4,7 @@ import styled from 'styled-components/macro'
 import CategoryChart from './CategoryChart'
 import PropTypes from 'prop-types'
 import { capitalise } from '../../../utils'
-import { mixins } from '../../../common/styles/mixins'
-import { colors } from '../../../common/styles/colors'
+import { colors, mixins } from '../../../common/styles/theme'
 import TransitionWrapper from '../../../common/TransitionWrapper'
 import Header from './Header'
 
@@ -36,7 +35,7 @@ const Home = ({ path }) => {
             <IntroText>
               Define your training path, log your workouts and track your goals.
             </IntroText>
-            <StyledLink to="/path" mt={!path?.length ? '60px' : ''}>
+            <StyledLink to="/path" mt={!path?.length ? '160px' : ''}>
               Create a new training path
             </StyledLink>
           </>

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Doughnut } from 'react-chartjs-2'
-import { colors } from '../../../common/styles/colors'
+import { colors } from '../../../common/styles/theme'
 
 const CategoryChart = ({ categoryData, categoryCount }) => {
   const chartData = {

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
-import { colors } from '../../../common/styles/colors'
+import { colors } from '../../../common/styles/theme'
 import FormHeadline from '../../../common/FormHeadline'
 import { AiFillMinusSquare } from 'react-icons/ai'
 import ButtonBlack from '../../../common/ButtonBlack'

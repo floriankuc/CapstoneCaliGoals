@@ -8,7 +8,7 @@ import {
   AiOutlineUnorderedList,
   AiOutlineLineChart,
 } from 'react-icons/ai'
-import { colors } from '../../common/styles/colors'
+import { colors } from '../../common/styles/theme'
 
 const Navigation = ({ path }) => {
   const [isPath, setIsPath] = useState()
@@ -54,7 +54,7 @@ const LinkStyled = styled(NavLink)`
   transition: all 0.5s ease-out;
   position: relative;
 
-  /* .icon {
+  .icon {
     font-size: 32px;
     transition: all 0.1s ease-out;
     color: ${colors.black};
@@ -64,7 +64,7 @@ const LinkStyled = styled(NavLink)`
 
   &.active .icon {
     color: ${colors.red};
-  } */
+  }
 `
 
 const NavigationStyled = styled.nav`

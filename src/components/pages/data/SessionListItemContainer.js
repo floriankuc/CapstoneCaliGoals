@@ -4,7 +4,7 @@ import { prependNumber } from '../../../utils'
 import { GoTriangleDown, GoTriangleUp } from 'react-icons/go'
 import SessionExerciseContainer from './SessionExerciseContainer'
 import FormHeadline from '../../../common/FormHeadline'
-import { colors } from '../../../common/styles/colors'
+import { colors } from '../../../common/styles/theme'
 
 const SessionListItemContainer = ({
   session,

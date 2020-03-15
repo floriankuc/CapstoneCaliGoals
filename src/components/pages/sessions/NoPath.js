@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
-import { mixins } from '../../../common/styles/mixins'
+import { mixins } from '../../../common/styles/theme'
 
 const NoPath = () => {
   return (

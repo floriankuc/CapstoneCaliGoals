@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { colors } from '../../../common/styles/colors'
+import { colors } from '../../../common/styles/theme'
 import PropTypes from 'prop-types'
 import FormHeadline from '../../../common/FormHeadline'
 import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'

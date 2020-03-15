@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
-import { colors } from '../../../common/styles/colors'
+import { colors } from '../../../common/styles/theme'
 import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'
 import ButtonBlack from '../../../common/ButtonBlack'
 import FormHeadline from '../../../common/FormHeadline'
