@@ -49,6 +49,12 @@ const GlobalStyles = createGlobalStyle`
       background: ${colors.red};
     }
   }
+
+  .toast{
+    color: ${colors.white};
+    background: ${colors.black};
+    text-align: center;
+  }
 `
 
 export default GlobalStyles

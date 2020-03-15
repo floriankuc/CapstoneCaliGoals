@@ -4,8 +4,12 @@ import { Line } from 'react-chartjs-2'
 import { getDateWithoutYear } from '../../../utils'
 import PropTypes from 'prop-types'
 
-const ExerciseCharts = ({ data }) => {
-  return <div>{renderCharts()}</div>
+ExerciseCharts.propTypes = {
+  data: PropTypes.array.isRequired,
+}
+
+function ExerciseCharts({ data }) {
+  return <div style={{ marginTop: 50 }}>{renderCharts()}</div>
 
   function getSessionTimes() {
     const sortedSessions = data.sort((a, b) => a.time.seconds - b.time.seconds)
@@ -74,10 +78,6 @@ const ExerciseCharts = ({ data }) => {
       )
     })
   }
-}
-
-ExerciseCharts.propTypes = {
-  data: PropTypes.array.isRequired,
 }
 
 export default ExerciseCharts

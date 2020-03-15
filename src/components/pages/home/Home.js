@@ -1,14 +1,18 @@
+import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import CategoryChart from './CategoryChart'
-import PropTypes from 'prop-types'
-import { capitalise } from '../../../utils'
 import { colors, mixins } from '../../../common/styles/theme'
 import TransitionWrapper from '../../../common/TransitionWrapper'
+import { capitalise } from '../../../utils'
+import CategoryChart from './CategoryChart'
 import Header from './Header'
 
-const Home = ({ path }) => {
+Home.propTypes = {
+  path: PropTypes.array.isRequired,
+}
+
+function Home({ path }) {
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
@@ -19,11 +23,11 @@ const Home = ({ path }) => {
     <TransitionWrapper>
       <HomeSection>
         <Header />
-        {path?.length ? (
+        {path.length ? (
           <>
-            <p>Your current path is: {renderPath()}</p>
+            <p>Your current path is: {renderPathCategory()}</p>
             <CategoryChart
-              categoryData={countedCategoryData()}
+              categoryData={numberOfExercisesOfCategory()}
               categoryCount={countCategories()}
             />
             <StyledLink to="/sessions">
@@ -35,7 +39,7 @@ const Home = ({ path }) => {
             <IntroText>
               Define your training path, log your workouts and track your goals.
             </IntroText>
-            <StyledLink to="/path" mt={!path?.length ? '160px' : ''}>
+            <StyledLink to="/path" mt={!path.length ? '160px' : ''}>
               Create a new training path
             </StyledLink>
           </>
@@ -48,39 +52,30 @@ const Home = ({ path }) => {
     return path[0].selectedExercisesAreGoals.map(path => path.category)
   }
 
-  function capitaliseCategoryName() {
-    return capitalise(path[0].category)
+  function renderPathCategory() {
+    return <CategorySpan>{capitalise(path[0].category)}</CategorySpan>
   }
 
-  function renderPath() {
-    return (
-      <CategorySpan>{capitaliseCategoryName(path[0].category)}</CategorySpan>
+  function numberOfExercisesOfCategory() {
+    const countedCategories = {}
+    categories.map(
+      category =>
+        (countedCategories[category] = (countedCategories[category] || 0) + 1)
     )
-  }
-
-  function countedCategoryData() {
-    if (path.length) {
-      const countedCategories = {}
-      categories.map(
-        category =>
-          (countedCategories[category] = (countedCategories[category] || 0) + 1)
-      )
-      const categoryValues = Object.values(countedCategories)
-      return categoryValues
-    }
+    const categoryValues = Object.values(countedCategories)
+    return categoryValues
   }
 
   function countCategories() {
-    if (path.length) {
-      const countedCategories = [...new Set(categories)]
-      return countedCategories
-    }
+    const countedCategories = [...new Set(categories)]
+    return countedCategories
   }
 }
 
 const IntroText = styled.p`
   text-align: center;
   margin-top: 60px;
+  width: 350px;
 `
 
 const HomeSection = styled.section`
@@ -110,9 +105,5 @@ const CategorySpan = styled.span`
     left: 0;
   }
 `
-
-Home.propTypes = {
-  path: PropTypes.array.isRequired,
-}
 
 export default Home

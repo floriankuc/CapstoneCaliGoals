@@ -5,7 +5,15 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 import { colors } from '../../../common/styles/theme'
 
-const Chart = ({ exercise, dataArr, goals, times, units }) => {
+Chart.propTypes = {
+  exercise: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  dataArr: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  goals: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  times: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  units: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+}
+
+function Chart({ exercise, dataArr, goals, times, units }) {
   const exerciseChart = {
     labels: times,
     datasets: [
@@ -71,17 +79,9 @@ const Chart = ({ exercise, dataArr, goals, times, units }) => {
 
 const ChartContainer = styled.section`
   position: relative;
-  width: 100%;
+  width: 400px;
   height: 220px;
   margin-bottom: 50px;
 `
-
-Chart.propTypes = {
-  exercise: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  dataArr: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  goals: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  times: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  units: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-}
 
 export default Chart

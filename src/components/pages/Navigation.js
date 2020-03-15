@@ -10,7 +10,11 @@ import {
 } from 'react-icons/ai'
 import { colors } from '../../common/styles/theme'
 
-const Navigation = ({ path }) => {
+Navigation.propTypes = {
+  path: PropTypes.array.isRequired,
+}
+
+function Navigation({ path }) {
   const [isPath, setIsPath] = useState()
 
   useEffect(() => {
@@ -71,9 +75,5 @@ const NavigationStyled = styled.nav`
   display: grid;
   grid-auto-flow: column;
 `
-
-Navigation.propTypes = {
-  path: PropTypes.array.isRequired,
-}
 
 export default Navigation

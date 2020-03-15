@@ -1,9 +1,15 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { colors } from '../../../common/styles/theme'
+import styled from 'styled-components'
 
-const CategoryChart = ({ categoryData, categoryCount }) => {
+CategoryChart.propTypes = {
+  categoryData: PropTypes.array.isRequired,
+  categoryCount: PropTypes.array.isRequired,
+}
+
+function CategoryChart({ categoryData, categoryCount }) {
   const chartData = {
     labels: categoryCount,
     datasets: [
@@ -43,18 +49,13 @@ const CategoryChart = ({ categoryData, categoryCount }) => {
       className="chart-test"
       style={{
         position: 'relative',
-        margin: '20px 0 50px 0',
+        margin: '50px 0',
         width: '100%',
       }}
     >
       <Doughnut options={chartOptions} data={chartData} />
     </div>
   )
-}
-
-CategoryChart.propTypes = {
-  categoryData: PropTypes.array.isRequired,
-  categoryCount: PropTypes.array.isRequired,
 }
 
 export default CategoryChart

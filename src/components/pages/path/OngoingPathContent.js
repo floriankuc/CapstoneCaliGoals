@@ -1,8 +1,7 @@
 import React from 'react'
-import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
-import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import styled from 'styled-components/macro'
 import { colors } from '../../../common/styles/theme'
 
 const OngoingPathContent = () => {

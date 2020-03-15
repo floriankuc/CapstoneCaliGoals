@@ -1,12 +1,18 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import styled from 'styled-components/macro'
-import { capitalise } from '../../../utils'
-import { colors, mixins } from '../../../common/styles/theme'
 import FormHeadline from '../../../common/FormHeadline'
+import { colors, mixins } from '../../../common/styles/theme'
 import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'
+import { capitalise } from '../../../utils'
 
-const CategoryList = ({ pathCategory, setPathCategory, validationErrors }) => {
+CategoryList.propTypes = {
+  pathCategory: PropTypes.string.isRequired,
+  setPathCategory: PropTypes.func.isRequired,
+  validationErrors: PropTypes.object.isRequired,
+}
+
+function CategoryList({ pathCategory, setPathCategory, validationErrors }) {
   const CATEGORIES = [
     'strength',
     'figures',
@@ -74,11 +80,5 @@ const StyledButtonNav = styled.section`
   width: 100%;
   max-width: 450px;
 `
-
-CategoryList.propTypes = {
-  pathCategory: PropTypes.string.isRequired,
-  setPathCategory: PropTypes.func.isRequired,
-  validationErrors: PropTypes.object.isRequired,
-}
 
 export default CategoryList

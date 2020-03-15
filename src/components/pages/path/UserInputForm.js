@@ -1,17 +1,24 @@
-import React from 'react'
-import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
-import { colors } from '../../../common/styles/theme'
-import FormHeadline from '../../../common/FormHeadline'
+import React from 'react'
 import { AiFillMinusSquare } from 'react-icons/ai'
+import styled from 'styled-components/macro'
 import ButtonBlack from '../../../common/ButtonBlack'
+import FormHeadline from '../../../common/FormHeadline'
+import { colors } from '../../../common/styles/theme'
 
-const UserInputForm = ({
+UserInputForm.propTypes = {
+  exercises: PropTypes.array.isRequired,
+  updateGoal: PropTypes.func.isRequired,
+  selectExercise: PropTypes.func.isRequired,
+  handleGoalSubmit: PropTypes.func.isRequired,
+}
+
+function UserInputForm({
   exercises,
   updateGoal,
   selectExercise,
   handleGoalSubmit,
-}) => {
+}) {
   return (
     <form onSubmit={handleGoalSubmit} style={{ marginTop: 20 }}>
       {numberOfSelectedExercises() !== 0 && (
@@ -106,12 +113,5 @@ const UnitInput = styled.input`
     width: 10%;
   }
 `
-
-UserInputForm.propTypes = {
-  exercises: PropTypes.array.isRequired,
-  updateGoal: PropTypes.func.isRequired,
-  selectExercise: PropTypes.func.isRequired,
-  handleGoalSubmit: PropTypes.func.isRequired,
-}
 
 export default UserInputForm

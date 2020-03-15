@@ -8,8 +8,13 @@ import { getDateWithYear } from '../../../utils'
 import ExerciseCharts from './ExerciseCharts'
 import TransitionWrapper from '../../../common/TransitionWrapper'
 import SessionListItemContainer from './SessionListItemContainer'
+import { mixins } from '../../../common/styles/theme'
 
-const Data = ({ path }) => {
+Data.propTypes = {
+  path: PropTypes.array.isRequired,
+}
+
+function Data({ path }) {
   const [id, setId] = useState()
   const [data, setData] = useState([])
 
@@ -57,72 +62,17 @@ const Data = ({ path }) => {
           i={i}
         />
       )
-      // return (
-      //   <SessionListItemContainer key={session.id}>
-      //     <p>
-      //       <NumberSpan>{prependNumber(i + 1)} </NumberSpan>
-      //       {formattedDate}
-      //     </p>
-      //     <SessionExercisesContainer>
-      //       {renderSessionExercisesList(selectedSessionsExtracted)}
-      //     </SessionExercisesContainer>
-      //   </SessionListItemContainer>
-      // )
     })
   }
 
   function sortSessionsByTime() {
     return data.sort((a, b) => a.time.seconds - b.time.seconds)
   }
-
-  function renderSessionExercisesList(array) {
-    return array.map(sessionExercise => (
-      <p key={sessionExercise.id}>
-        {sessionExercise.title}: {sessionExercise.amountDone}
-      </p>
-    ))
-  }
 }
-
-// const SessionExercisesContainer = styled.div`
-//   background: pink;
-// `
-
-// const SessionListItemContainer = styled.section`
-//   margin-bottom: 20px;
-// `
 
 const StyledLinkText = styled(Link)`
-  margin: 20px auto;
-  display: block;
-  width: 300px;
-  text-decoration: none;
-  color: #fff;
-  padding: 12px;
-  background: #111;
-  text-align: center;
-  position: relative;
-
-  &:hover:after {
-    top: -6px;
-    left: 6px;
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    z-index: -1;
-    background: red;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: all 0.1s;
-  }
+  ${mixins.squareButton};
+  margin: 0 auto;
 `
-
-Data.propTypes = {
-  path: PropTypes.array.isRequired,
-}
 
 export default Data

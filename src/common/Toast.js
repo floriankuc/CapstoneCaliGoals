@@ -15,6 +15,7 @@ const Toast = () => {
       closeButton={false}
       pauseOnVisibilityChange={false}
       transition={Slide}
+      toastClassName="toast"
     />
   )
 }

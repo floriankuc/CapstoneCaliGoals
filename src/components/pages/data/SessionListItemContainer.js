@@ -1,17 +1,25 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
-import { prependNumber } from '../../../utils'
+import PropTypes from 'prop-types'
 import { GoTriangleDown, GoTriangleUp } from 'react-icons/go'
-import SessionExerciseContainer from './SessionExerciseContainer'
+import styled from 'styled-components'
 import FormHeadline from '../../../common/FormHeadline'
 import { colors } from '../../../common/styles/theme'
+import { prependNumber } from '../../../utils'
+import SessionExerciseContainer from './SessionExerciseContainer'
 
-const SessionListItemContainer = ({
+SessionListItemContainer.propTypes = {
+  session: PropTypes.object.isRequired,
+  formattedDate: PropTypes.string.isRequired,
+  selectedSessionsExtracted: PropTypes.array.isRequired,
+  i: PropTypes.number.isRequired,
+}
+
+function SessionListItemContainer({
   session,
   formattedDate,
   selectedSessionsExtracted,
   i,
-}) => {
+}) {
   const [isToggled, setIsToggled] = useState(false)
 
   return (

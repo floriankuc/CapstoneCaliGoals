@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from 'react'
 import moment from 'moment'
-import styled from 'styled-components/macro'
-import NoPath from './NoPath'
-import SessionForm from './SessionForm'
 import PropTypes from 'prop-types'
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import Toast from '../../../common/Toast'
-import { deletePath, saveSession } from '../../../services'
+import styled from 'styled-components/macro'
+import FormHeadline from '../../../common/FormHeadline'
 import { colors, mixins } from '../../../common/styles/theme'
 import TransitionWrapper from '../../../common/TransitionWrapper'
-import FormHeadline from '../../../common/FormHeadline'
+import { deletePath, saveSession } from '../../../services'
+import NoPath from './NoPath'
+import SessionForm from './SessionForm'
 
-const Sessions = ({ path }) => {
+Sessions.propTypes = {
+  path: PropTypes.array.isRequired,
+}
+
+function Sessions({ path }) {
   const [session, setSession] = useState([])
+  let history = useHistory()
 
   useEffect(() => {
     path.length && setSession(path[0].selectedExercisesAreGoals)
@@ -22,8 +27,6 @@ const Sessions = ({ path }) => {
   return (
     <TransitionWrapper>
       <h2>Session log</h2>
-      <Toast enableMultiContainer containerId={'pathDeletedContainer'} />
-
       {path.length ? (
         <div>
           <FormHeadline number={'01'}>Your goals</FormHeadline>
@@ -36,10 +39,11 @@ const Sessions = ({ path }) => {
           <ButtonRed onClick={() => handleDelete(path[0].id)}>
             Terminate current path
           </ButtonRed>
-          <Toast enableMultiContainer containerId={'sessionSavedContainer'} />
         </div>
       ) : (
-        <NoPath />
+        <>
+          <NoPath />
+        </>
       )}
     </TransitionWrapper>
   )
@@ -47,6 +51,7 @@ const Sessions = ({ path }) => {
   function handleDelete(id) {
     deletePath(id)
     toast('Path deleted.', { containerId: 'pathDeletedContainer' })
+    history.push('/')
   }
 
   function editSessionWithExercise(id) {
@@ -137,9 +142,5 @@ const ExerciseDiv = styled.div`
     cursor: pointer;
   }
 `
-
-Sessions.propTypes = {
-  path: PropTypes.array.isRequired,
-}
 
 export default Sessions
