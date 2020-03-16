@@ -25,6 +25,7 @@ function Path({ path }) {
     categoryError: '',
     exercisesError: '',
   })
+  const [zwischenstate, setZwischenstate] = useState([])
 
   useEffect(() => {
     setSelectedOptions(OPTIONS)
@@ -108,6 +109,10 @@ function Path({ path }) {
     }
   }
 
+  function isThereAnyExerciseSelected() {
+    return exercises.filter(exercise => exercise.selected === true).length === 0
+  }
+
   function validate() {
     let categoryError = ''
     let exercisesError = ''
@@ -116,7 +121,7 @@ function Path({ path }) {
       categoryError = 'Select a category'
     }
 
-    if (exercises.filter(exercise => exercise.selected === true).length === 0) {
+    if (isThereAnyExerciseSelected()) {
       exercisesError = 'Select at least one exercise'
     }
 

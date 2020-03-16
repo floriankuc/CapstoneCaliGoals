@@ -9,7 +9,7 @@ CategoryChart.propTypes = {
 }
 
 function CategoryChart({ categoryData, categoryCount }) {
-  const chartData = {
+  const CHARTDATA = {
     labels: categoryCount,
     datasets: [
       {
@@ -28,7 +28,7 @@ function CategoryChart({ categoryData, categoryCount }) {
     ],
   }
 
-  const chartOptions = {
+  const CHARTOPTIONS = {
     plugins: {
       datalabels: { color: `${colors.black}` },
     },
@@ -52,7 +52,7 @@ function CategoryChart({ categoryData, categoryCount }) {
         width: '100%',
       }}
     >
-      <Doughnut options={chartOptions} data={chartData} />
+      <Doughnut options={CHARTOPTIONS} data={CHARTDATA} />
     </div>
   )
 }
