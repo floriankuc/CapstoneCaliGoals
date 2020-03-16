@@ -27,3 +27,11 @@ export function getDateWithoutYear(unformattedDate) {
     minute: '2-digit',
   })
 }
+
+export function sortByTime(object) {
+  return object.sort((a, b) => a.time.seconds - b.time.seconds)
+}
+
+export function getSessionDate(session) {
+  return new Date(session.time.seconds * 1000)
+}

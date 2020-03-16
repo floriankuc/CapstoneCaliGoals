@@ -54,6 +54,10 @@ function SessionListItemContainer({
 const HeadlineWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  background: ${colors.lightestgrey};
+  padding: 8px;
+  width: 100%;
 
   .expand-icon {
     transition: all 0.1s ease-in-out;
@@ -72,8 +76,9 @@ const HeadlineWrapper = styled.div`
 `
 
 const StyledSessionListItemContainer = styled.section`
-  margin-bottom: 20px;
+  margin-bottom: 1px;
   display: inline-block;
+  width: 100%;
 `
 
 export default SessionListItemContainer

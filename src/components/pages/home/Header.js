@@ -16,7 +16,6 @@ const HeaderWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 60px;
 `
 
 const Logo = styled.img`

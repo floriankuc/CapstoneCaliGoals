@@ -29,6 +29,7 @@ const GlobalStyles = createGlobalStyle`
     font-weight: 300;
     text-transform: uppercase;
     color: ${colors.black};
+    margin-bottom: 24px;
   }
 
   h2 {

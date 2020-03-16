@@ -1,7 +1,7 @@
 import React from 'react'
 import Chart from './Chart'
 import { Line } from 'react-chartjs-2'
-import { getDateWithoutYear } from '../../../utils'
+import { getDateWithoutYear, sortByTime, getSessionDate } from '../../../utils'
 import PropTypes from 'prop-types'
 
 ExerciseCharts.propTypes = {
@@ -9,57 +9,11 @@ ExerciseCharts.propTypes = {
 }
 
 function ExerciseCharts({ data }) {
-  return <div style={{ marginTop: 50 }}>{renderCharts()}</div>
-
-  function getSessionTimes() {
-    const sortedSessions = data.sort((a, b) => a.time.seconds - b.time.seconds)
-    const times = []
-    sortedSessions.map(session => {
-      let timeAsDate = new Date(session.time.seconds * 1000)
-      times.push(getDateWithoutYear(timeAsDate))
-    })
-    return times
-  }
-
-  function getAmountsDone() {
-    const selectedSessions = data.map(session => session.selectedSessions)
-    return selectedSessions.flat().reduce(
-      (result, item) => ({
-        ...result,
-        [item['title']]: [...(result[item['title']] || []), item['amountDone']],
-      }),
-      {}
-    )
-  }
-
-  function getGoals() {
-    const selectedSessions = data.map(session => session.selectedSessions)
-    return selectedSessions.flat().reduce(
-      (result, item) => ({
-        ...result,
-        [item['title']]: [...(result[item['title']] || []), item['amount']],
-      }),
-      {}
-    )
-  }
-
-  function getUnits() {
-    const selectedSessions = data.map(session => session.selectedSessions)
-    const units = selectedSessions.flat().reduce(
-      (result, item) => ({
-        ...result,
-        [item['title']]: [...(result[item['title']] || []), item['unit']],
-      }),
-      {}
-    )
-    return Object.values(units).map(el =>
-      el.reduce((a, b) => (a === b ? a : b))
-    )
-  }
+  return <section>{renderCharts()}</section>
 
   function renderCharts() {
-    const extractedAmountsDone = getAmountsDone()
-    const goals = getGoals()
+    const extractedAmountsDone = getExerciseData('amountDone', data)
+    const goals = getExerciseData('amount', data)
     const times = getSessionTimes()
     const units = getUnits()
     return Object.keys(extractedAmountsDone).map((exercise, i) => {
@@ -77,6 +31,38 @@ function ExerciseCharts({ data }) {
         />
       )
     })
+  }
+
+  function getExerciseData(string, objectOfSessions) {
+    const selectedSessions = getSelectedSessions(objectOfSessions)
+    return selectedSessions.flat().reduce(
+      (result, item) => ({
+        ...result,
+        [item['title']]: [...(result[item['title']] || []), item[`${string}`]],
+      }),
+      {}
+    )
+  }
+
+  function getUnits() {
+    const units = getExerciseData('unit', data)
+    return Object.values(units).map(el =>
+      el.reduce((a, b) => (a === b ? a : b))
+    )
+  }
+
+  function getSessionTimes() {
+    const sortedSessions = sortByTime(data)
+    const times = []
+    sortedSessions.map(session => {
+      let timeAsDate = getSessionDate(session)
+      times.push(getDateWithoutYear(timeAsDate))
+    })
+    return times
+  }
+
+  function getSelectedSessions(sessionObject) {
+    return sessionObject.map(session => session.selectedSessions)
   }
 }
 

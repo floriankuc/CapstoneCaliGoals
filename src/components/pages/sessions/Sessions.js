@@ -110,11 +110,10 @@ function Sessions({ path }) {
 
 const ButtonRed = styled.button`
   ${mixins.squareButtonReverse};
-  border: none;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 300;
   line-height: 1.6;
-  margin: 36px auto;
+  margin: 60px auto;
 
   &:hover,
   &:active {

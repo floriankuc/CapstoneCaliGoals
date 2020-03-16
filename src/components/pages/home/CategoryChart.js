@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import { colors } from '../../../common/styles/theme'
-import styled from 'styled-components'
 
 CategoryChart.propTypes = {
   categoryData: PropTypes.array.isRequired,
@@ -39,7 +38,7 @@ function CategoryChart({ categoryData, categoryCount }) {
       labels: {
         fontFamily: 'Roboto, sans-serif',
         fontColor: `${colors.black}`,
-        fontSize: 14,
+        fontSize: 15,
       },
     },
   }
@@ -49,7 +48,7 @@ function CategoryChart({ categoryData, categoryCount }) {
       className="chart-test"
       style={{
         position: 'relative',
-        margin: '50px 0',
+        margin: '40px 0',
         width: '100%',
       }}
     >

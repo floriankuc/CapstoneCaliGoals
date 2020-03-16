@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { getSessions } from '../../../services'
 import { BrowserRouter } from 'react-router-dom'
-import { getDateWithYear } from '../../../utils'
+import { getDateWithYear, sortByTime, getSessionDate } from '../../../utils'
 import ExerciseCharts from './ExerciseCharts'
 import TransitionWrapper from '../../../common/TransitionWrapper'
 import SessionListItemContainer from './SessionListItemContainer'
 import { mixins } from '../../../common/styles/theme'
+import { useHistory } from 'react-router-dom'
 
 Data.propTypes = {
   path: PropTypes.array.isRequired,
@@ -17,6 +18,8 @@ Data.propTypes = {
 function Data({ path }) {
   const [id, setId] = useState()
   const [data, setData] = useState([])
+
+  let history = useHistory()
 
   useEffect(() => {
     if (path[0]) {
@@ -35,9 +38,11 @@ function Data({ path }) {
         </>
       ) : (
         <>
-          <p>No training session data to display</p>
+          <p>No training session data to display yet.</p>
           <BrowserRouter>
-            <StyledLinkText to="/sessions">Log your session</StyledLinkText>
+            <StyledLinkText onClick={() => history.push('/sessions')}>
+              Log your session
+            </StyledLinkText>
           </BrowserRouter>
         </>
       )}
@@ -45,14 +50,14 @@ function Data({ path }) {
   )
 
   function renderSessions() {
-    const sortedSessions = sortSessionsByTime()
+    const sortedSessions = sortByTime(data)
     return renderSessionExerciseListContainer(sortedSessions)
   }
 
   function renderSessionExerciseListContainer(array) {
     return array.map((session, i) => {
       const selectedSessionsExtracted = session.selectedSessions
-      const date = new Date(session.time.seconds * 1000)
+      const date = getSessionDate(session)
       const formattedDate = getDateWithYear(date)
       return (
         <SessionListItemContainer
@@ -64,15 +69,11 @@ function Data({ path }) {
       )
     })
   }
-
-  function sortSessionsByTime() {
-    return data.sort((a, b) => a.time.seconds - b.time.seconds)
-  }
 }
 
 const StyledLinkText = styled(Link)`
   ${mixins.squareButton};
-  margin: 0 auto;
+  margin: 50px auto;
 `
 
 export default Data

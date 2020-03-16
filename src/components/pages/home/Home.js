@@ -39,7 +39,7 @@ function Home({ path }) {
             <IntroText>
               Define your training path, log your workouts and track your goals.
             </IntroText>
-            <StyledLink to="/path" mt={!path.length ? '160px' : ''}>
+            <StyledLink to="/path" mt={!path.length ? '120px' : ''}>
               Create a new training path
             </StyledLink>
           </>
@@ -74,8 +74,8 @@ function Home({ path }) {
 
 const IntroText = styled.p`
   text-align: center;
-  margin-top: 60px;
-  width: 350px;
+  margin-top: 100px;
+  width: 300px;
 `
 
 const HomeSection = styled.section`
