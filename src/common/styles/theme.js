@@ -28,7 +28,8 @@ export const mixins = {
       left: 6px;
     }
 
-    &:active:after {
+    &:active:after,
+    &:focus:after {
       top: -10px;
       left: 10px;
     }
@@ -62,7 +63,8 @@ export const mixins = {
       left: 6px;
     }
 
-    &:active:after {
+    &:active:after,
+    &:focus:after {
       top: -10px;
       left: 10px;
     }
@@ -87,7 +89,8 @@ export const mixins = {
     color: ${colors.black};
     border: none;
     font-size: 16px;
-    font-weight: 200;
+    font-weight: 300;
+    margin-top: 4px;
     width: 100%;
     height: 100%;
     transition: all 0.05s ease-in-out;
@@ -101,6 +104,14 @@ export const mixins = {
       background: ${colors.black};
       color: ${colors.white};
     }
+  `,
+
+  tileList: css`
+    display: grid;
+    grid-gap: 1px;
+    grid-template-rows: auto auto;
+    width: 100%;
+    max-width: 450px;
   `,
 
   flexCenter: css`

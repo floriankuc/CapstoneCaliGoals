@@ -71,14 +71,9 @@ const CategoryButton = styled.button`
 `
 
 const StyledButtonNav = styled.section`
-  margin-top: 4px;
+  ${mixins.tileList};
   margin-bottom: 20px;
-  display: grid;
-  grid-gap: 1px;
   grid-template-columns: repeat(3, 33.3%);
-  grid-template-rows: auto auto;
-  width: 100%;
-  max-width: 450px;
 `
 
 export default CategoryList
