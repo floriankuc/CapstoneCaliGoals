@@ -5,6 +5,7 @@ import styled from 'styled-components/macro'
 import ButtonBlack from '../../../common/ButtonBlack'
 import FormHeadline from '../../../common/FormHeadline'
 import { colors } from '../../../common/styles/theme'
+import { isThereAnyExerciseSelected } from '../../../utils'
 
 UserInputForm.propTypes = {
   exercises: PropTypes.array.isRequired,
@@ -21,7 +22,7 @@ function UserInputForm({
 }) {
   return (
     <form onSubmit={handleGoalSubmit} style={{ marginTop: 20 }}>
-      {numberOfSelectedExercises() !== 0 && (
+      {!isThereAnyExerciseSelected(exercises) && (
         <FormHeadline number={'03'}>Set your goals</FormHeadline>
       )}
       {renderExercisesWithUserInputs()}
@@ -30,33 +31,32 @@ function UserInputForm({
   )
 
   function renderExercisesWithUserInputs() {
-    return exercises
-      .filter(exercise => exercise.selected === true)
-      .sort((a, b) => a.title + b.title)
-      .map(exercise => (
-        <InputContainer>
-          <p>{exercise.title}</p>
-          <InputFieldContainer>
-            <UnitInput
-              data-id={exercise.id}
-              name={exercise.title}
-              value={exercise.amount || ''}
-              type="number"
-              onChange={e => updateGoal(exercise.id, e.target.value)}
-              required
-            />
-            <p>{exercise.unit}</p>
-            <AiFillMinusSquare
-              onClick={() => selectExercise(exercise.id)}
-              className="removeExerciseButton"
-            />
-          </InputFieldContainer>
-        </InputContainer>
-      ))
+    return getExercisesForInput().map(exercise => (
+      <InputContainer>
+        <p>{exercise.title}</p>
+        <InputFieldContainer>
+          <UnitInput
+            data-id={exercise.id}
+            name={exercise.title}
+            value={exercise.amount || ''}
+            type="number"
+            onChange={e => updateGoal(exercise.id, e.target.value)}
+            required
+          />
+          <p>{exercise.unit}</p>
+          <AiFillMinusSquare
+            onClick={() => selectExercise(exercise.id)}
+            className="removeExerciseButton"
+          />
+        </InputFieldContainer>
+      </InputContainer>
+    ))
   }
 
-  function numberOfSelectedExercises() {
-    return exercises.filter(exercise => exercise.selected === true).length
+  function getExercisesForInput() {
+    return exercises
+      .filter(exercise => exercise.selected === true)
+      .sort((a, b) => a.timeSelected > b.timeSelected)
   }
 }
 

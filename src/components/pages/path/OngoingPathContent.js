@@ -6,13 +6,13 @@ import { colors } from '../../../common/styles/theme'
 
 const OngoingPathContent = () => {
   return (
-    <div>
+    <>
       <p>
         You have an ongoing path, good for you! Remember you can only pursue one
         goal at a time.
       </p>
       <StyledLinkText to="/sessions">Log your session</StyledLinkText>
-    </div>
+    </>
   )
 }
 

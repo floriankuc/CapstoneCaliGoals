@@ -11,6 +11,7 @@ import MuscleGroupList from './MuscleGroupList'
 import OngoingPathContent from './OngoingPathContent'
 import OPTIONS from './OPTIONS'
 import UserInputForm from './UserInputForm'
+import { isThereAnyExerciseSelected } from '../../../utils'
 
 Path.propTypes = {
   path: PropTypes.array.isRequired,
@@ -25,7 +26,6 @@ function Path({ path }) {
     categoryError: '',
     exercisesError: '',
   })
-  const [zwischenstate, setZwischenstate] = useState([])
 
   useEffect(() => {
     setSelectedOptions(OPTIONS)
@@ -75,6 +75,7 @@ function Path({ path }) {
         ...exercises[index],
         selected: !exercises[index].selected,
         amount: 0,
+        timeSelected: new Date().getTime(),
       },
       ...exercises.slice(index + 1),
     ])
@@ -109,10 +110,6 @@ function Path({ path }) {
     }
   }
 
-  function isThereAnyExerciseSelected() {
-    return exercises.filter(exercise => exercise.selected === true).length === 0
-  }
-
   function validate() {
     let categoryError = ''
     let exercisesError = ''
@@ -121,7 +118,7 @@ function Path({ path }) {
       categoryError = 'Select a category'
     }
 
-    if (isThereAnyExerciseSelected()) {
+    if (isThereAnyExerciseSelected(exercises)) {
       exercisesError = 'Select at least one exercise'
     }
 

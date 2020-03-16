@@ -35,3 +35,7 @@ export function sortByTime(object) {
 export function getSessionDate(session) {
   return new Date(session.time.seconds * 1000)
 }
+
+export function isThereAnyExerciseSelected(exercises) {
+  return exercises.filter(exercise => exercise.selected === true).length === 0
+}

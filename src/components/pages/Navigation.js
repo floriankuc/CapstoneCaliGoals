@@ -57,6 +57,7 @@ const LinkStyled = styled(NavLink)`
   background: ${colors.white};
   transition: all 0.5s ease-out;
   position: relative;
+  outline: none;
 
   .icon {
     font-size: 32px;
@@ -68,6 +69,7 @@ const LinkStyled = styled(NavLink)`
 
   &.active .icon {
     color: ${colors.red};
+    outline: none;
   }
 `
 

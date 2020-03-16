@@ -4,6 +4,7 @@ import styled from 'styled-components/macro'
 import FormHeadline from '../../../common/FormHeadline'
 import { colors } from '../../../common/styles/theme'
 import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'
+import { isThereAnyExerciseSelected } from '../../../utils'
 
 MuscleGroupList.propTypes = {
   exercises: PropTypes.array.isRequired,
@@ -47,14 +48,11 @@ function MuscleGroupList({
     })
   }
 
-  function isThereAnyExerciseSelected() {
-    return exercises.filter(exercise => exercise.selected === true).length === 0
-  }
-
   function renderExercisesErrorMessage() {
     return (
       <ErrorMessage>
-        {isThereAnyExerciseSelected() && validationErrors.exercisesError}
+        {isThereAnyExerciseSelected(exercises) &&
+          validationErrors.exercisesError}
       </ErrorMessage>
     )
   }
