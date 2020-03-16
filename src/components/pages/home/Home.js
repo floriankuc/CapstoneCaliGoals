@@ -89,7 +89,7 @@ const HomeSection = styled.section`
 
 const StyledLink = styled(Link)`
   margin-top: ${props => props.mt};
-  ${mixins.squareButton}
+  ${mixins.squareButton};
 `
 
 const CategorySpan = styled.span`

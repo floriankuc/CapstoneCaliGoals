@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components/macro'
 import FormHeadline from '../../../common/FormHeadline'
-import { colors } from '../../../common/styles/theme'
+import { colors, mixins } from '../../../common/styles/theme'
 import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'
 import { isThereAnyExerciseSelected } from '../../../utils'
 
@@ -63,36 +63,13 @@ const ErrorMessage = styled.span`
 `
 
 const OptionButton = styled.button`
-  font-family: Roboto;
-  padding: 12px 0;
-  background: ${colors.lightestgrey};
-  color: ${colors.black};
-  border: none;
-  font-size: 16px;
-  font-weight: 200;
-  width: 100%;
-  height: 100%;
-  transition: all 0.05s ease-in-out;
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  &.active,
-  &:hover {
-    background: ${colors.black};
-    color: ${colors.white};
-  }
+  ${mixins.tileButton};
 `
 
 const MuscleGroupContainer = styled.section`
-  margin: 4px 0;
-  display: grid;
-  grid-gap: 1px;
+  ${mixins.tileList};
+  margin-bottom: 4px;
   grid-template-columns: repeat(4, 25%);
-  grid-template-rows: auto auto;
-  width: 100%;
-  max-width: 450px;
 `
 
 export default MuscleGroupList

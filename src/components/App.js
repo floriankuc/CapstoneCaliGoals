@@ -62,6 +62,8 @@ const AppGrid = styled.main`
   display: grid;
   grid-template-rows: auto 48px;
   position: fixed;
+  max-width: 450px;
+  margin: 0 auto;
   left: 0;
   right: 0;
   top: 0;
