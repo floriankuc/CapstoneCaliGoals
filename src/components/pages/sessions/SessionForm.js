@@ -1,28 +1,21 @@
+import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import styled from 'styled-components/macro'
-import PropTypes from 'prop-types'
-import { colors } from '../../../common/styles/colors'
-import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'
 import ButtonBlack from '../../../common/ButtonBlack'
 import FormHeadline from '../../../common/FormHeadline'
+import { colors } from '../../../common/styles/theme'
+import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'
 
-const SessionForm = ({
-  handleSessionSubmit,
-  session,
-  updateSessionExercise,
-}) => {
+SessionForm.propTypes = {
+  handleSessionSubmit: PropTypes.func.isRequired,
+  session: PropTypes.array.isRequired,
+  updateSessionExercise: PropTypes.func.isRequired,
+}
+
+function SessionForm({ handleSessionSubmit, session, updateSessionExercise }) {
   const [validationErrors, setValidationErrors] = useState({
     sessionError: '',
   })
-
-  function validateAndSubmit(e) {
-    e.preventDefault()
-    const isValid = validate()
-    if (isValid) {
-      handleSessionSubmit(e)
-      setValidationErrors({ sessionError: '' })
-    }
-  }
 
   return (
     <form onSubmit={e => validateAndSubmit(e)} style={{ marginTop: 12 }}>
@@ -54,6 +47,15 @@ const SessionForm = ({
     </form>
   )
 
+  function validateAndSubmit(e) {
+    e.preventDefault()
+    const isValid = validate()
+    if (isValid) {
+      handleSessionSubmit(e)
+      setValidationErrors({ sessionError: '' })
+    }
+  }
+
   function renderSessionHeadline() {
     return <FormHeadline number={'02'}>This session</FormHeadline>
   }
@@ -65,6 +67,14 @@ const SessionForm = ({
           validationErrors.sessionError}
       </ErrorMessage>
     )
+  }
+
+  function numberOfExercisesDoneInASession() {
+    return session.filter(session => session.amountDone > 0).length
+  }
+
+  function editingTheseExercises() {
+    return session.filter(session => session.editing === true)
   }
 
   function validate() {
@@ -80,14 +90,6 @@ const SessionForm = ({
     }
 
     return true
-  }
-
-  function numberOfExercisesDoneInASession() {
-    return session.filter(session => session.amountDone > 0).length
-  }
-
-  function editingTheseExercises() {
-    return session.filter(session => session.editing === true)
   }
 }
 
@@ -148,11 +150,5 @@ const UnitInput = styled.input`
     width: 10%;
   }
 `
-
-SessionForm.propTypes = {
-  handleSessionSubmit: PropTypes.func.isRequired,
-  session: PropTypes.array.isRequired,
-  updateSessionExercise: PropTypes.func.isRequired,
-}
 
 export default SessionForm

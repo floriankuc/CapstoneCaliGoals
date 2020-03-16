@@ -1,17 +1,26 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components/macro'
-import { colors } from '../../../common/styles/colors'
-import PropTypes from 'prop-types'
 import FormHeadline from '../../../common/FormHeadline'
+import { colors } from '../../../common/styles/theme'
 import TitleAndErrorContainer from '../../../common/TitleAndErrorContainer'
+import { isThereAnyExerciseSelected } from '../../../utils'
 
-const MuscleGroupList = ({
+MuscleGroupList.propTypes = {
+  exercises: PropTypes.array.isRequired,
+  filteredCategory: PropTypes.string.isRequired,
+  selectedOptions: PropTypes.array.isRequired,
+  setFilteredCategory: PropTypes.func.isRequired,
+  validationErrors: PropTypes.object.isRequired,
+}
+
+function MuscleGroupList({
   exercises,
   filteredCategory,
   selectedOptions,
   setFilteredCategory,
   validationErrors,
-}) => {
+}) {
   return (
     <>
       <TitleAndErrorContainer>
@@ -39,14 +48,11 @@ const MuscleGroupList = ({
     })
   }
 
-  function numberOfSelectedExercises() {
-    return exercises.filter(exercise => exercise.selected === true).length
-  }
-
   function renderExercisesErrorMessage() {
     return (
       <ErrorMessage>
-        {numberOfSelectedExercises() === 0 && validationErrors.exercisesError}
+        {isThereAnyExerciseSelected(exercises) &&
+          validationErrors.exercisesError}
       </ErrorMessage>
     )
   }
@@ -88,13 +94,5 @@ const MuscleGroupContainer = styled.section`
   width: 100%;
   max-width: 450px;
 `
-
-MuscleGroupList.propTypes = {
-  exercises: PropTypes.array.isRequired,
-  filteredCategory: PropTypes.string.isRequired,
-  selectedOptions: PropTypes.array.isRequired,
-  setFilteredCategory: PropTypes.func.isRequired,
-  validationErrors: PropTypes.object.isRequired,
-}
 
 export default MuscleGroupList

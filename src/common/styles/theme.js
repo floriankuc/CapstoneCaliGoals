@@ -1,6 +1,16 @@
-import styled from 'styled-components'
 import { css } from 'styled-components'
-import { colors } from './colors'
+
+export const colors = {
+  black: '#121212',
+  lightred: '#ef5350',
+  red: '#ff1744',
+  darkred: '#b71c1c',
+  white: '#fff',
+  lightgrey: '#bdbdbd',
+  grey: '#616161',
+  darkgrey: '#424242',
+  lightestgrey: '#12121211',
+}
 
 export const mixins = {
   squareButton: css`
@@ -38,11 +48,12 @@ export const mixins = {
 
   squareButtonReverse: css`
     display: block;
-    width: 300px;
+    width: 240px;
     text-decoration: none;
-    color: ${colors.white};
+    border: 1px solid ${colors.red};
+    color: ${colors.red};
     padding: 12px;
-    background: ${colors.red};
+    background: ${colors.white};
     text-align: center;
     position: relative;
 
@@ -60,7 +71,7 @@ export const mixins = {
       content: '';
       position: absolute;
       z-index: -1;
-      background: ${colors.black};
+      background: ${colors.red};
       top: 0;
       left: 0;
       width: 100%;

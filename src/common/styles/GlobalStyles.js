@@ -1,6 +1,5 @@
 import { createGlobalStyle } from 'styled-components/macro'
-import { colors } from './colors'
-import { mixins } from './mixins'
+import { colors, mixins } from './theme'
 
 const GlobalStyles = createGlobalStyle`
 
@@ -30,6 +29,7 @@ const GlobalStyles = createGlobalStyle`
     font-weight: 300;
     text-transform: uppercase;
     color: ${colors.black};
+    margin-bottom: 24px;
   }
 
   h2 {
@@ -51,16 +51,10 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
-  .icon {
-    font-size: 32px;
-    transition: all 0.1s ease-out;
-    color: ${colors.black};
-    position: absolute;
-    z-index: 1;
-  }
-
-  &.active .icon {
-    color: ${colors.red};
+  .toast{
+    color: ${colors.white};
+    background: ${colors.black};
+    text-align: center;
   }
 `
 

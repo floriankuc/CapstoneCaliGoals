@@ -1,19 +1,18 @@
 import React from 'react'
-import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
-import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { colors } from '../../../common/styles/colors'
+import styled from 'styled-components/macro'
+import { colors } from '../../../common/styles/theme'
 
 const OngoingPathContent = () => {
   return (
-    <div>
+    <>
       <p>
         You have an ongoing path, good for you! Remember you can only pursue one
         goal at a time.
       </p>
       <StyledLinkText to="/sessions">Log your session</StyledLinkText>
-    </div>
+    </>
   )
 }
 

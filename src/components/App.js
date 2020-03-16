@@ -14,6 +14,7 @@ import Path from './pages/path/Path'
 import Sessions from './pages/sessions/Sessions'
 import { getPath } from '../services'
 import { useTransition, animated } from 'react-spring'
+import ToastContainers from '../common/ToastContainers'
 
 const App = () => {
   const [path, setPath] = useState([])
@@ -32,6 +33,7 @@ const App = () => {
   return (
     <AppGrid>
       <Scroller>
+        <ToastContainers />
         {transitions.map(({ item, props, key }) => (
           <animated.div key={key} style={props}>
             <Switch location={item}>

@@ -1,10 +1,15 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
 import { Doughnut } from 'react-chartjs-2'
-import { colors } from '../../../common/styles/colors'
+import { colors } from '../../../common/styles/theme'
 
-const CategoryChart = ({ categoryData, categoryCount }) => {
-  const chartData = {
+CategoryChart.propTypes = {
+  categoryData: PropTypes.array.isRequired,
+  categoryCount: PropTypes.array.isRequired,
+}
+
+function CategoryChart({ categoryData, categoryCount }) {
+  const CHARTDATA = {
     labels: categoryCount,
     datasets: [
       {
@@ -23,7 +28,7 @@ const CategoryChart = ({ categoryData, categoryCount }) => {
     ],
   }
 
-  const chartOptions = {
+  const CHARTOPTIONS = {
     plugins: {
       datalabels: { color: `${colors.black}` },
     },
@@ -33,7 +38,7 @@ const CategoryChart = ({ categoryData, categoryCount }) => {
       labels: {
         fontFamily: 'Roboto, sans-serif',
         fontColor: `${colors.black}`,
-        fontSize: 14,
+        fontSize: 15,
       },
     },
   }
@@ -43,18 +48,13 @@ const CategoryChart = ({ categoryData, categoryCount }) => {
       className="chart-test"
       style={{
         position: 'relative',
-        margin: '20px 0 50px 0',
+        margin: '40px 0',
         width: '100%',
       }}
     >
-      <Doughnut options={chartOptions} data={chartData} />
+      <Doughnut options={CHARTOPTIONS} data={CHARTDATA} />
     </div>
   )
-}
-
-CategoryChart.propTypes = {
-  categoryData: PropTypes.array.isRequired,
-  categoryCount: PropTypes.array.isRequired,
 }
 
 export default CategoryChart

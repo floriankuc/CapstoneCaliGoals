@@ -3,9 +3,17 @@ import { Line } from 'react-chartjs-2'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
 import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
-import { colors } from '../../../common/styles/colors'
+import { colors } from '../../../common/styles/theme'
 
-const Chart = ({ exercise, dataArr, goals, times, units }) => {
+Chart.propTypes = {
+  exercise: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  dataArr: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  goals: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  times: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  units: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+}
+
+function Chart({ exercise, dataArr, goals, times, units }) {
   const exerciseChart = {
     labels: times,
     datasets: [
@@ -25,7 +33,7 @@ const Chart = ({ exercise, dataArr, goals, times, units }) => {
       padding: {
         left: 0,
         right: 0,
-        top: 20,
+        top: 0,
         bottom: 0,
       },
     },
@@ -37,16 +45,41 @@ const Chart = ({ exercise, dataArr, goals, times, units }) => {
     },
     responsive: true,
     maintainAspectRatio: false,
-    legend: { position: 'bottom', fontFamily: 'Roboto' },
+    legend: {
+      position: 'bottom',
+      fontFamily: 'Roboto',
+      fontSize: 15,
+      labels: {
+        fontFamily: 'Roboto, sans-serif',
+        fontColor: `${colors.black}`,
+        fontSize: 15,
+      },
+    },
     scales: {
       yAxes: [
         {
           ticks: {
             beginAtZero: true,
+            fontColor: 'black',
+            fontSize: 14,
           },
           scaleLabel: {
             display: true,
             labelString: units,
+            fontColor: 'black',
+            fontSize: 14,
+          },
+        },
+      ],
+      xAxes: [
+        {
+          ticks: {
+            fontColor: 'black',
+            fontSize: 14,
+          },
+          scaleLabel: {
+            fontColor: 'black',
+            fontSize: 14,
           },
         },
       ],
@@ -62,26 +95,43 @@ const Chart = ({ exercise, dataArr, goals, times, units }) => {
 
   function compareGoalToSession() {
     return dataArr.some(result => result >= goals[0]) ? (
-      <p>Goal of {goals[0]} reached!</p>
+      <GoalStatusTextReached>
+        {' '}
+        Goal of {goals[0]} reached!
+      </GoalStatusTextReached>
     ) : (
-      <p>Keep going.</p>
+      <GoalStatusTextKeepGoing>
+        {goals[0]} isn't far off!
+      </GoalStatusTextKeepGoing>
     )
   }
 }
+
+const GoalStatusTextKeepGoing = styled.p`
+  color: ${colors.white};
+  background: ${colors.red};
+  transform: perspective(700px) rotateZ(-5deg) rotateY(35deg);
+  display: inline-block;
+  letter-spacing: 1px;
+  padding: 4px;
+  margin-bottom: 8px;
+`
+
+const GoalStatusTextReached = styled.p`
+  color: ${colors.white};
+  background: ${colors.black};
+  transform: perspective(700px) rotateZ(-5deg) rotateY(35deg);
+  display: inline-block;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  padding: 4px;
+`
 
 const ChartContainer = styled.section`
   position: relative;
   width: 100%;
   height: 220px;
-  margin-bottom: 50px;
+  margin: 70px 0;
 `
-
-Chart.propTypes = {
-  exercise: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  dataArr: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  goals: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  times: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  units: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-}
 
 export default Chart

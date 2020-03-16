@@ -1,20 +1,28 @@
-import React from 'react'
-import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
-import { colors } from '../../../common/styles/colors'
-import FormHeadline from '../../../common/FormHeadline'
+import React from 'react'
 import { AiFillMinusSquare } from 'react-icons/ai'
+import styled from 'styled-components/macro'
 import ButtonBlack from '../../../common/ButtonBlack'
+import FormHeadline from '../../../common/FormHeadline'
+import { colors } from '../../../common/styles/theme'
+import { isThereAnyExerciseSelected } from '../../../utils'
 
-const UserInputForm = ({
+UserInputForm.propTypes = {
+  exercises: PropTypes.array.isRequired,
+  updateGoal: PropTypes.func.isRequired,
+  selectExercise: PropTypes.func.isRequired,
+  handleGoalSubmit: PropTypes.func.isRequired,
+}
+
+function UserInputForm({
   exercises,
   updateGoal,
   selectExercise,
   handleGoalSubmit,
-}) => {
+}) {
   return (
     <form onSubmit={handleGoalSubmit} style={{ marginTop: 20 }}>
-      {numberOfSelectedExercises() !== 0 && (
+      {!isThereAnyExerciseSelected(exercises) && (
         <FormHeadline number={'03'}>Set your goals</FormHeadline>
       )}
       {renderExercisesWithUserInputs()}
@@ -23,33 +31,32 @@ const UserInputForm = ({
   )
 
   function renderExercisesWithUserInputs() {
-    return exercises
-      .filter(exercise => exercise.selected === true)
-      .sort((a, b) => a.title + b.title)
-      .map(exercise => (
-        <InputContainer>
-          <p>{exercise.title}</p>
-          <InputFieldContainer>
-            <UnitInput
-              data-id={exercise.id}
-              name={exercise.title}
-              value={exercise.amount || ''}
-              type="number"
-              onChange={e => updateGoal(exercise.id, e.target.value)}
-              required
-            />
-            <p>{exercise.unit}</p>
-            <AiFillMinusSquare
-              onClick={() => selectExercise(exercise.id)}
-              className="removeExerciseButton"
-            />
-          </InputFieldContainer>
-        </InputContainer>
-      ))
+    return getExercisesForInput().map(exercise => (
+      <InputContainer>
+        <p>{exercise.title}</p>
+        <InputFieldContainer>
+          <UnitInput
+            data-id={exercise.id}
+            name={exercise.title}
+            value={exercise.amount || ''}
+            type="number"
+            onChange={e => updateGoal(exercise.id, e.target.value)}
+            required
+          />
+          <p>{exercise.unit}</p>
+          <AiFillMinusSquare
+            onClick={() => selectExercise(exercise.id)}
+            className="removeExerciseButton"
+          />
+        </InputFieldContainer>
+      </InputContainer>
+    ))
   }
 
-  function numberOfSelectedExercises() {
-    return exercises.filter(exercise => exercise.selected === true).length
+  function getExercisesForInput() {
+    return exercises
+      .filter(exercise => exercise.selected === true)
+      .sort((a, b) => a.timeSelected > b.timeSelected)
   }
 }
 
@@ -106,12 +113,5 @@ const UnitInput = styled.input`
     width: 10%;
   }
 `
-
-UserInputForm.propTypes = {
-  exercises: PropTypes.array.isRequired,
-  updateGoal: PropTypes.func.isRequired,
-  selectExercise: PropTypes.func.isRequired,
-  handleGoalSubmit: PropTypes.func.isRequired,
-}
 
 export default UserInputForm

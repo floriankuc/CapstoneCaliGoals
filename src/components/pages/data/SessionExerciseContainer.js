@@ -1,7 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { useSpring, animated } from 'react-spring'
 
-const SessionExerciseContainer = ({ children, toggled }) => {
+SessionExerciseContainer.propTypes = {
+  toggled: PropTypes.bool.isRequired,
+}
+
+function SessionExerciseContainer({ children, toggled }) {
   const { opacity, display } = useSpring({
     opacity: toggled ? 1 : 0,
     display: toggled ? 'block' : 'none',

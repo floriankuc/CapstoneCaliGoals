@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { colors } from './styles/colors'
+import { colors } from './styles/theme'
 import PropTypes from 'prop-types'
 
 const FormHeadline = ({ number, children }) => {

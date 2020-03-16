@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { colors } from '../common/styles/colors'
+import { colors } from '../common/styles/theme'
 
 const NumberSpan = ({ children }) => {
   return <StyledSpan>{children}</StyledSpan>

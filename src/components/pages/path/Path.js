@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from 'react'
-import CategoryList from './CategoryList'
-import OPTIONS from './OPTIONS'
-import OngoingPathContent from './OngoingPathContent'
-import ExerciseListItem from './ExerciseListItem'
 import PropTypes from 'prop-types'
-import UserInputForm from './UserInputForm'
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import Toast from '../../../common/Toast'
-import { getExercises, savePath } from '../../../services'
-import MuscleGroupList from './MuscleGroupList'
 import TransitionWrapper from '../../../common/TransitionWrapper'
+import { getExercises, savePath } from '../../../services'
+import CategoryList from './CategoryList'
+import ExerciseListItem from './ExerciseListItem'
+import MuscleGroupList from './MuscleGroupList'
+import OngoingPathContent from './OngoingPathContent'
+import OPTIONS from './OPTIONS'
+import UserInputForm from './UserInputForm'
+import { isThereAnyExerciseSelected } from '../../../utils'
 
-const Path = ({ path }) => {
+Path.propTypes = {
+  path: PropTypes.array.isRequired,
+}
+
+function Path({ path }) {
   const [exercises, setExercises] = useState([])
   const [pathCategory, setPathCategory] = useState('')
   const [filteredCategory, setFilteredCategory] = useState('')
@@ -27,11 +32,12 @@ const Path = ({ path }) => {
     getExercises(setExercises)
   }, [])
 
+  let history = useHistory()
+
   return (
     <TransitionWrapper>
-      <Toast enableMultiContainer containerId={'pathDeletedContainer'} />
       {path.length < 1 ? (
-        <div>
+        <>
           <h2>Create your path</h2>
           <CategoryList
             pathCategory={pathCategory}
@@ -54,12 +60,9 @@ const Path = ({ path }) => {
             updateGoal={updateGoal}
             selectExercise={selectExercise}
           />
-        </div>
-      ) : (
-        <>
-          <OngoingPathContent path={path} />
-          <Toast enableMultiContainer containerId={'pathCreatedContainer'} />
         </>
+      ) : (
+        <OngoingPathContent path={path} />
       )}
     </TransitionWrapper>
   )
@@ -72,6 +75,7 @@ const Path = ({ path }) => {
         ...exercises[index],
         selected: !exercises[index].selected,
         amount: 0,
+        timeSelected: new Date().getTime(),
       },
       ...exercises.slice(index + 1),
     ])
@@ -93,6 +97,19 @@ const Path = ({ path }) => {
     ))
   }
 
+  function handleGoalSubmit(e) {
+    e.preventDefault()
+    const isValid = validate()
+    if (isValid) {
+      const selectedExercisesAreGoals = exercises.filter(
+        exercise => exercise.selected === true
+      )
+      savePath(pathCategory, selectedExercisesAreGoals)
+      toast('Path created.', { containerId: 'pathCreatedContainer' })
+      history.push('/')
+    }
+  }
+
   function validate() {
     let categoryError = ''
     let exercisesError = ''
@@ -101,7 +118,7 @@ const Path = ({ path }) => {
       categoryError = 'Select a category'
     }
 
-    if (exercises.filter(exercise => exercise.selected === true).length === 0) {
+    if (isThereAnyExerciseSelected(exercises)) {
       exercisesError = 'Select at least one exercise'
     }
 
@@ -117,22 +134,6 @@ const Path = ({ path }) => {
 
     return true
   }
-
-  function handleGoalSubmit(e) {
-    e.preventDefault()
-    const isValid = validate()
-    if (isValid) {
-      const selectedExercisesAreGoals = exercises.filter(
-        exercise => exercise.selected === true
-      )
-      savePath(pathCategory, selectedExercisesAreGoals)
-      toast('Path created.', { containerId: 'pathCreatedContainer' })
-    }
-  }
-}
-
-Path.propTypes = {
-  path: PropTypes.array.isRequired,
 }
 
 export default Path

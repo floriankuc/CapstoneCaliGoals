@@ -8,9 +8,13 @@ import {
   AiOutlineUnorderedList,
   AiOutlineLineChart,
 } from 'react-icons/ai'
-import { colors } from '../../common/styles/colors'
+import { colors } from '../../common/styles/theme'
 
-const Navigation = ({ path }) => {
+Navigation.propTypes = {
+  path: PropTypes.array.isRequired,
+}
+
+function Navigation({ path }) {
   const [isPath, setIsPath] = useState()
 
   useEffect(() => {
@@ -53,8 +57,9 @@ const LinkStyled = styled(NavLink)`
   background: ${colors.white};
   transition: all 0.5s ease-out;
   position: relative;
+  outline: none;
 
-  /* .icon {
+  .icon {
     font-size: 32px;
     transition: all 0.1s ease-out;
     color: ${colors.black};
@@ -64,16 +69,13 @@ const LinkStyled = styled(NavLink)`
 
   &.active .icon {
     color: ${colors.red};
-  } */
+    outline: none;
+  }
 `
 
 const NavigationStyled = styled.nav`
   display: grid;
   grid-auto-flow: column;
 `
-
-Navigation.propTypes = {
-  path: PropTypes.array.isRequired,
-}
 
 export default Navigation

@@ -1,5 +1,5 @@
 import React from 'react'
-import hexagon from '../../../common/hexagon.svg'
+import hexagon from './hexagon.svg'
 import styled from 'styled-components/macro'
 
 const Header = () => {
