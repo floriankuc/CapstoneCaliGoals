@@ -25,9 +25,7 @@ function CategoryList({ pathCategory, setPathCategory, validationErrors }) {
   return (
     <section>
       <TitleAndErrorContainer>
-        <p>
-          <FormHeadline number={'01'}>Category</FormHeadline>
-        </p>
+        <FormHeadline number={'01'}>Category</FormHeadline>
         {renderCategoryErrorMessage()}
       </TitleAndErrorContainer>
       <StyledButtonNav data-test="nav">

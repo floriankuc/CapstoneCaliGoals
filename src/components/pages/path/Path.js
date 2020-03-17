@@ -93,7 +93,11 @@ function Path({ path }) {
   function renderExercises(category) {
     const filteredExercises = exercises.filter(ex => ex.category === category)
     return filteredExercises.map(exercise => (
-      <ExerciseListItem exercise={exercise} selectExercise={selectExercise} />
+      <ExerciseListItem
+        key={exercise.id}
+        exercise={exercise}
+        selectExercise={selectExercise}
+      />
     ))
   }
 

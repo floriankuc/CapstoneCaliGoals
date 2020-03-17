@@ -40,7 +40,10 @@ function Data({ path }) {
         <>
           <p>No training session data to display yet.</p>
           <BrowserRouter>
-            <StyledLinkText onClick={() => history.push('/sessions')}>
+            <StyledLinkText
+              to="/sessions"
+              onClick={() => history.push('/sessions')}
+            >
               Log your session
             </StyledLinkText>
           </BrowserRouter>
@@ -61,6 +64,7 @@ function Data({ path }) {
       const formattedDate = getDateWithYear(date)
       return (
         <SessionListItemContainer
+          key={session.id}
           session={session}
           formattedDate={formattedDate}
           selectedSessionsExtracted={selectedSessionsExtracted}

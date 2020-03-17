@@ -1,10 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  __RouterContext,
-} from 'react-router-dom'
+import { Route, Switch, __RouterContext } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Scroller from '../common/Scroller'
 import Navigation from './pages/Navigation'

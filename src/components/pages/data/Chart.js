@@ -110,9 +110,7 @@ function Chart({ exercise, dataArr, goals, times, units }) {
 const GoalStatusTextKeepGoing = styled.p`
   color: ${colors.white};
   background: ${colors.red};
-  transform: perspective(700px) rotateZ(-5deg) rotateY(35deg);
   display: inline-block;
-  letter-spacing: 1px;
   padding: 4px;
   margin-bottom: 8px;
 `
@@ -120,9 +118,7 @@ const GoalStatusTextKeepGoing = styled.p`
 const GoalStatusTextReached = styled.p`
   color: ${colors.white};
   background: ${colors.black};
-  transform: perspective(700px) rotateZ(-5deg) rotateY(35deg);
   display: inline-block;
-  letter-spacing: 1px;
   margin-bottom: 8px;
   padding: 4px;
 `

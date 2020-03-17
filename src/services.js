@@ -70,10 +70,7 @@ export function getExercises(setter) {
 }
 
 export function deletePath(id) {
-  pathsRef
-    .doc(id)
-    .delete()
-    .then(() => console.log('Deleted path from firestore'))
+  pathsRef.doc(id).delete()
 
   sessionsRef
     .where('pathId', '==', id)
