@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components/macro'
-import { colors, mixins } from './theme'
+import { colors } from './theme'
 
 const GlobalStyles = createGlobalStyle`
 

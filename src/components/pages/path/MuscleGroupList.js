@@ -24,9 +24,7 @@ function MuscleGroupList({
   return (
     <>
       <TitleAndErrorContainer>
-        <p>
-          <FormHeadline number={'02'}>Exercises</FormHeadline>
-        </p>
+        <FormHeadline number={'02'}>Exercises</FormHeadline>
         {renderExercisesErrorMessage()}
       </TitleAndErrorContainer>
       <MuscleGroupContainer>{renderOptionButtons()}</MuscleGroupContainer>
@@ -34,10 +32,10 @@ function MuscleGroupList({
   )
 
   function renderOptionButtons() {
-    return selectedOptions.map(selectedOption => {
+    return selectedOptions.map((selectedOption, i) => {
       return (
         <OptionButton
-          key={selectedOption.id}
+          key={i}
           value={selectedOption.name}
           className={filteredCategory === selectedOption.name ? 'active' : ''}
           onClick={() => setFilteredCategory(selectedOption.name)}

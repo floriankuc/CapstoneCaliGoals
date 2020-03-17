@@ -5,10 +5,12 @@ import PropTypes from 'prop-types'
 
 const FormHeadline = ({ number, children }) => {
   return (
-    <p>
-      <StyledSpan>{number} </StyledSpan>
-      {children}
-    </p>
+    <>
+      <p>
+        <StyledSpan>{number} </StyledSpan>
+        {children}
+      </p>
+    </>
   )
 }
 

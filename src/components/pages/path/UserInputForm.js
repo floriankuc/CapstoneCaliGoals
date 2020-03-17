@@ -32,7 +32,7 @@ function UserInputForm({
 
   function renderExercisesWithUserInputs() {
     return getExercisesForInput().map(exercise => (
-      <InputContainer>
+      <InputContainer key={exercise.id}>
         <p>{exercise.title}</p>
         <InputFieldContainer>
           <UnitInput

@@ -1,6 +1,6 @@
 import React from 'react'
 import Chart from './Chart'
-import { Line } from 'react-chartjs-2'
+// import { Line } from 'react-chartjs-2'
 import { getDateWithoutYear, sortByTime, getSessionDate } from '../../../utils'
 import PropTypes from 'prop-types'
 
@@ -54,7 +54,7 @@ function ExerciseCharts({ data }) {
   function getSessionTimes() {
     const sortedSessions = sortByTime(data)
     const times = []
-    sortedSessions.map(session => {
+    sortedSessions.forEach(session => {
       let timeAsDate = getSessionDate(session)
       times.push(getDateWithoutYear(timeAsDate))
     })
