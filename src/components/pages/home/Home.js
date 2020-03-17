@@ -39,7 +39,11 @@ function Home({ path }) {
             <IntroText>
               Define your training path, log your workouts and track your goals.
             </IntroText>
-            <StyledLink to="/path" mt={!path.length ? '120px' : ''}>
+            <StyledLink
+              data-cy="createpath"
+              to="/path"
+              mt={!path.length ? '120px' : ''}
+            >
               Create a new training path
             </StyledLink>
           </>
