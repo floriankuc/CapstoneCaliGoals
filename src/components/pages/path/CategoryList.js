@@ -45,6 +45,7 @@ function CategoryList({ pathCategory, setPathCategory, validationErrors }) {
   function renderCategoryButton() {
     return CATEGORIES.map((category, i) => (
       <CategoryButton
+        data-cy="categorybutton"
         key={i}
         name={category}
         className={pathCategory === category ? 'active' : ''}

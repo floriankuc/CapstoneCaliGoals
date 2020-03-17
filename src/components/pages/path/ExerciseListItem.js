@@ -11,6 +11,7 @@ ExerciseListItem.propTypes = {
 function ExerciseListItem({ exercise, selectExercise }) {
   return (
     <ListItem
+      data-cy="exerciseListItem"
       key={exercise.id}
       id={exercise.id}
       onClick={() => selectExercise(exercise.id)}

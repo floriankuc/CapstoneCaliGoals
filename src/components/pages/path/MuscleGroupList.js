@@ -35,6 +35,7 @@ function MuscleGroupList({
     return selectedOptions.map((selectedOption, i) => {
       return (
         <OptionButton
+          data-cy="optionbutton"
           key={i}
           value={selectedOption.name}
           className={filteredCategory === selectedOption.name ? 'active' : ''}

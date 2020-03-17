@@ -36,7 +36,10 @@ function Sessions({ path }) {
             session={session}
             updateSessionExercise={updateSessionExercise}
           />
-          <ButtonRed onClick={() => handleDelete(path[0].id)}>
+          <ButtonRed
+            data-cy="deleteButton"
+            onClick={() => handleDelete(path[0].id)}
+          >
             Terminate current path
           </ButtonRed>
         </div>
@@ -94,6 +97,7 @@ function Sessions({ path }) {
     if (session.length) {
       return session.map(exercise => (
         <ExerciseDiv
+          data-cy="exerciseDiv"
           className={exercise.editing ? 'selected' : ''}
           key={exercise.id}
           onClick={() => editSessionWithExercise(exercise.id)}

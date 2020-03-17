@@ -36,7 +36,7 @@ function Navigation({ path }) {
         </LinkStyled>
       ) : (
         <>
-          <LinkStyled to="/sessions" data-test="link">
+          <LinkStyled to="/sessions" data-cy="navbutton" data-test="link">
             <AiOutlineUnorderedList className="icon" />
           </LinkStyled>
           <LinkStyled to="/data" data-test="link">
