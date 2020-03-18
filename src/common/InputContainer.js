@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import { colors } from './styles/theme'
 
-const InputContainer = ({ array, changeHandler }) => {
+const InputContainer = ({ array, changeHandler, setInputFocus }) => {
   return (
     <StyledInputContainer>
       <p>{array.title}</p>
@@ -15,6 +15,8 @@ const InputContainer = ({ array, changeHandler }) => {
           type="number"
           value={array.amountDone || ''}
           onChange={e => changeHandler(array.id, e.target.value)}
+          onFocus={() => setInputFocus(true)}
+          onBlur={() => setInputFocus(false)}
         />
         <p>{array.unit}</p>
       </StyledInputFieldContainer>
@@ -60,7 +62,7 @@ const StyledUnitInput = styled.input`
   background: transparent;
   border: none;
   border-bottom: 1px solid ${colors.red};
-  -webkit-appearance: none;
+  -webkit-appearance: textfield;
   -moz-appearance: textfield;
   transition: all 0.1s ease-in-out;
 

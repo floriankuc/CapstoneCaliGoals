@@ -17,30 +17,32 @@ export const mixins = {
     display: block;
     width: 300px;
     text-decoration: none;
-    color: ${colors.white};
+    color: ${colors.black};
     padding: 12px;
-    background: ${colors.black};
+    background: ${colors.white};
     text-align: center;
     position: relative;
+    border: 1px solid ${colors.black};
 
-    &:hover:after {
-      top: -6px;
-      left: 6px;
+    &:hover,
+    &:active,
+    &:focus {
+      color: ${colors.white};
+      background: ${colors.black};
     }
 
     &:active:after,
     &:focus:after {
-      top: -10px;
-      left: 10px;
+      outline: none;
     }
 
     &:after {
       content: '';
       position: absolute;
       z-index: -1;
-      background: ${colors.red};
-      top: 0;
-      left: 0;
+      background: ${colors.black};
+      top: -4px;
+      right: -4px;
       width: 100%;
       height: 100%;
       transition: all 0.1s ease-in-out;
@@ -58,6 +60,30 @@ export const mixins = {
     text-align: center;
     position: relative;
 
+    &:hover,
+    &:active,
+    &:focus {
+      color: ${colors.white};
+      background: ${colors.red};
+    }
+
+    &:active:after,
+    &:focus:after {
+      outline: none;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      background: ${colors.red};
+      top: -4px;
+      right: -4px;
+      width: 100%;
+      height: 100%;
+      transition: all 0.1s ease-in-out;
+    }
+/* 
     &:hover:after {
       top: -6px;
       left: 6px;
@@ -79,7 +105,7 @@ export const mixins = {
       width: 100%;
       height: 100%;
       transition: all 0.1s ease-in-out;
-    }
+    } */
   `,
 
   tileButton: css`
@@ -89,7 +115,7 @@ export const mixins = {
     color: ${colors.black};
     border: none;
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 200;
     margin-top: 4px;
     width: 100%;
     height: 100%;

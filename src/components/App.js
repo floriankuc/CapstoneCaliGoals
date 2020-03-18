@@ -13,6 +13,7 @@ import ToastContainers from '../common/ToastContainers'
 
 const App = () => {
   const [path, setPath] = useState([])
+  const [inputFocus, setInputFocus] = useState(false)
 
   const { location } = useContext(__RouterContext)
   const transitions = useTransition(location, location => location.pathname, {
@@ -26,7 +27,7 @@ const App = () => {
   }, [])
 
   return (
-    <AppGrid>
+    <AppGrid navHeight={inputFocus ? '0' : '48px'}>
       <Scroller>
         <ToastContainers />
         {transitions.map(({ item, props, key }) => (
@@ -36,10 +37,10 @@ const App = () => {
                 <Home path={path} />
               </Route>
               <Route path="/path">
-                <Path path={path} />
+                <Path path={path} setInputFocus={setInputFocus} />
               </Route>
               <Route path="/sessions">
-                <Sessions path={path} />
+                <Sessions path={path} setInputFocus={setInputFocus} />
               </Route>
               <Route path="/data">
                 <Data path={path} />
@@ -48,16 +49,16 @@ const App = () => {
           </animated.div>
         ))}
       </Scroller>
-      <Navigation path={path} />
+      <Navigation path={path} inputFocus={inputFocus} />
     </AppGrid>
   )
 }
 
 const AppGrid = styled.main`
   display: grid;
-  grid-template-rows: auto 48px;
+  grid-template-rows: auto ${props => props.navHeight};
   position: fixed;
-  max-width: 450px;
+  max-width: 360px;
   margin: 0 auto;
   left: 0;
   right: 0;

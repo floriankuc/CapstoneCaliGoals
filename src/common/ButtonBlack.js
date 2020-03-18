@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { mixins } from '../common/styles/theme'
+import { mixins, colors } from '../common/styles/theme'
 
 const ButtonBlack = ({ children }) => {
   return <StyledButton>{children}</StyledButton>
@@ -8,7 +8,7 @@ const ButtonBlack = ({ children }) => {
 
 const StyledButton = styled.button`
   ${mixins.squareButton};
-  border: none;
+  border: 1px solid ${colors.black};
   font-size: 18px;
   font-weight: 300;
   line-height: 1.6;
