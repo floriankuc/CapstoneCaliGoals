@@ -5,6 +5,6 @@ import '@testing-library/jest-dom'
 
 describe('<Data/>', () => {
   it('should render with its given props', () => {
-    render(<Data path={[test]} />)
+    render(<Data path={['test']} />)
   })
 })
