@@ -11,6 +11,7 @@ SessionForm.propTypes = {
   handleSessionSubmit: PropTypes.func.isRequired,
   session: PropTypes.array.isRequired,
   updateSessionExercise: PropTypes.func.isRequired,
+  setInputFocus: PropTypes.func.isRequired,
 }
 
 function SessionForm({

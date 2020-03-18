@@ -15,6 +15,7 @@ import { isThereAnyExerciseSelected } from '../../../utils'
 
 Path.propTypes = {
   path: PropTypes.array.isRequired,
+  setInputFocus: PropTypes.func.isRequired,
 }
 
 function Path({ path, setInputFocus }) {

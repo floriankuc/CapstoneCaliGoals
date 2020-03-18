@@ -14,6 +14,7 @@ import SessionForm from './SessionForm'
 
 Sessions.propTypes = {
   path: PropTypes.array.isRequired,
+  setInputFocus: PropTypes.func.isRequired,
 }
 
 function Sessions({ path, setInputFocus }) {

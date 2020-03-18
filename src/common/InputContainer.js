@@ -1,8 +1,15 @@
 import React from 'react'
 import styled from 'styled-components/macro'
 import { colors } from './styles/theme'
+import PropTypes from 'prop-types'
 
-const InputContainer = ({ array, changeHandler, setInputFocus }) => {
+InputContainer.propTypes = {
+  array: PropTypes.array.isRequired,
+  changeHandler: PropTypes.func.isRequired,
+  setInputFocus: PropTypes.func.isRequired,
+}
+
+function InputContainer({ array, changeHandler, setInputFocus }) {
   return (
     <StyledInputContainer>
       <p>{array.title}</p>

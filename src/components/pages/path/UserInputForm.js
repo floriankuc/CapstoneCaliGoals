@@ -12,6 +12,7 @@ UserInputForm.propTypes = {
   updateGoal: PropTypes.func.isRequired,
   selectExercise: PropTypes.func.isRequired,
   handleGoalSubmit: PropTypes.func.isRequired,
+  setInputFocus: PropTypes.func.isRequired,
 }
 
 function UserInputForm({

@@ -12,6 +12,7 @@ import { colors } from '../../common/styles/theme'
 
 Navigation.propTypes = {
   path: PropTypes.array.isRequired,
+  inputFocus: PropTypes.bool.isRequired,
 }
 
 function Navigation({ path, inputFocus }) {
