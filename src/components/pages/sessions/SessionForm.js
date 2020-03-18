@@ -13,7 +13,12 @@ SessionForm.propTypes = {
   updateSessionExercise: PropTypes.func.isRequired,
 }
 
-function SessionForm({ handleSessionSubmit, session, updateSessionExercise }) {
+function SessionForm({
+  handleSessionSubmit,
+  session,
+  updateSessionExercise,
+  setInputFocus,
+}) {
   const [validationErrors, setValidationErrors] = useState({
     sessionError: '',
   })
@@ -27,6 +32,7 @@ function SessionForm({ handleSessionSubmit, session, updateSessionExercise }) {
             key={session.id}
             array={session}
             changeHandler={updateSessionExercise}
+            setInputFocus={setInputFocus}
           />
         ))}
       <TitleAndErrorContainer>

@@ -17,7 +17,7 @@ Path.propTypes = {
   path: PropTypes.array.isRequired,
 }
 
-function Path({ path }) {
+function Path({ path, setInputFocus }) {
   const [exercises, setExercises] = useState([])
   const [pathCategory, setPathCategory] = useState('')
   const [filteredCategory, setFilteredCategory] = useState('')
@@ -59,6 +59,7 @@ function Path({ path }) {
             exercises={exercises}
             updateGoal={updateGoal}
             selectExercise={selectExercise}
+            setInputFocus={setInputFocus}
           />
         </>
       ) : (

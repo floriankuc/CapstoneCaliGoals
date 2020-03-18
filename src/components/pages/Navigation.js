@@ -14,7 +14,7 @@ Navigation.propTypes = {
   path: PropTypes.array.isRequired,
 }
 
-function Navigation({ path }) {
+function Navigation({ path, inputFocus }) {
   const [isPath, setIsPath] = useState()
 
   useEffect(() => {
@@ -26,9 +26,10 @@ function Navigation({ path }) {
   }, [path])
 
   return (
-    <NavigationStyled data-test="nav">
+    <NavigationStyled display={inputFocus ? 'none' : 'grid'} data-test="nav">
       <LinkStyled exact to="/" data-test="link">
         <AiOutlineHome className="icon" />
+        {inputFocus ? 'focused' : ''}
       </LinkStyled>
       {!isPath ? (
         <LinkStyled to="/path" data-test="link">
@@ -74,7 +75,7 @@ const LinkStyled = styled(NavLink)`
 `
 
 const NavigationStyled = styled.nav`
-  display: grid;
+  display: ${props => props.display};
   grid-auto-flow: column;
 `
 

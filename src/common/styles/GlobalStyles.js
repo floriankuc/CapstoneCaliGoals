@@ -26,7 +26,7 @@ const GlobalStyles = createGlobalStyle`
   h1 {
     font-size: 48px;
     font-family: Spartan, sans-serif;
-    font-weight: 300;
+    font-weight: 200;
     text-transform: uppercase;
     color: ${colors.black};
     margin-bottom: 24px;

@@ -16,7 +16,7 @@ Sessions.propTypes = {
   path: PropTypes.array.isRequired,
 }
 
-function Sessions({ path }) {
+function Sessions({ path, setInputFocus }) {
   const [session, setSession] = useState([])
   let history = useHistory()
 
@@ -35,6 +35,7 @@ function Sessions({ path }) {
             handleSessionSubmit={handleSessionSubmit}
             session={session}
             updateSessionExercise={updateSessionExercise}
+            setInputFocus={setInputFocus}
           />
           <ButtonRed
             data-cy="deleteButton"
@@ -114,8 +115,9 @@ function Sessions({ path }) {
 
 const ButtonRed = styled.button`
   ${mixins.squareButtonReverse};
+  border: 1px solid ${colors.red};
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 200;
   line-height: 1.6;
   margin: 60px auto;
 

@@ -19,6 +19,7 @@ function UserInputForm({
   updateGoal,
   selectExercise,
   handleGoalSubmit,
+  setInputFocus,
 }) {
   return (
     <form onSubmit={handleGoalSubmit} style={{ marginTop: 20 }}>
@@ -41,6 +42,8 @@ function UserInputForm({
             value={exercise.amount || ''}
             type="number"
             onChange={e => updateGoal(exercise.id, e.target.value)}
+            onFocus={() => setInputFocus(true)}
+            onBlur={() => setInputFocus(false)}
             required
           />
           <p>{exercise.unit}</p>
@@ -98,7 +101,7 @@ const UnitInput = styled.input`
   background: transparent;
   border: none;
   border-bottom: 1px solid ${colors.red};
-  -webkit-appearance: none;
+  -webkit-appearance: textfield;
   -moz-appearance: textfield;
   transition: all 0.1s ease-in-out;
 
