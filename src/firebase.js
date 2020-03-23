@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import 'firebase/auth'
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -15,6 +16,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 const db = firebase.firestore()
+export const auth = firebase.auth()
 
 export const exercisesRef = db.collection('EXERCISES')
 export const pathsRef = db.collection('paths')
