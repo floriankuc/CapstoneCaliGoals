@@ -7,7 +7,7 @@ import TransitionWrapper from '../../../common/TransitionWrapper'
 import { capitalise } from '../../../utils'
 import CategoryChart from './CategoryChart'
 import Header from './Header'
-import { auth } from '../../../firebase'
+import AuthForms from '../../AuthForms'
 
 Home.propTypes = {
   path: PropTypes.array.isRequired,
@@ -15,19 +15,6 @@ Home.propTypes = {
 
 function Home({ path }) {
   const [categories, setCategories] = useState([])
-  const [emailInput, setEmailInput] = useState('')
-  const [passwordInput, setPasswordInput] = useState('')
-  const [emailInputLogin, setEmailInputLogin] = useState('')
-  const [passwordInputLogin, setPasswordInputLogin] = useState('')
-  const [currentUser, setCurrentUser] = useState(null)
-
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      console.log('user logged in: ', user)
-    } else {
-      console.log('user logged out')
-    }
-  })
 
   useEffect(() => {
     path.length && setCategories(readCategories())
@@ -47,6 +34,7 @@ function Home({ path }) {
             <StyledLink to="/sessions">
               Working out? Log your session.
             </StyledLink>
+            <AuthForms />
           </>
         ) : (
           <>
@@ -60,75 +48,12 @@ function Home({ path }) {
             >
               Create a new training path
             </StyledLink>
-            <form>
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                value={emailInput}
-                onChange={e => setEmailInput(e.target.value)}
-              />
-              <label htmlFor="pw">pw</label>
-              <input
-                id="pw"
-                type="password"
-                value={passwordInput}
-                onChange={e => setPasswordInput(e.target.value)}
-              />
-              <button onClick={handleSignUp}>Sign up</button>
-            </form>
-            <button onClick={handleLogout}>Log out</button>
-            <h3>Login form</h3>
-            <form onSubmit={handleLogin}>
-              <label htmlFor="">email</label>
-              <input
-                type="email"
-                value={emailInputLogin}
-                onChange={e => setEmailInputLogin(e.target.value)}
-              />
-              <label htmlFor="">pw</label>
-              <input
-                type="password"
-                value={passwordInputLogin}
-                onChange={e => setPasswordInputLogin(e.target.value)}
-              />
-              <button>Login</button>
-            </form>
+            <AuthForms />
           </>
         )}
       </HomeSection>
     </TransitionWrapper>
   )
-
-  function handleLogin(e) {
-    e.preventDefault()
-    auth
-      .signInWithEmailAndPassword(emailInputLogin, passwordInputLogin)
-      .then(cred => {
-        console.log(cred.user)
-        setEmailInputLogin('')
-        setPasswordInputLogin('')
-        // console.log('user logged in')
-      })
-  }
-
-  function handleLogout(e) {
-    e.preventDefault()
-    auth.signOut().then(() => {
-      // console.log('user logged out')
-    })
-  }
-
-  function handleSignUp(e) {
-    e.preventDefault()
-    auth
-      .createUserWithEmailAndPassword(emailInput, passwordInput)
-      .then(cred => {
-        console.log(cred)
-        setEmailInput('')
-        setPasswordInput('')
-      })
-  }
 
   function readCategories() {
     return path[0].selectedExercisesAreGoals.map(path => path.category)

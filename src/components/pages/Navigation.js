@@ -15,7 +15,7 @@ Navigation.propTypes = {
   inputFocus: PropTypes.bool.isRequired,
 }
 
-function Navigation({ path, inputFocus }) {
+function Navigation({ path, inputFocus, currentUser }) {
   const [isPath, setIsPath] = useState()
 
   useEffect(() => {
@@ -27,26 +27,35 @@ function Navigation({ path, inputFocus }) {
   }, [path])
 
   return (
-    <NavigationStyled display={inputFocus ? 'none' : 'grid'} data-test="nav">
-      <LinkStyled exact to="/" data-test="link">
-        <AiOutlineHome className="icon" />
-        {inputFocus ? 'focused' : ''}
-      </LinkStyled>
-      {!isPath ? (
-        <LinkStyled to="/path" data-test="link">
-          <AiOutlinePlus className="icon" />
-        </LinkStyled>
+    <>
+      {currentUser ? (
+        <NavigationStyled
+          display={inputFocus ? 'none' : 'grid'}
+          data-test="nav"
+        >
+          <LinkStyled exact to="/" data-test="link">
+            <AiOutlineHome className="icon" />
+            {inputFocus ? 'focused' : ''}
+          </LinkStyled>
+          {!isPath ? (
+            <LinkStyled to="/path" data-test="link">
+              <AiOutlinePlus className="icon" />
+            </LinkStyled>
+          ) : (
+            <>
+              <LinkStyled to="/sessions" data-cy="navbutton" data-test="link">
+                <AiOutlineUnorderedList className="icon" />
+              </LinkStyled>
+              <LinkStyled to="/data" data-test="link">
+                <AiOutlineLineChart className="icon" />
+              </LinkStyled>
+            </>
+          )}
+        </NavigationStyled>
       ) : (
-        <>
-          <LinkStyled to="/sessions" data-cy="navbutton" data-test="link">
-            <AiOutlineUnorderedList className="icon" />
-          </LinkStyled>
-          <LinkStyled to="/data" data-test="link">
-            <AiOutlineLineChart className="icon" />
-          </LinkStyled>
-        </>
+        ''
       )}
-    </NavigationStyled>
+    </>
   )
 }
 

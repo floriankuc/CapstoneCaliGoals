@@ -10,10 +10,12 @@ import Sessions from './pages/sessions/Sessions'
 import { getPath } from '../services'
 import { useTransition, animated } from 'react-spring'
 import ToastContainers from '../common/ToastContainers'
+import { auth } from '../firebase'
 
 const App = () => {
   const [path, setPath] = useState([])
   const [inputFocus, setInputFocus] = useState(false)
+  const [currentUser, setCurrentUser] = useState()
 
   const { location } = useContext(__RouterContext)
   const transitions = useTransition(location, location => location.pathname, {
@@ -23,7 +25,17 @@ const App = () => {
   })
 
   useEffect(() => {
-    getPath(setPath)
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        console.log('user logged in: ', user)
+        getPath(setPath)
+        setCurrentUser(user)
+      } else {
+        console.log('user logged out')
+        setPath([])
+        setCurrentUser(null)
+      }
+    })
   }, [])
 
   return (
@@ -49,7 +61,11 @@ const App = () => {
           </animated.div>
         ))}
       </Scroller>
-      <Navigation path={path} inputFocus={inputFocus} />
+      <Navigation
+        path={path}
+        inputFocus={inputFocus}
+        currentUser={currentUser}
+      />
     </AppGrid>
   )
 }
