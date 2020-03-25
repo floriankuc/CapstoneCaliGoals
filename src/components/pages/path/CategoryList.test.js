@@ -9,14 +9,22 @@ configure({ adapter: new Adapter() })
 describe('<CategoryList/>', () => {
   it('renders with its given props', () => {
     const categoryList = shallow(
-      <CategoryList pathCategory={'Strength'} setPathCategory={() => {}} />
+      <CategoryList
+        pathCategory={'Strength'}
+        validationErrors={{}}
+        setPathCategory={() => {}}
+      />
     )
     expect(categoryList.find('section').length).toEqual(1)
   })
 
   it('renders the nav with buttons correctly', () => {
     const categoryList = shallow(
-      <CategoryList pathCategory={'Strength'} setPathCategory={() => {}} />
+      <CategoryList
+        pathCategory={'Strength'}
+        validationErrors={{}}
+        setPathCategory={() => {}}
+      />
     )
     expect(categoryList.find('section', { 'data-test': 'nav' }).length).toEqual(
       1

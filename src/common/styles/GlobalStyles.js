@@ -51,6 +51,11 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
+  label {
+    font-size: 12px;
+    color: ${colors.darkgrey};
+  }
+
   .toast{
     color: ${colors.white};
     background: ${colors.black};

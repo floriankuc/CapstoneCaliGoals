@@ -83,29 +83,6 @@ export const mixins = {
       height: 100%;
       transition: all 0.1s ease-in-out;
     }
-/* 
-    &:hover:after {
-      top: -6px;
-      left: 6px;
-    }
-
-    &:active:after,
-    &:focus:after {
-      top: -10px;
-      left: 10px;
-    }
-
-    &:after {
-      content: '';
-      position: absolute;
-      z-index: -1;
-      background: ${colors.red};
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      transition: all 0.1s ease-in-out;
-    } */
   `,
 
   tileButton: css`
@@ -138,17 +115,5 @@ export const mixins = {
     grid-template-rows: auto auto;
     width: 100%;
     max-width: 450px;
-  `,
-
-  flexCenter: css`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `,
-
-  flexBetween: css`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   `,
 }
