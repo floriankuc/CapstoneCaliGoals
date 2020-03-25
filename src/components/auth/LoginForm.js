@@ -25,7 +25,7 @@ const LoginForm = ({ setLoginMode }) => {
         value={password}
         onChange={e => setPassword(e.target.value)}
       />
-      <LoginButton>Login</LoginButton>
+      <LoginButton data-cy="loginsubmit">Login</LoginButton>
     </form>
   )
 

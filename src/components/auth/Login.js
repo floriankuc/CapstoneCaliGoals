@@ -5,7 +5,9 @@ import { colors, mixins } from '../../common/styles/theme'
 
 const Login = ({ loginMode, setLoginMode }) => {
   return !loginMode ? (
-    <LoginButton onClick={() => setLoginMode(true)}>Login</LoginButton>
+    <LoginButton data-cy="loginbutton" onClick={() => setLoginMode(true)}>
+      Login
+    </LoginButton>
   ) : (
     <>
       <LoginForm setLoginMode={setLoginMode} />
