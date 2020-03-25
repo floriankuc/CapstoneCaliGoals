@@ -46,7 +46,7 @@ const App = () => {
           <animated.div key={key} style={props}>
             <Switch location={item}>
               <Route exact path="/">
-                <Home path={path} />
+                <Home path={path} currentUser={currentUser} />
               </Route>
               <Route path="/path">
                 <Path path={path} setInputFocus={setInputFocus} />

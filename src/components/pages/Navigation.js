@@ -7,8 +7,12 @@ import {
   AiOutlinePlus,
   AiOutlineUnorderedList,
   AiOutlineLineChart,
+  AiOutlineLogout,
 } from 'react-icons/ai'
 import { colors } from '../../common/styles/theme'
+import { auth } from '../../firebase'
+import { toast } from 'react-toastify'
+import { useHistory } from 'react-router-dom'
 
 Navigation.propTypes = {
   path: PropTypes.array.isRequired,
@@ -26,6 +30,8 @@ function Navigation({ path, inputFocus, currentUser }) {
     }
   }, [path])
 
+  let history = useHistory()
+
   return (
     <>
       {currentUser ? (
@@ -35,7 +41,6 @@ function Navigation({ path, inputFocus, currentUser }) {
         >
           <LinkStyled exact to="/" data-test="link">
             <AiOutlineHome className="icon" />
-            {inputFocus ? 'focused' : ''}
           </LinkStyled>
           {!isPath ? (
             <LinkStyled to="/path" data-test="link">
@@ -51,12 +56,23 @@ function Navigation({ path, inputFocus, currentUser }) {
               </LinkStyled>
             </>
           )}
+          <LinkStyled to="" data-test="link">
+            <AiOutlineLogout className="logout-icon" onClick={handleLogout} />
+          </LinkStyled>
         </NavigationStyled>
       ) : (
         ''
       )}
     </>
   )
+
+  function handleLogout(e) {
+    e.preventDefault()
+    auth.signOut().then(() => {
+      toast('Logged out.', { containerId: 'loggedInContainer' })
+    })
+    history.push('/')
+  }
 }
 
 const LinkStyled = styled(NavLink)`
@@ -70,7 +86,8 @@ const LinkStyled = styled(NavLink)`
   position: relative;
   outline: none;
 
-  .icon {
+  .icon,
+  .logout-icon {
     font-size: 32px;
     transition: all 0.1s ease-out;
     color: ${colors.black};

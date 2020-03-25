@@ -7,13 +7,14 @@ import TransitionWrapper from '../../../common/TransitionWrapper'
 import { capitalise } from '../../../utils'
 import CategoryChart from './CategoryChart'
 import Header from './Header'
-import AuthForms from '../../AuthForms'
+import Auth from '../../auth/Auth'
+import { auth } from '../../../firebase'
 
 Home.propTypes = {
   path: PropTypes.array.isRequired,
 }
 
-function Home({ path }) {
+function Home({ path, currentUser }) {
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
@@ -34,21 +35,22 @@ function Home({ path }) {
             <StyledLink to="/sessions">
               Working out? Log your session.
             </StyledLink>
-            <AuthForms />
           </>
         ) : (
           <>
             <IntroText>
               Define your training path, log your workouts and track your goals.
             </IntroText>
-            <StyledLink
-              data-cy="createpath"
-              to="/path"
-              mt={!path.length ? '120px' : ''}
-            >
-              Create a new training path
-            </StyledLink>
-            <AuthForms />
+            {currentUser ? (
+              <StyledLink
+                data-cy="createpath"
+                to="/path"
+                mt={!path.length ? '120px' : ''}
+              >
+                Create a new training path
+              </StyledLink>
+            ) : null}
+            <Auth currentUser={currentUser} />
           </>
         )}
       </HomeSection>
@@ -81,7 +83,8 @@ function Home({ path }) {
 
 const IntroText = styled.p`
   text-align: center;
-  margin-top: 100px;
+  margin-top: 30px;
+  margin-bottom: 50px;
   width: 300px;
 `
 
