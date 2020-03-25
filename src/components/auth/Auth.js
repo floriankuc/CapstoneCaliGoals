@@ -1,29 +1,35 @@
 import React, { useState } from 'react'
 import Signup from './Signup'
 import Login from './Login'
+import styled from 'styled-components/macro'
+import PropTypes from 'prop-types'
 
-const Auth = ({ currentUser }) => {
+Auth.propTypes = {
+  currentUser: PropTypes.object,
+}
+
+function Auth({ currentUser }) {
   const [signupMode, setSignupMode] = useState(false)
   const [loginMode, setLoginMode] = useState(false)
 
   return !currentUser ? (
-    <div
-      style={{
-        height: 150,
-        paddingTop: 20,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-      }}
-    >
+    <LoginWrapper>
       {!loginMode ? (
         <Signup signupMode={signupMode} setSignupMode={setSignupMode} />
       ) : null}
       {!signupMode ? (
         <Login loginMode={loginMode} setLoginMode={setLoginMode} />
       ) : null}
-    </div>
+    </LoginWrapper>
   ) : null
 }
+
+const LoginWrapper = styled.section`
+  height: 150px;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`
 
 export default Auth

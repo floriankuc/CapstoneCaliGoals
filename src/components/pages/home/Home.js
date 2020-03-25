@@ -8,7 +8,6 @@ import { capitalise } from '../../../utils'
 import CategoryChart from './CategoryChart'
 import Header from './Header'
 import Auth from '../../auth/Auth'
-import { auth } from '../../../firebase'
 
 Home.propTypes = {
   path: PropTypes.array.isRequired,

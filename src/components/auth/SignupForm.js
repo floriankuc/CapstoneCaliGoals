@@ -3,7 +3,12 @@ import { auth } from '../../firebase'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import styled from 'styled-components/macro'
+import PropTypes from 'prop-types'
 import { colors, mixins } from '../../common/styles/theme'
+
+SignupForm.propTypes = {
+  setSignupMode: PropTypes.func.isRequired,
+}
 
 function SignupForm({ setSignupMode }) {
   const [email, setEmail] = useState('')
@@ -32,11 +37,10 @@ function SignupForm({ setSignupMode }) {
   function handleSignUp(e) {
     e.preventDefault()
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
-      console.log(cred)
       setEmail('')
       setPassword('')
       setSignupMode(false)
-      toast('Signed up.', { containerId: 'signedUpContainer' })
+      toast('Signed up.', { containerId: 'toast' })
     })
   }
 }

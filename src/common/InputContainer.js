@@ -4,7 +4,7 @@ import { colors } from './styles/theme'
 import PropTypes from 'prop-types'
 
 InputContainer.propTypes = {
-  array: PropTypes.array.isRequired,
+  array: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
   changeHandler: PropTypes.func.isRequired,
   setInputFocus: PropTypes.func.isRequired,
 }

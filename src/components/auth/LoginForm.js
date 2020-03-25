@@ -3,9 +3,14 @@ import { auth } from '../../firebase'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import styled from 'styled-components/macro'
+import PropTypes from 'prop-types'
 import { colors, mixins } from '../../common/styles/theme'
 
-const LoginForm = ({ setLoginMode }) => {
+LoginForm.propTypes = {
+  setLoginMode: PropTypes.func.isRequired,
+}
+
+function LoginForm({ setLoginMode }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -32,11 +37,10 @@ const LoginForm = ({ setLoginMode }) => {
   function handleLogin(e) {
     e.preventDefault()
     auth.signInWithEmailAndPassword(email, password).then(cred => {
-      console.log(cred.user)
       setEmail('')
       setPassword('')
       setLoginMode(false)
-      toast('Logged in.', { containerId: 'loggedInContainer' })
+      toast('Logged in.', { containerId: 'toast' })
     })
   }
 }
