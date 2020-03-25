@@ -1,9 +1,15 @@
 import React from 'react'
 import SignupForm from './SignupForm'
 import styled from 'styled-components/macro'
+import PropTypes from 'prop-types'
 import { mixins, colors } from '../../common/styles/theme'
 
-const Signup = ({ signupMode, setSignupMode }) => {
+Signup.propTypes = {
+  signupMode: PropTypes.bool.isRequired,
+  setSignupMode: PropTypes.func.isRequired,
+}
+
+function Signup({ signupMode, setSignupMode }) {
   return !signupMode ? (
     <SignUpButton onClick={() => setSignupMode(true)}>Sign up</SignUpButton>
   ) : (

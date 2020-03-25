@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   AiOutlineHome,
@@ -12,11 +12,11 @@ import {
 import { colors } from '../../common/styles/theme'
 import { auth } from '../../firebase'
 import { toast } from 'react-toastify'
-import { useHistory } from 'react-router-dom'
 
 Navigation.propTypes = {
   path: PropTypes.array.isRequired,
   inputFocus: PropTypes.bool.isRequired,
+  currentUser: PropTypes.object,
 }
 
 function Navigation({ path, inputFocus, currentUser }) {
@@ -69,7 +69,7 @@ function Navigation({ path, inputFocus, currentUser }) {
   function handleLogout(e) {
     e.preventDefault()
     auth.signOut().then(() => {
-      toast('Logged out.', { containerId: 'loggedInContainer' })
+      toast('Logged out.', { containerId: 'toast' })
     })
     history.push('/')
   }

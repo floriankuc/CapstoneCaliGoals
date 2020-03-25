@@ -27,11 +27,9 @@ const App = () => {
   useEffect(() => {
     auth.onAuthStateChanged(user => {
       if (user) {
-        console.log('user logged in: ', user)
         getPath(setPath)
         setCurrentUser(user)
       } else {
-        console.log('user logged out')
         setPath([])
         setCurrentUser(null)
       }

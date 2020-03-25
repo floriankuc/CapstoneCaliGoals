@@ -111,7 +111,7 @@ function Path({ path, setInputFocus }) {
         exercise => exercise.selected === true
       )
       savePath(pathCategory, selectedExercisesAreGoals)
-      toast('Path created.', { containerId: 'pathCreatedContainer' })
+      toast('Path created.', { containerId: 'toast' })
       history.push('/')
     }
   }

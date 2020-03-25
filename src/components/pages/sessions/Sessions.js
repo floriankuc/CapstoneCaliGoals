@@ -55,7 +55,7 @@ function Sessions({ path, setInputFocus }) {
 
   function handleDelete(id) {
     deletePath(id)
-    toast('Path deleted.', { containerId: 'pathDeletedContainer' })
+    toast('Path deleted.', { containerId: 'toast' })
     history.push('/')
   }
 
@@ -92,7 +92,7 @@ function Sessions({ path, setInputFocus }) {
     }))
     setSession(newState)
 
-    toast('Session saved.', { containerId: 'sessionSavedContainer' })
+    toast('Session saved.', { containerId: 'toast' })
   }
 
   function renderSelectedExercises() {

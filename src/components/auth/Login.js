@@ -2,8 +2,14 @@ import React from 'react'
 import LoginForm from './LoginForm'
 import styled from 'styled-components/macro'
 import { colors, mixins } from '../../common/styles/theme'
+import PropTypes from 'prop-types'
 
-const Login = ({ loginMode, setLoginMode }) => {
+Login.propTypes = {
+  loginMode: PropTypes.bool.isRequired,
+  setLoginMode: PropTypes.func.isRequired,
+}
+
+function Login({ loginMode, setLoginMode }) {
   return !loginMode ? (
     <LoginButton data-cy="loginbutton" onClick={() => setLoginMode(true)}>
       Login
